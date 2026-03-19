@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed — Minella Jewels</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#faf6f0;font-family:'Outfit',sans-serif;color:#1c1018;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.card{background:#fff;border-radius:20px;padding:48px 36px;text-align:center;max-width:440px;width:100%;box-shadow:0 12px 48px rgba(28,16,24,0.12);}
+.icon{font-size:64px;margin-bottom:20px;}
+h1{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:400;color:#4a1942;margin-bottom:12px;}
+p{color:#8a7878;font-size:15px;line-height:1.7;margin-bottom:24px;}
+.cod-note{background:#faf6f0;border-radius:10px;padding:14px 16px;font-size:13px;color:#6b2d61;margin-bottom:24px;line-height:1.6;}
+.btn{display:inline-block;background:#4a1942;color:#fff;padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;text-decoration:none;transition:.2s;}
+.btn:hover{background:#6b2d61;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon" id="icon">✅</div>
+  <h1 id="title">Order Placed!</h1>
+  <p id="msg">Thank you for shopping with Minella Jewels. We've received your order and will be in touch soon.</p>
+  <div class="cod-note" id="codNote" style="display:none">
+    💡 For COD orders, payment is collected at delivery. We'll confirm your order shortly via phone.
+  </div>
+  <a href="https://store.minella.in" class="btn">Continue Shopping</a>
+</div>
+<script>
+const params = new URLSearchParams(location.search);
+const method = params.get("method");
+const name   = params.get("firstname") || params.get("name") || "";
+if (name) document.getElementById("msg").textContent =
+  `Thank you, ${name}! Your order has been placed. We'll confirm it shortly.`;
+if (method === "cod") {
+  document.getElementById("codNote").style.display = "block";
+  document.getElementById("icon").textContent = "📦";
+  document.getElementById("title").textContent = "Order Received!";
+}
+</script>
+</body>
+</html>

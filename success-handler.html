@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processing — Minella Jewels</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#faf6f0;font-family:'Outfit',sans-serif;color:#1c1018;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.card{background:#fff;border-radius:20px;padding:48px 36px;text-align:center;max-width:440px;width:100%;box-shadow:0 12px 48px rgba(28,16,24,0.12);}
+.spinner{width:48px;height:48px;border:3px solid #e8dfd0;border-top-color:#4a1942;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+h1{font-family:'Libre Baskerville',serif;font-size:26px;font-weight:400;color:#4a1942;margin-bottom:10px;}
+p{color:#8a7878;font-size:14px;line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="spinner"></div>
+  <h1>Confirming your order…</h1>
+  <p>Please wait while we confirm your payment and process your order.</p>
+</div>
+
+<script>
+// PayU posts form data to this page (surl)
+// We read it from the URL or form POST, then call our Apps Script to deduct stock
+
+const SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE"; // same as in store.html
+
+async function processSuccess() {
+  // PayU sends data via POST; we can read from URL params for GET redirects
+  const params = new URLSearchParams(location.search);
+  const txnid  = params.get("txnid") || document.querySelector('[name=txnid]')?.value || "";
+  const status = params.get("status") || "success";
+  const firstname = params.get("firstname") || "";
+
+  // udf1 has cart JSON (set during checkout)
+  const udf1   = params.get("udf1") || "";
+  const udf2   = params.get("udf2") || ""; // pincode
+
+  let cartData = [];
+  try { cartData = JSON.parse(udf1); } catch(e) {}
+
+  if (status.toLowerCase() === "success" && cartData.length) {
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "deductStock",
+          txnid,
+          cartData,
+        }),
+      });
+    } catch(e) {}
+  }
+
+  // Redirect to nice success page
+  const name = encodeURIComponent(firstname);
+  window.location.href = `/success-done.html?name=${name}&method=upi`;
+}
+
+processSuccess();
+</script>
+</body>
+</html>
