@@ -260,9 +260,11 @@ input, select { font-family: 'Outfit', sans-serif; }
 .stock-badge.limited { background: #2a1e08; color: var(--gold2); }
 .stock-badge.available { display: none; }
 
+/* FIX 1: Use aspect-ratio instead of fixed height so images are never cropped on mobile */
 .img-wrap {
   position: relative;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--cream2);
 }
@@ -1073,22 +1075,20 @@ input, select { font-family: 'Outfit', sans-serif; }
 
 <script>
 /* ══════════════════════════════════════════════════════
-   CONFIG — Replace SCRIPT_URL with your Apps Script URL
-   after deployment
+   CONFIG
 ══════════════════════════════════════════════════════ */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNxIhZOP5KkvQHRRE8T6zx3wO_GcQX7vyTc39PO_nkGjiTs5eL-p-MXaQYMsrp1lvo/exec";
-const PAYU_KEY   = "82z65K";
-const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
-const SHEET_URL  = `https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
+const SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbyNxIhZOP5KkvQHRRE8T6zx3wO_GcQX7vyTc39PO_nkGjiTs5eL-p-MXaQYMsrp1lvo/exec";
+const PAYU_KEY    = "82z65K";
+const SHEET_ID    = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
+const SHEET_URL   = `https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
 const SUCCESS_URL = "https://store.minella.in/success.html";
 const FAIL_URL    = "https://store.minella.in/fail.html";
-const ORIGIN_PIN  = "641025"; // Coimbatore
 
 /* ══════════════════════════════════════════════════════
    STATE
 ══════════════════════════════════════════════════════ */
 let allProducts  = [];
-let cart         = {}; // { title: { price, qty, stock } }
+let cart         = {};
 let selectedPay  = null;
 let shippingCost = null;
 let currentStep  = 1;
@@ -1100,13 +1100,12 @@ fetch(SHEET_URL)
   .then(r => r.json())
   .then(data => {
     allProducts = data;
-    // Load logo from first product that has logo_link
     const logoP = data.find(p => p.logo_link && p.logo_link.trim());
     if (logoP) {
-      const logoId = extractDriveId(logoP.logo_link.trim());
+      const logoId  = extractDriveId(logoP.logo_link.trim());
       const logoUrl = logoId ? `https://drive.google.com/thumbnail?id=${logoId}&sz=w200` : logoP.logo_link.trim();
       document.getElementById("topbarLogo").innerHTML =
-        `<img src="${logoUrl}" alt="Minella Jewels" onerror="this.parentElement.innerHTML='<span style=\'font-family:Libre Baskerville,serif;font-size:20px;color:var(--plum)\'>Minella Jewels</span>'">`;
+        `<img src="${logoUrl}" alt="Minella Jewels" onerror="this.parentElement.innerHTML='<span style=\\'font-family:Libre Baskerville,serif;font-size:20px;color:var(--plum)\\'>Minella Jewels</span>'">`;
     }
     renderGrid(allProducts);
   })
@@ -1128,7 +1127,6 @@ function driveThumb(url, sz = "w600") {
 
 function getAdditionalImgs(cell) {
   if (!cell || !cell.trim()) return [];
-  // comma-separated, possibly inside quotes
   return cell.replace(/^"|"$/g, '').split(',').map(u => u.trim()).filter(Boolean);
 }
 
@@ -1139,27 +1137,62 @@ function stockStatus(stock) {
   return "available";
 }
 
+/* ══════════════════════════════════════════════════════
+   FIX 3 & 4: Category helper — checks explicit category
+   field first, then falls back to title matching.
+   Also corrects earrings/Heartstrings wrongly in rings.
+══════════════════════════════════════════════════════ */
+function getProductCategory(p) {
+  // Use explicit category column if present
+  const cat = (p.category || p.Category || "").trim().toLowerCase();
+  if (cat) return cat;
+
+  // Fall back to title-based detection
+  const title = (p.title || p.Title || "").trim().toLowerCase();
+
+  // Check more-specific types first to avoid false matches
+  // e.g. "necklace" before "ring" so "heartstrings necklace" → necklace
+  if (title.includes("earring") || title.includes("ear ring") || title.includes("stud") || title.includes("hoop") || title.includes("jhumka") || title.includes("jhumki")) return "earring";
+  if (title.includes("necklace") || title.includes("pendant") || title.includes("chain")) return "necklace";
+  if (title.includes("bracelet") || title.includes("bangle")) return "bracelet";
+  if (title.includes("anklet") || title.includes("payal")) return "anklet";
+  if (title.includes("ring")) return "ring";
+
+  return "other";
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER GRID
+   FIX 2: Buttons use data-index attribute + event
+   delegation instead of inline JSON to avoid breakage
+   with special characters in product data.
+══════════════════════════════════════════════════════ */
 function renderGrid(data) {
   const grid = document.getElementById("productGrid");
   if (!data.length) {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">No products found.</div>`;
     return;
   }
+
+  // Build an index map from currently-displayed products to allProducts indices
+  // so buttons can reference the full product object safely
   grid.innerHTML = "";
-  data.forEach(p => {
-    const img     = driveThumb(p["image link"] || p["Image Link"] || "");
-    const title   = (p.title || p.Title || "").trim();
-    const price   = parseFloat(p.price || p.Price) || 0;
-    const stock   = parseInt(p.stocks || p.Stocks || p.stock || 0);
-    const status  = stockStatus(stock);
-    const isOut   = status === "out";
+  data.forEach((p, displayIdx) => {
+    const img    = driveThumb(p["image link"] || p["Image Link"] || "");
+    const title  = (p.title || p.Title || "").trim();
+    const price  = parseFloat(p.price || p.Price) || 0;
+    const stock  = parseInt(p.stocks || p.Stocks || p.stock || 0);
+    const status = stockStatus(stock);
+    const isOut  = status === "out";
+
+    // Store the actual index in allProducts for reliable retrieval
+    const masterIdx = allProducts.indexOf(p);
 
     const card = document.createElement("div");
     card.className = "product-card";
-    card.dataset.title = title;
 
     let badgeHtml = "";
-    if (status === "out")     badgeHtml = `<div class="stock-badge out">Out of Stock</div>`;
+    if (status === "out")          badgeHtml = `<div class="stock-badge out">Out of Stock</div>`;
     else if (status === "limited") badgeHtml = `<div class="stock-badge limited">Only ${stock} left</div>`;
 
     card.innerHTML = `
@@ -1171,11 +1204,11 @@ function renderGrid(data) {
         <div class="card-title">${esc(title)}</div>
         <div class="card-price">₹${price.toLocaleString('en-IN')}</div>
         <div class="card-actions">
-          <button class="btn-add" onclick="addToCart(${JSON.stringify(title)},${price},${stock})"
+          <button class="btn-add" data-idx="${masterIdx}" data-action="add"
             ${isOut ? 'disabled' : ''}>
             ${isOut ? 'Out of Stock' : 'Add to Bag'}
           </button>
-          <button class="btn-view" onclick="openPview(${JSON.stringify(p)})">View</button>
+          <button class="btn-view" data-idx="${masterIdx}" data-action="view">View</button>
         </div>
       </div>`;
     grid.appendChild(card);
@@ -1183,14 +1216,47 @@ function renderGrid(data) {
 }
 
 /* ══════════════════════════════════════════════════════
-   FILTER
+   FIX 2: Single delegated click handler on the grid
+   — replaces the broken inline onclick JSON approach
+══════════════════════════════════════════════════════ */
+document.getElementById("productGrid").addEventListener("click", function(e) {
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+
+  const idx = parseInt(btn.dataset.idx);
+  if (isNaN(idx) || !allProducts[idx]) return;
+
+  const p     = allProducts[idx];
+  const title = (p.title || p.Title || "").trim();
+  const price = parseFloat(p.price || p.Price) || 0;
+  const stock = parseInt(p.stocks || p.Stocks || p.stock || 0);
+
+  if (btn.dataset.action === "add") {
+    addToCart(title, price, stock);
+  } else if (btn.dataset.action === "view") {
+    openPview(p);
+  }
+});
+
+/* ══════════════════════════════════════════════════════
+   FIX 3 & 4: FILTER — uses getProductCategory() so
+   earrings and Heartstrings Necklace go to the right
+   section, not into rings.
 ══════════════════════════════════════════════════════ */
 function filterCat(btn, cat) {
   document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
+
   const filtered = cat === "all"
     ? allProducts
-    : allProducts.filter(p => (p.title || "").toLowerCase().includes(cat));
+    : allProducts.filter(p => {
+        const pCat = getProductCategory(p);
+        // Match category — "ring" filter should NOT match "earring"
+        if (cat === "ring") return pCat === "ring";
+        if (cat === "earring") return pCat === "earring";
+        return pCat === cat || pCat.startsWith(cat);
+      });
+
   renderGrid(filtered);
 }
 
@@ -1198,13 +1264,13 @@ function filterCat(btn, cat) {
    CART
 ══════════════════════════════════════════════════════ */
 function addToCart(title, price, stock) {
-  const cur = cart[title];
+  const cur        = cart[title];
   const currentQty = cur ? cur.qty : 0;
   if (currentQty >= stock) { showToast("No more stock available"); return; }
   if (cur) cur.qty++;
   else cart[title] = { price, qty: 1, stock };
   updateCartUI();
-  showToast(`Added to bag`);
+  showToast("Added to bag ✓");
 }
 
 function changeQty(title, delta) {
@@ -1243,10 +1309,11 @@ function updateCartUI() {
 
   let html = "";
   for (const [title, item] of Object.entries(cart)) {
+    const safeTitle = esc(title);
     html += `
       <div class="cart-item">
         <div class="cart-item-info">
-          <div class="cart-item-name">${esc(title)}</div>
+          <div class="cart-item-name">${safeTitle}</div>
           <div class="cart-item-sub">₹${item.price.toLocaleString('en-IN')} × ${item.qty} = ₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
         </div>
         <div class="qty-row">
@@ -1274,17 +1341,15 @@ function closeCart() {
   document.getElementById("overlay").classList.remove("open");
 }
 
-function closeAll() {
-  closeCart();
-}
+function closeAll() { closeCart(); }
 
 /* ══════════════════════════════════════════════════════
    PRODUCT VIEW MODAL
 ══════════════════════════════════════════════════════ */
 function openPview(p) {
-  const title  = (p.title || "").trim();
-  const price  = parseFloat(p.price) || 0;
-  const stock  = parseInt(p.stocks || p.stock || 0);
+  const title  = (p.title || p.Title || "").trim();
+  const price  = parseFloat(p.price || p.Price) || 0;
+  const stock  = parseInt(p.stocks || p.Stocks || p.stock || 0);
   const status = stockStatus(stock);
 
   document.getElementById("pviewTitle").textContent = title;
@@ -1300,12 +1365,16 @@ function openPview(p) {
   }
 
   const addBtn = document.getElementById("pviewAddBtn");
-  addBtn.disabled = status === "out";
+  addBtn.disabled   = status === "out";
   addBtn.textContent = status === "out" ? "Out of Stock" : "Add to Bag";
-  addBtn.onclick = () => { addToCart(title, price, stock); closePview(); };
+  // Remove old listener then add fresh one
+  addBtn.replaceWith(addBtn.cloneNode(true));
+  const freshBtn = document.getElementById("pviewAddBtn");
+  freshBtn.disabled   = status === "out";
+  freshBtn.textContent = status === "out" ? "Out of Stock" : "Add to Bag";
+  freshBtn.addEventListener("click", () => { addToCart(title, price, stock); closePview(); });
 
-  // Images
-  const mainImgUrl = driveThumb(p["image link"] || "");
+  const mainImgUrl = driveThumb(p["image link"] || p["Image Link"] || "");
   const addlRaw    = p.additional_images || p["additional_images"] || "";
   const addlUrls   = getAdditionalImgs(addlRaw).map(u => driveThumb(u));
   const allImgs    = [mainImgUrl, ...addlUrls].filter(Boolean);
@@ -1316,8 +1385,11 @@ function openPview(p) {
   const thumbsEl = document.getElementById("pviewThumbs");
   if (allImgs.length > 1) {
     thumbsEl.innerHTML = allImgs.map((u, i) =>
-      `<img class="pview-thumb ${i === 0 ? 'active' : ''}" src="${u}" onclick="switchPviewImg(this,'${u}')" alt="view ${i+1}">`
+      `<img class="pview-thumb ${i === 0 ? 'active' : ''}" src="${u}" alt="view ${i+1}">`
     ).join("");
+    thumbsEl.querySelectorAll(".pview-thumb").forEach((thumb, i) => {
+      thumb.addEventListener("click", () => switchPviewImg(thumb, allImgs[i]));
+    });
   } else {
     thumbsEl.innerHTML = "";
   }
@@ -1347,7 +1419,6 @@ function openCheckout() {
   shippingCost = null;
   currentStep  = 1;
 
-  // Reset
   document.getElementById("payUPI").classList.remove("selected");
   document.getElementById("payCOD").classList.remove("selected");
   document.getElementById("shippingBox").classList.remove("show");
@@ -1397,55 +1468,34 @@ function updateGrandTotal() {
   return grand;
 }
 
-/* ── STEPPER ── */
 function setStep(s) {
   currentStep = s;
   for (let i = 1; i <= 3; i++) {
     const st = document.getElementById("st" + i);
     const sc = document.getElementById("sc" + i);
     st.classList.remove("active","done");
-    if (i < s)      { st.classList.add("done");   sc.textContent = "✓"; }
+    if (i < s)       { st.classList.add("done");   sc.textContent = "✓"; }
     else if (i === s){ st.classList.add("active"); sc.textContent = i; }
-    else            { sc.textContent = i; }
-    if (i < 3) {
-      document.getElementById("sl" + i).classList.toggle("done", i < s);
-    }
+    else             { sc.textContent = i; }
+    if (i < 3) document.getElementById("sl" + i).classList.toggle("done", i < s);
     document.getElementById("coSec" + i).classList.toggle("active", i === s);
   }
-  // Back button
   document.getElementById("btnBack").style.display = s > 1 ? "block" : "none";
-  // Next button label
   const btn = document.getElementById("btnNext");
-  if (s === 3) {
-    btn.textContent = "Place Order";
-    btn.className = "btn-place";
-  } else {
-    btn.textContent = "Continue →";
-    btn.className = "btn-next";
-  }
-  // Scroll to top of body
+  if (s === 3) { btn.textContent = "Place Order"; btn.className = "btn-place"; }
+  else         { btn.textContent = "Continue →";  btn.className = "btn-next"; }
   document.getElementById("coBody").scrollTo({ top: 0, behavior: "smooth" });
   document.getElementById("errBanner").classList.remove("show");
 }
 
 function nextStep() {
-  if (currentStep === 1) {
-    setStep(2);
-  } else if (currentStep === 2) {
-    if (!validateDelivery()) return;
-    calcShipping();
-    setStep(3);
-    buildConfirm();
-  } else if (currentStep === 3) {
-    placeOrder();
-  }
+  if (currentStep === 1)      setStep(2);
+  else if (currentStep === 2) { if (!validateDelivery()) return; calcShipping(); setStep(3); buildConfirm(); }
+  else if (currentStep === 3) placeOrder();
 }
 
-function prevStep() {
-  if (currentStep > 1) setStep(currentStep - 1);
-}
+function prevStep() { if (currentStep > 1) setStep(currentStep - 1); }
 
-/* ── VALIDATION ── */
 function validateDelivery() {
   let ok = true;
   const checks = [
@@ -1456,23 +1506,16 @@ function validateDelivery() {
     { id: "f_pin",   err: "e_pin",   fn: v => /^\d{6}$/.test(v) },
   ];
   checks.forEach(({ id, err, fn }) => {
-    const el  = document.getElementById(id);
-    const er  = document.getElementById(err);
+    const el = document.getElementById(id);
+    const er = document.getElementById(err);
     const val = el.value.trim();
-    if (!fn(val)) {
-      el.classList.add("err");
-      er.classList.add("show");
-      ok = false;
-    } else {
-      el.classList.remove("err");
-      er.classList.remove("show");
-    }
+    if (!fn(val)) { el.classList.add("err"); er.classList.add("show"); ok = false; }
+    else          { el.classList.remove("err"); er.classList.remove("show"); }
   });
   if (!ok) showErr("Please fill all mandatory fields correctly.");
   return ok;
 }
 
-/* ── SHIPPING ── */
 const ZONE_RATES = {
   A: { base: 35.40, extra: 34.22, name: "Zone A — Local (Coimbatore)" },
   B: { base: 38.94, extra: 37.76, name: "Zone B — Intra-state (Tamil Nadu)" },
@@ -1481,7 +1524,6 @@ const ZONE_RATES = {
   E: { base: 75.52, extra: 71.98, name: "Zone E — Northeast / J&K" },
 };
 
-// Special destination cities ₹2.50 local surcharge (from Delhivery table)
 const FLAT_PREFIXES = [
   "380","382","560","562","631","160","140","141","600","602",
   "110","120","121","122","201","250","124","131","132","500",
@@ -1492,57 +1534,34 @@ const FLAT_PREFIXES = [
 function getPincodeZone(pin) {
   const p = pin.trim();
   if (!p || p.length !== 6) return "D";
-  const n = parseInt(p);
+  const n  = parseInt(p);
   const p2 = p.substring(0, 2);
   const p3 = p.substring(0, 3);
-
-  // J&K / Ladakh
   if (["18","19"].includes(p2)) return "E";
-  // Northeast (Assam 781-788, NE states 790-799, Sikkim 737)
   if (p2 === "73" && n >= 737000 && n <= 737199) return "E";
   if (p2 === "78" && n >= 781000) return "E";
   if (["79","97"].includes(p2)) return "E";
-  // Andaman
   if (n >= 744100 && n <= 744304) return "E";
-
-  // Zone A: Coimbatore & surrounding (sender zone)
   if (["641","642","643","638"].includes(p3)) return "A";
-
-  // Zone B: Tamil Nadu
   if (n >= 600000 && n <= 643999) return "B";
-
-  // Zone C: Major metros by pincode
   const metroPre = ["110","400","600","700","500","560","380","411","160"];
   if (metroPre.includes(p3)) return "C";
-
   return "D";
 }
 
 function calcShipping() {
-  const pin    = document.getElementById("f_pin").value.trim();
-  const city   = document.getElementById("f_city").value.trim().toLowerCase();
-  const zone   = getPincodeZone(pin);
-  const r      = ZONE_RATES[zone] || ZONE_RATES["D"];
-
-  // Estimate weight: ~150g per item, min 500g slab
+  const pin   = document.getElementById("f_pin").value.trim();
+  const zone  = getPincodeZone(pin);
+  const r     = ZONE_RATES[zone] || ZONE_RATES["D"];
   const totalQty = Object.values(cart).reduce((s, i) => s + i.qty, 0);
   const weightG  = Math.max(500, totalQty * 150);
   const slabs    = Math.ceil(weightG / 500);
   const extra    = Math.max(0, slabs - 1);
-
-  // Base fare calculation (GST already included per rates)
   let cost = r.base + extra * r.extra;
-
-  // Check if destination city qualifies for ₹2.50 flat local surcharge
   const isSpecialCity = FLAT_PREFIXES.some(pf => pin.startsWith(pf));
   if (isSpecialCity && zone !== "A") cost += 2.50;
-
-  // 5% fuel surcharge
-  cost = cost * 1.05;
-  cost = Math.ceil(cost);
-
+  cost = Math.ceil(cost * 1.05);
   shippingCost = cost;
-
   document.getElementById("shippingAmt").textContent  = `₹${cost}`;
   document.getElementById("shippingZone").textContent = `${r.name} · incl. 5% fuel surcharge`;
   document.getElementById("shippingBox").classList.add("show");
@@ -1550,13 +1569,11 @@ function calcShipping() {
   updateGrandTotal();
 }
 
-/* ── PAYMENT SELECT ── */
 function selectPay(type) {
   selectedPay = type;
   document.getElementById("payUPI").classList.toggle("selected", type === "upi");
   document.getElementById("payCOD").classList.toggle("selected", type === "cod");
   document.getElementById("payErr").classList.remove("show");
-
   const note = document.getElementById("payNote");
   if (type === "upi") {
     note.textContent = "You'll be redirected to PayU's secure payment page to complete your payment.";
@@ -1574,27 +1591,23 @@ function buildConfirm() {
   const ship  = shippingCost || 0;
   const cod   = selectedPay === "cod" ? Math.max(40, Math.round(sub * 0.02)) : 0;
   const grand = sub + ship + cod;
-
   let html = "";
   for (const [title, item] of Object.entries(cart)) {
     html += `<div class="confirm-line"><span>${esc(title)} ×${item.qty}</span><span>₹${(item.price * item.qty).toLocaleString('en-IN')}</span></div>`;
   }
   html += `<div class="confirm-line"><span>Shipping</span><span>₹${ship}</span></div>`;
   if (cod) html += `<div class="confirm-line"><span>COD Charge</span><span>₹${cod}</span></div>`;
-
   document.getElementById("confirmLines").innerHTML = html;
   document.getElementById("confirmTotal").textContent = "₹" + grand.toLocaleString('en-IN');
   document.getElementById("confirmBox").style.display = "block";
 }
 
-/* ── PLACE ORDER ── */
 async function placeOrder() {
   if (!selectedPay) {
     document.getElementById("payErr").classList.add("show");
     showErr("Please select a payment method.");
     return;
   }
-
   const name  = document.getElementById("f_name").value.trim();
   const phone = document.getElementById("f_phone").value.trim();
   const email = document.getElementById("f_email").value.trim();
@@ -1602,69 +1615,39 @@ async function placeOrder() {
   const city  = document.getElementById("f_city").value.trim();
   const state = document.getElementById("f_state").value.trim();
   const pin   = document.getElementById("f_pin").value.trim();
-
   const sub   = cartSubtotal();
   const ship  = shippingCost || 0;
   const cod   = selectedPay === "cod" ? Math.max(40, Math.round(sub * 0.02)) : 0;
   const grand = sub + ship + cod;
-
-  // Build items summary string
-  const itemsSummary = Object.entries(cart)
-    .map(([t, i]) => `${t} ×${i.qty} = ₹${i.price * i.qty}`)
-    .join("; ");
-
+  const itemsSummary = Object.entries(cart).map(([t, i]) => `${t} ×${i.qty} = ₹${i.price * i.qty}`).join("; ");
   const orderData = {
-    action: "placeOrder",
-    name, phone, email,
+    action: "placeOrder", name, phone, email,
     address: `${addr}, ${city}, ${state} - ${pin}`,
-    items: itemsSummary,
-    subtotal: sub,
-    shipping: ship,
-    codCharge: cod,
-    grandTotal: grand,
-    paymentMethod: selectedPay,
-    cartData: JSON.stringify(
-      Object.entries(cart).map(([title, i]) => ({ title, qty: i.qty, price: i.price }))
-    ),
+    items: itemsSummary, subtotal: sub, shipping: ship,
+    codCharge: cod, grandTotal: grand, paymentMethod: selectedPay,
+    cartData: JSON.stringify(Object.entries(cart).map(([title, i]) => ({ title, qty: i.qty, price: i.price }))),
   };
 
   if (selectedPay === "cod") {
-    // Send to Apps Script — log order, send email, do NOT deduct stock (manual confirm)
     try {
       document.getElementById("spinner").classList.add("show");
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
+      await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(orderData) });
     } catch(e) {}
     document.getElementById("spinner").classList.remove("show");
-    // Redirect to success page
     window.location.href = SUCCESS_URL + "?method=cod&name=" + encodeURIComponent(name);
   } else {
-    // PayU — get hash from Apps Script first
     try {
       document.getElementById("spinner").classList.add("show");
-      const txnid = "MNL" + Date.now();
-      const amount = grand.toFixed(2);
+      const txnid       = "MNL" + Date.now();
+      const amount      = grand.toFixed(2);
       const productinfo = "Minella Jewels Order";
-
-      // Request hash from backend
-      const resp = await fetch(SCRIPT_URL, {
+      const resp   = await fetch(SCRIPT_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "generateHash",
-          txnid, amount, productinfo,
-          firstname: name, email,
-          orderData,
-        }),
+        body: JSON.stringify({ action: "generateHash", txnid, amount, productinfo, firstname: name, email, orderData }),
       });
       const result = await resp.json();
       if (!result.hash) throw new Error("No hash");
-
-      // Fill PayU form
       document.getElementById("pu_key").value         = PAYU_KEY;
       document.getElementById("pu_txnid").value       = txnid;
       document.getElementById("pu_amount").value      = amount;
@@ -1675,11 +1658,8 @@ async function placeOrder() {
       document.getElementById("pu_surl").value        = SUCCESS_URL;
       document.getElementById("pu_furl").value        = FAIL_URL;
       document.getElementById("pu_hash").value        = result.hash;
-      document.getElementById("pu_udf1").value        = JSON.stringify(
-        Object.entries(cart).map(([t,i]) => ({ title: t, qty: i.qty }))
-      ).substring(0, 255);
+      document.getElementById("pu_udf1").value        = JSON.stringify(Object.entries(cart).map(([t,i]) => ({ title: t, qty: i.qty }))).substring(0, 255);
       document.getElementById("pu_udf2").value        = pin;
-
       document.getElementById("payuForm").submit();
     } catch(e) {
       document.getElementById("spinner").classList.remove("show");
@@ -1712,7 +1692,6 @@ function scrollToShop() {
   document.getElementById("shopAnchor").scrollIntoView({ behavior: "smooth" });
 }
 
-// Auto-remove error highlight on input
 ["f_name","f_phone","f_email","f_addr","f_pin"].forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener("input", () => {
