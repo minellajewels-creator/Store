@@ -94,7 +94,7 @@ input,select{font-family:'Outfit',sans-serif}
 .qty-ctrl button{background:none;border:none;color:var(--plum);font-size:18px;font-weight:600;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.15s;line-height:1}
 .qty-ctrl button:hover{background:var(--plum);color:white}
 .qty-num{font-size:14px;font-weight:600;min-width:18px;text-align:center}
-.btn-remove{background:none;border:none;color:var(--cream3);font-size:16px;transition:.15s;padding:4px}
+.btn-remove{background:none;border:none;color:var(--cream3);font-size:16px;transition:.15px;padding:4px}
 .btn-remove:hover{color:var(--error)}
 .cart-foot{padding:16px 20px;padding-bottom:calc(16px + var(--safe-bottom));border-top:1px solid var(--border);flex-shrink:0}
 .cart-total-row{display:flex;justify-content:space-between;font-size:16px;font-weight:600;margin-bottom:14px}
@@ -308,7 +308,6 @@ input,select{font-family:'Outfit',sans-serif}
   </div>
 </div>
 
-<!-- PayU form — populated just before submit, hash comes from server -->
 <form id="payuForm" method="POST" action="https://secure.payu.in/_payment">
   <input type="hidden" name="key"         id="pu_key">
   <input type="hidden" name="txnid"       id="pu_txnid">
@@ -332,25 +331,16 @@ input,select{font-family:'Outfit',sans-serif}
 <div class="chatbot-wrap"><div class="elfsight-app-75dfa8d4-87e1-476c-80e8-b28d2c2f2e35"></div></div>
 
 <script>
-// =====================================================
-// SECURE CONFIG — NO salt, NO PAYU_KEY here
-// All sensitive operations happen in Code.gs
-// =====================================================
 const SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
 const SHEET_ID    = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
 const SHEET_URL   = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1";
 const SUCCESS_URL = "https://store.minella.in/success.html";
 const FAIL_URL    = "https://store.minella.in/fail.html";
 const CART_KEY    = "minella_cart_v1";
-// NOTE: PAYU_KEY and PAYU_SALT have been removed from this file.
-// The hash is now computed server-side in Code.gs → handleGenerateHash()
-// The PAYU_KEY is returned with the hash response from the server.
 
 let allProducts = [], cart = {}, selectedPay = null, shippingCost = null, currentStep = 1;
 
-// =====================================================
-// CART — persists across browser refresh via localStorage
-// =====================================================
+// ── CART PERSISTENCE ──
 function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {} }
 function loadCart() {
   try { var r = localStorage.getItem(CART_KEY); if (r) { var p = JSON.parse(r); if (p && typeof p === "object") cart = p; } }
@@ -359,9 +349,7 @@ function loadCart() {
 function clearCart() { cart = {}; saveCart(); }
 loadCart();
 
-// =====================================================
-// IMAGE HELPERS — lh3.googleusercontent.com is more reliable
-// =====================================================
+// ── IMAGE HELPERS ──
 function extractDriveId(url) {
   if (!url) return null;
   var m = url.match(/\/file\/d\/([^\/\?&]+)/) || url.match(/[?&]id=([^&]+)/) || url.match(/\/d\/([^\/]+)/);
@@ -379,9 +367,7 @@ function getAdditionalImgs(cell) {
   return cell.replace(/^"|"$/g, "").split(",").map(u => u.trim()).filter(Boolean);
 }
 
-// =====================================================
-// PRODUCT HELPERS
-// =====================================================
+// ── PRODUCT HELPERS ──
 function stockStatus(stock) { var s = parseInt(stock) || 0; return s <= 0 ? "out" : s <= 3 ? "limited" : "available"; }
 function getProductCategory(p) {
   var cat = ((p.category || p.Category || "")).trim().toLowerCase();
@@ -395,9 +381,7 @@ function getProductCategory(p) {
   return "other";
 }
 
-// =====================================================
-// LOAD PRODUCTS
-// =====================================================
+// ── LOAD PRODUCTS ──
 fetch(SHEET_URL).then(r => r.json()).then(data => {
   allProducts = data;
   var logoP = data.find(p => p.logo_link && p.logo_link.trim());
@@ -457,9 +441,7 @@ document.querySelector(".cat-bar").addEventListener("click", function(e) {
   renderGrid(filtered);
 });
 
-// =====================================================
-// CART LOGIC
-// =====================================================
+// ── CART ──
 function addToCart(title, price, stock) {
   var cur = cart[title], qty = cur ? cur.qty : 0;
   if (qty >= stock) { showToast("No more stock available"); return; }
@@ -501,9 +483,7 @@ document.getElementById("cartCloseBtn").addEventListener("click", closeCart);
 document.getElementById("overlay").addEventListener("click", closeCart);
 document.getElementById("shopNowBtn").addEventListener("click", () => document.getElementById("shopAnchor").scrollIntoView({ behavior: "smooth" }));
 
-// =====================================================
-// PRODUCT VIEW MODAL
-// =====================================================
+// ── PRODUCT VIEW ──
 function openPview(p) {
   var title = (p.title||p.Title||"").trim(), price = parseFloat(p.price||p.Price)||0, stock = parseInt(p.stocks||p.Stocks||p.stock)||0, status = stockStatus(stock);
   document.getElementById("pviewTitle").textContent = title;
@@ -531,9 +511,7 @@ function closePview() { document.getElementById("pviewModal").classList.remove("
 document.getElementById("pviewCloseBtn").addEventListener("click", closePview);
 document.getElementById("pviewOverlay").addEventListener("click", closePview);
 
-// =====================================================
-// CHECKOUT STEPPER
-// =====================================================
+// ── CHECKOUT ──
 document.getElementById("checkoutBtn").addEventListener("click", openCheckout);
 document.getElementById("coCloseBtn").addEventListener("click", closeCheckout);
 document.getElementById("coOverlay").addEventListener("click", closeCheckout);
@@ -598,9 +576,7 @@ function validateDelivery() {
   el.addEventListener("input", () => { el.classList.remove("err"); var er=document.getElementById("e_"+id.split("_")[1]); if(er) er.classList.remove("show"); });
 });
 
-// =====================================================
-// SHIPPING
-// =====================================================
+// ── SHIPPING ──
 var ZONE_RATES = {
   A:{base:35.40,extra:34.22,name:"Zone A \u2014 Local (Coimbatore)"},
   B:{base:38.94,extra:37.76,name:"Zone B \u2014 Intra-state (Tamil Nadu)"},
@@ -629,9 +605,7 @@ function calcShipping() {
   document.getElementById("shippingBox").classList.add("show"); document.getElementById("shippingDisplay").textContent="\u20b9"+total; updateGrandTotal();
 }
 
-// =====================================================
-// PAYMENT SELECTION
-// =====================================================
+// ── PAYMENT SELECTION ──
 document.getElementById("payMethodsGrid").addEventListener("click", function(e) { var card=e.target.closest(".pay-method-card"); if(!card) return; selectPay(card.getAttribute("data-pay")); });
 document.getElementById("codCard").addEventListener("click", () => selectPay("cod"));
 function selectPay(type) {
@@ -652,9 +626,7 @@ function buildConfirm() {
   document.getElementById("confirmLines").innerHTML=html; document.getElementById("confirmTotal").textContent="\u20b9"+grand.toLocaleString("en-IN"); document.getElementById("confirmBox").style.display="block";
 }
 
-// =====================================================
-// PLACE ORDER — hash fetched from server, salt never in browser
-// =====================================================
+// ── PLACE ORDER ──
 function placeOrder() {
   if (!selectedPay) { document.getElementById("payErr").classList.add("show"); showErr("Please select a payment method."); return; }
   var name=document.getElementById("f_name").value.trim(), phone=document.getElementById("f_phone").value.trim();
@@ -662,85 +634,82 @@ function placeOrder() {
   var city=document.getElementById("f_city").value.trim(), state=document.getElementById("f_state").value.trim();
   var pin=document.getElementById("f_pin").value.trim();
   var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod;
-  var itemsSummary=Object.keys(cart).map(t=>t+" \xd7"+cart[t].qty+" = \u20b9"+(cart[t].price*cart[t].qty)).join("; ");
+  var itemsSummary=Object.keys(cart).map(t=>t+" x"+cart[t].qty+" = Rs."+(cart[t].price*cart[t].qty)).join("; ");
   var fullAddress=addr+(city?", "+city:"")+(state?", "+state:"")+" - "+pin;
   var cartArr=Object.keys(cart).map(t=>({title:t,qty:cart[t].qty,price:cart[t].price}));
 
+  // ── COD ──
   if (selectedPay==="cod") {
     document.getElementById("spinner").classList.add("show");
-    fetch(SCRIPT_URL, {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({action:"placeOrder",paymentMethod:"cod",name,phone,email,address:fullAddress,items:itemsSummary,subtotal:sub,shipping:ship,codCharge:cod,grandTotal:grand,cartData:JSON.stringify(cartArr)})
-    }).catch(()=>{}).finally(()=>{
-      clearCart(); document.getElementById("spinner").classList.remove("show");
-      window.location.href = SUCCESS_URL+"?method=cod&name="+encodeURIComponent(name);
-    }); return;
+    var codPayload = {
+      action:"placeOrder", paymentMethod:"cod",
+      name, phone, email, address:fullAddress,
+      items:itemsSummary, subtotal:sub, shipping:ship,
+      codCharge:cod, grandTotal:grand, cartData:JSON.stringify(cartArr)
+    };
+    var codUrl = SCRIPT_URL + "?action=placeOrder&payload=" + encodeURIComponent(JSON.stringify(codPayload));
+    fetch(codUrl).catch(()=>{}).finally(()=>{
+      clearCart();
+      document.getElementById("spinner").classList.remove("show");
+      window.location.href = SUCCESS_URL + "?method=cod&name=" + encodeURIComponent(name);
+    });
+    return;
   }
 
-  // ── ONLINE: ask server to compute hash (salt stays server-side) ──
+  // ── ONLINE PAYMENT ──
   document.getElementById("spinner").classList.add("show");
-  var txnid="MNL"+Date.now(), amount=grand.toFixed(2), productinfo="Minella Jewels Order";
-  var udf1=JSON.stringify(cartArr).substring(0,255), udf2=pin;
+  var txnid      = "MNL" + Date.now();
+  var amount     = grand.toFixed(2);
+  var productinfo = "Minella Jewels Order";
+  var udf1       = JSON.stringify(cartArr).substring(0, 255);
+  var udf2       = pin;
 
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action:      "generateHash",
-      txnid,
-      amount,
-      productinfo,
-      firstname:   name,
-      email,
-      udf1,
-      udf2,
-      udf3:        "",
-      udf4:        "",
-      udf5:        "",
-      orderData: {
-        name, phone, email,
-        address:       fullAddress,
-        items:         itemsSummary,
-        subtotal:      sub,
-        shipping:      ship,
-        codCharge:     0,
-        grandTotal:    grand,
-        paymentMethod: selectedPay,
-        cartData:      JSON.stringify(cartArr)
-      }
+  var payload = {
+    action: "generateHash",
+    txnid, amount, productinfo,
+    firstname: name, email,
+    udf1, udf2, udf3: "", udf4: "", udf5: "",
+    orderData: {
+      name, phone, email,
+      address:       fullAddress,
+      items:         itemsSummary,
+      subtotal:      sub,
+      shipping:      ship,
+      codCharge:     0,
+      grandTotal:    grand,
+      paymentMethod: selectedPay,
+      cartData:      JSON.stringify(cartArr)
+    }
+  };
+
+  var url = SCRIPT_URL + "?action=generateHash&payload=" + encodeURIComponent(JSON.stringify(payload));
+
+  fetch(url)
+    .then(r => r.json())
+    .then(res => {
+      if (!res.ok || !res.hash) throw new Error(res.error || "Hash generation failed");
+      clearCart();
+      document.getElementById("pu_key").value         = res.key;
+      document.getElementById("pu_txnid").value       = txnid;
+      document.getElementById("pu_amount").value      = amount;
+      document.getElementById("pu_productinfo").value = productinfo;
+      document.getElementById("pu_firstname").value   = name;
+      document.getElementById("pu_email").value       = email;
+      document.getElementById("pu_phone").value       = phone;
+      document.getElementById("pu_surl").value        = SUCCESS_URL;
+      document.getElementById("pu_furl").value        = FAIL_URL;
+      document.getElementById("pu_hash").value        = res.hash;
+      document.getElementById("pu_udf1").value        = udf1;
+      document.getElementById("pu_udf2").value        = udf2;
+      document.getElementById("payuForm").submit();
     })
-  })
-  .then(r => r.json())
-  .then(res => {
-    if (!res.ok || !res.hash) throw new Error(res.error || "Hash generation failed");
-
-    clearCart();
-
-    // Populate PayU form — key comes from server response, salt is never sent
-    document.getElementById("pu_key").value         = res.key; // returned by server
-    document.getElementById("pu_txnid").value       = txnid;
-    document.getElementById("pu_amount").value      = amount;
-    document.getElementById("pu_productinfo").value = productinfo;
-    document.getElementById("pu_firstname").value   = name;
-    document.getElementById("pu_email").value       = email;
-    document.getElementById("pu_phone").value       = phone;
-    document.getElementById("pu_surl").value        = SUCCESS_URL;
-    document.getElementById("pu_furl").value        = FAIL_URL;
-    document.getElementById("pu_hash").value        = res.hash;
-    document.getElementById("pu_udf1").value        = udf1;
-    document.getElementById("pu_udf2").value        = udf2;
-
-    document.getElementById("payuForm").submit();
-  })
-  .catch(err => {
-    document.getElementById("spinner").classList.remove("show");
-    showErr("Payment setup failed. Please try again. (" + err.message + ")");
-  });
+    .catch(err => {
+      document.getElementById("spinner").classList.remove("show");
+      showErr("Payment setup failed. Please try again. (" + err.message + ")");
+    });
 }
 
-// =====================================================
-// UTILITIES
-// =====================================================
+// ── UTILITIES ──
 function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
 function unesc(s) { var d=document.createElement("div"); d.innerHTML=s; return d.textContent; }
 function showErr(msg) { document.getElementById("errMsg").textContent=msg; document.getElementById("errBanner").classList.add("show"); document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"}); }
