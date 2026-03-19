@@ -57,9 +57,11 @@ input,select{font-family:'Outfit',sans-serif}
 .stock-badge{position:absolute;top:10px;left:10px;z-index:10;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:4px 10px;border-radius:20px}
 .stock-badge.out{background:#2a1010;color:#ff9999}
 .stock-badge.limited{background:#2a1e08;color:var(--gold2)}
-.stock-badge.available{display:none}
 .img-wrap{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--cream2)}
-.img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.img-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--cream2) 25%,var(--cream3) 50%,var(--cream2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s,opacity .3s;opacity:0;position:relative;z-index:1}
+.img-wrap img.loaded{opacity:1}
 .product-card:hover .img-wrap img{transform:scale(1.06)}
 .card-body{padding:13px 14px 14px}
 .card-title{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:400;color:var(--ink);margin-bottom:4px;line-height:1.4}
@@ -204,7 +206,7 @@ input,select{font-family:'Outfit',sans-serif}
 </style>
 </head>
 <body>
-<div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text">Processing…</div></div>
+<div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text">Processing&#8230;</div></div>
 <nav class="topbar">
   <div class="topbar-logo" id="topbarLogo"><span>Minella Jewels</span></div>
   <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
@@ -213,7 +215,7 @@ input,select{font-family:'Outfit',sans-serif}
   </button>
 </nav>
 <section class="hero">
-  <div class="hero-tag">✦ Anti-tarnish jewellery</div>
+  <div class="hero-tag">&#10022; Anti-tarnish jewellery</div>
   <h1>Minella<br><em>Jewels</em></h1>
   <p class="hero-sub">Delicate pieces for every story, built to last.</p>
   <button class="hero-cta" id="shopNowBtn">Shop the Collection</button>
@@ -226,13 +228,13 @@ input,select{font-family:'Outfit',sans-serif}
   <button class="cat-btn" data-cat="earring">Earrings</button>
   <button class="cat-btn" data-cat="ring">Rings</button>
 </div>
-<div class="grid-wrap"><div class="grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)">Loading collection…</div></div></div>
+<div class="grid-wrap"><div class="grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)">Loading collection&#8230;</div></div></div>
 <div class="overlay" id="overlay"></div>
 <div class="cart-drawer" id="cartDrawer">
-  <div class="drawer-head"><h3>Your Bag</h3><button class="btn-close" id="cartCloseBtn">✕</button></div>
-  <div class="cart-body" id="cartBody"><div class="cart-empty"><div class="cart-empty-icon">🛍️</div><p>Your bag is empty</p></div></div>
+  <div class="drawer-head"><h3>Your Bag</h3><button class="btn-close" id="cartCloseBtn">&#10005;</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty"><div class="cart-empty-icon">&#128717;</div><p>Your bag is empty</p></div></div>
   <div class="cart-foot" id="cartFoot" style="display:none">
-    <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotalEl">₹0</span></div>
+    <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotalEl">&#8377;0</span></div>
     <button class="btn-checkout" id="checkoutBtn">Proceed to Checkout</button>
   </div>
 </div>
@@ -240,7 +242,7 @@ input,select{font-family:'Outfit',sans-serif}
 <div class="pview-modal" id="pviewModal">
   <div class="pview-box">
     <div class="pview-imgs">
-      <button class="pview-close" id="pviewCloseBtn">✕</button>
+      <button class="pview-close" id="pviewCloseBtn">&#10005;</button>
       <img class="pview-main-img" id="pviewMainImg" src="" alt="">
       <div class="pview-thumbs" id="pviewThumbs"></div>
     </div>
@@ -255,7 +257,7 @@ input,select{font-family:'Outfit',sans-serif}
 <div class="overlay" id="coOverlay"></div>
 <div class="co-modal" id="coModal">
   <div class="co-box">
-    <div class="co-head"><h3>Checkout</h3><button class="btn-close" id="coCloseBtn">✕</button></div>
+    <div class="co-head"><h3>Checkout</h3><button class="btn-close" id="coCloseBtn">&#10005;</button></div>
     <div class="stepper">
       <div class="step-item active" id="st1"><div class="step-circle" id="sc1">1</div><div class="step-label">Review</div></div>
       <div class="step-line" id="sl1"></div>
@@ -264,13 +266,13 @@ input,select{font-family:'Outfit',sans-serif}
       <div class="step-item" id="st3"><div class="step-circle" id="sc3">3</div><div class="step-label">Payment</div></div>
     </div>
     <div class="co-body" id="coBody">
-      <div class="err-banner" id="errBanner">⚠️ <span id="errMsg"></span></div>
+      <div class="err-banner" id="errBanner">&#9888;&#65039; <span id="errMsg"></span></div>
       <div class="co-section active" id="coSec1">
         <div class="co-sec-title">Order Summary</div>
         <div id="orderLines"></div>
         <div class="order-line sub-line"><span>Shipping</span><span id="shippingDisplay">Calculated in next step</span></div>
         <div class="order-line sub-line" id="codRow" style="display:none"><span>COD Charge</span><span id="codDisplay"></span></div>
-        <div class="order-line total-line"><span>Grand Total</span><span id="grandTotal">—</span></div>
+        <div class="order-line total-line"><span>Grand Total</span><span id="grandTotal">&#8212;</span></div>
       </div>
       <div class="co-section" id="coSec2">
         <div class="co-sec-title">Delivery Details</div>
@@ -286,545 +288,668 @@ input,select{font-family:'Outfit',sans-serif}
         <div class="co-sec-title">Payment Method</div>
         <div class="pay-sec-label">Pay Online</div>
         <div class="pay-methods-grid" id="payMethodsGrid">
-          <div class="pay-method-card" data-pay="upi"><div class="pay-method-icon">📲</div><div class="pay-method-label">UPI</div><div class="pay-method-sub">GPay, PhonePe, Paytm</div></div>
-          <div class="pay-method-card" data-pay="card"><div class="pay-method-icon">💳</div><div class="pay-method-label">Credit / Debit Card</div><div class="pay-method-sub">Visa, Mastercard, RuPay</div></div>
-          <div class="pay-method-card" data-pay="netbanking"><div class="pay-method-icon">🏦</div><div class="pay-method-label">Net Banking</div><div class="pay-method-sub">All major banks</div></div>
-          <div class="pay-method-card" data-pay="wallet"><div class="pay-method-icon">👛</div><div class="pay-method-label">Wallets</div><div class="pay-method-sub">Paytm, Mobikwik, Airtel</div></div>
-          <div class="pay-method-card" data-pay="emi"><div class="pay-method-icon">📅</div><div class="pay-method-label">EMI</div><div class="pay-method-sub">Credit card EMI</div></div>
+          <div class="pay-method-card" data-pay="upi"><div class="pay-method-icon">&#128242;</div><div class="pay-method-label">UPI</div><div class="pay-method-sub">GPay, PhonePe, Paytm</div></div>
+          <div class="pay-method-card" data-pay="card"><div class="pay-method-icon">&#128179;</div><div class="pay-method-label">Credit / Debit Card</div><div class="pay-method-sub">Visa, Mastercard, RuPay</div></div>
+          <div class="pay-method-card" data-pay="netbanking"><div class="pay-method-icon">&#127974;</div><div class="pay-method-label">Net Banking</div><div class="pay-method-sub">All major banks</div></div>
+          <div class="pay-method-card" data-pay="wallet"><div class="pay-method-icon">&#128091;</div><div class="pay-method-label">Wallets</div><div class="pay-method-sub">Paytm, Mobikwik, Airtel</div></div>
+          <div class="pay-method-card" data-pay="emi"><div class="pay-method-icon">&#128197;</div><div class="pay-method-label">EMI</div><div class="pay-method-sub">Credit card EMI</div></div>
         </div>
         <div class="pay-divider">or</div>
-        <div class="cod-card" id="codCard" data-pay="cod"><div class="cod-card-icon">💵</div><div class="cod-card-text"><div class="cod-card-label">Cash on Delivery</div><div class="cod-card-sub">Pay when your order arrives</div></div></div>
-        <div class="err-banner" id="payErr">⚠️ Please select a payment method</div>
+        <div class="cod-card" id="codCard" data-pay="cod"><div class="cod-card-icon">&#128181;</div><div class="cod-card-text"><div class="cod-card-label">Cash on Delivery</div><div class="cod-card-sub">Pay when your order arrives</div></div></div>
+        <div class="err-banner" id="payErr">&#9888;&#65039; Please select a payment method</div>
         <div class="confirm-box" id="confirmBox" style="display:none"><div class="confirm-box-title">Order Summary</div><div id="confirmLines"></div><div class="confirm-total"><span>Grand Total</span><span id="confirmTotal"></span></div></div>
         <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:8px" id="payNote"></div>
       </div>
     </div>
     <div class="co-foot">
-      <button class="btn-back" id="btnBack" style="display:none">← Back</button>
-      <button class="btn-next" id="btnNext">Continue →</button>
+      <button class="btn-back" id="btnBack" style="display:none">&#8592; Back</button>
+      <button class="btn-next" id="btnNext">Continue &#8594;</button>
     </div>
   </div>
 </div>
+
+<!-- PayU form: udf1–udf5 all declared so hash matches exactly -->
 <form id="payuForm" method="POST" action="https://secure.payu.in/_payment">
-  <input type="hidden" name="key" id="pu_key">
-  <input type="hidden" name="txnid" id="pu_txnid">
-  <input type="hidden" name="amount" id="pu_amount">
+  <input type="hidden" name="key"         id="pu_key">
+  <input type="hidden" name="txnid"       id="pu_txnid">
+  <input type="hidden" name="amount"      id="pu_amount">
   <input type="hidden" name="productinfo" id="pu_productinfo">
-  <input type="hidden" name="firstname" id="pu_firstname">
-  <input type="hidden" name="email" id="pu_email">
-  <input type="hidden" name="phone" id="pu_phone">
-  <input type="hidden" name="surl" id="pu_surl">
-  <input type="hidden" name="furl" id="pu_furl">
-  <input type="hidden" name="hash" id="pu_hash">
-  <input type="hidden" name="udf1" id="pu_udf1">
-  <input type="hidden" name="udf2" id="pu_udf2">
-  <input type="hidden" name="udf3" id="pu_udf3">
-  <input type="hidden" name="udf4" id="pu_udf4">
-  <input type="hidden" name="udf5" id="pu_udf5">
+  <input type="hidden" name="firstname"   id="pu_firstname">
+  <input type="hidden" name="email"       id="pu_email">
+  <input type="hidden" name="phone"       id="pu_phone">
+  <input type="hidden" name="surl"        id="pu_surl">
+  <input type="hidden" name="furl"        id="pu_furl">
+  <input type="hidden" name="hash"        id="pu_hash">
+  <input type="hidden" name="udf1"        id="pu_udf1">
+  <input type="hidden" name="udf2"        id="pu_udf2">
+  <input type="hidden" name="udf3"        id="pu_udf3">
+  <input type="hidden" name="udf4"        id="pu_udf4">
+  <input type="hidden" name="udf5"        id="pu_udf5">
 </form>
+
 <div class="toast" id="toast"></div>
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="chatbot-wrap"><div class="elfsight-app-75dfa8d4-87e1-476c-80e8-b28d2c2f2e35"></div></div>
+
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
-const PAYU_KEY="82z65K";
-const PAYU_SALT="ZZBEVz6pjGiSI2fOoGH6EdGJ2EbS24oR";
-const SHEET_ID="1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
-const SHEET_URL="https://opensheet.elk.sh/"+SHEET_ID+"/Sheet1";
-const SUCCESS_URL="https://store.minella.in/success.html";
-const FAIL_URL="https://store.minella.in/fail.html";
-const CART_KEY="minella_cart_v1";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+const PAYU_KEY   = "82z65K";
+const PAYU_SALT  = "ZZBEVz6pjGiSI2fOoGH6EdGJ2EbS24oR";
+const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
+const SHEET_URL  = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1";
+const SUCCESS_URL = "https://store.minella.in/success.html";
+const FAIL_URL    = "https://store.minella.in/fail.html";
+const CART_KEY    = "minella_cart_v1";
 
-let allProducts=[],cart={},selectedPay=null,shippingCost=null,currentStep=1;
+let allProducts = [], cart = {}, selectedPay = null, shippingCost = null, currentStep = 1;
 
-/* ---- CART PERSISTENCE ---- */
-function saveCart(){
-  try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}
+/* =====================================================
+   CART PERSISTENCE — survives browser refresh
+   ===================================================== */
+function saveCart() {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {}
 }
-function loadCart(){
-  try{
-    var r=localStorage.getItem(CART_KEY);
-    if(r){var p=JSON.parse(r);if(p&&typeof p==="object")cart=p;}
-  }catch(e){cart={};}
+function loadCart() {
+  try {
+    var r = localStorage.getItem(CART_KEY);
+    if (r) { var p = JSON.parse(r); if (p && typeof p === "object") cart = p; }
+  } catch(e) { cart = {}; }
 }
-function clearCart(){cart={};saveCart();}
-loadCart();
+function clearCart() { cart = {}; saveCart(); }
+loadCart();  // ← runs immediately on page load, restores cart from localStorage
 
-/* ---- PRODUCT LOADING ---- */
-fetch(SHEET_URL).then(r=>r.json()).then(data=>{
-  allProducts=data;
-  var logoP=data.find(p=>p.logo_link&&p.logo_link.trim());
-  if(logoP){
-    var id=extractDriveId(logoP.logo_link.trim()),
-        url=id?"https://drive.google.com/thumbnail?id="+id+"&sz=w200":logoP.logo_link.trim(),
-        el=document.getElementById("topbarLogo"),
-        img=new Image();
-    img.src=url;img.alt="Minella Jewels";img.style.cssText="height:36px;width:auto;object-fit:contain";
-    img.onerror=()=>{el.innerHTML='<span style="font-family:\'Libre Baskerville\',serif;font-size:20px;color:var(--plum)">Minella Jewels</span>';};
-    el.innerHTML="";el.appendChild(img);
+/* =====================================================
+   IMAGE HELPERS
+   FIX: lh3.googleusercontent.com/d/{id}=w400 is more
+   reliable than the /thumbnail API for Drive images
+   ===================================================== */
+function extractDriveId(url) {
+  if (!url) return null;
+  var m = url.match(/\/file\/d\/([^\/\?&]+)/)
+          || url.match(/[?&]id=([^&]+)/)
+          || url.match(/\/d\/([^\/]+)/);
+  return m ? m[1] : null;
+}
+function driveUrl(rawUrl, width) {
+  width = width || 600;
+  if (!rawUrl || !rawUrl.trim()) return "";
+  var id = extractDriveId(rawUrl.trim());
+  if (id) return "https://lh3.googleusercontent.com/d/" + id + "=w" + width;
+  return rawUrl.trim();
+}
+function getAdditionalImgs(cell) {
+  if (!cell || !cell.trim()) return [];
+  return cell.replace(/^"|"$/g, "").split(",").map(u => u.trim()).filter(Boolean);
+}
+
+/* =====================================================
+   PRODUCT HELPERS
+   ===================================================== */
+function stockStatus(stock) {
+  var s = parseInt(stock) || 0;
+  return s <= 0 ? "out" : s <= 3 ? "limited" : "available";
+}
+function getProductCategory(p) {
+  var cat = ((p.category || p.Category || "")).trim().toLowerCase();
+  if (cat) return cat;
+  var t = ((p.title || p.Title || "")).trim().toLowerCase();
+  if (/earring|ear\s*ring|stud|hoop|jhumk/i.test(t))    return "earring";
+  if (/necklace|pendant|chain|heartstring/i.test(t))     return "necklace";
+  if (/bracelet|bangle/i.test(t))                        return "bracelet";
+  if (/anklet|payal/i.test(t))                           return "anklet";
+  if (/\bring\b/i.test(t))                               return "ring";
+  return "other";
+}
+
+/* =====================================================
+   LOAD PRODUCTS
+   ===================================================== */
+fetch(SHEET_URL).then(r => r.json()).then(data => {
+  allProducts = data;
+  // Logo
+  var logoP = data.find(p => p.logo_link && p.logo_link.trim());
+  if (logoP) {
+    var logoSrc = driveUrl(logoP.logo_link.trim(), 200);
+    var el = document.getElementById("topbarLogo");
+    var img = new Image();
+    img.onload = () => { el.innerHTML = ""; img.style.cssText = "height:36px;width:auto;object-fit:contain"; el.appendChild(img); };
+    img.onerror = () => { /* keep text fallback */ };
+    img.alt = "Minella Jewels";
+    img.src = logoSrc;
   }
-  renderGrid(allProducts);updateCartUI();
-}).catch(()=>{
-  document.getElementById("productGrid").innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">Could not load products. Please refresh.</div>';
+  renderGrid(allProducts);
+  updateCartUI();
+}).catch(() => {
+  document.getElementById("productGrid").innerHTML =
+    '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">Could not load products. Please refresh.</div>';
   updateCartUI();
 });
 
-function extractDriveId(url){
-  if(!url)return null;
-  var m=url.match(/[?&]id=([^&]+)/)||url.match(/\/d\/([^/]+)/);
-  return m?m[1]:null;
-}
-function driveThumb(url,sz){
-  sz=sz||"w600";
-  if(!url||!url.trim())return"";
-  var id=extractDriveId(url.trim());
-  return id?"https://drive.google.com/thumbnail?id="+id+"&sz="+sz:url.trim();
-}
-function getAdditionalImgs(cell){
-  if(!cell||!cell.trim())return[];
-  return cell.replace(/^"|"$/g,"").split(",").map(u=>u.trim()).filter(Boolean);
-}
-function stockStatus(stock){
-  var s=parseInt(stock)||0;
-  if(s<=0)return"out";
-  if(s<=3)return"limited";
-  return"available";
-}
-function getProductCategory(p){
-  var cat=((p.category||p.Category||"")).trim().toLowerCase();
-  if(cat)return cat;
-  var t=((p.title||p.Title||"")).trim().toLowerCase();
-  if(/earring|ear\s*ring|stud|hoop|jhumk/i.test(t))return"earring";
-  if(/necklace|pendant|chain|heartstring/i.test(t))return"necklace";
-  if(/bracelet|bangle/i.test(t))return"bracelet";
-  if(/anklet|payal/i.test(t))return"anklet";
-  if(/\bring\b/i.test(t))return"ring";
-  return"other";
-}
+const productStore = new Map();
+let productIdSeq = 0;
 
-const productStore=new Map();let productIdSeq=0;
-function renderGrid(data){
-  var grid=document.getElementById("productGrid");productStore.clear();
-  if(!data.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">No products found.</div>';return;}
-  var frag=document.createDocumentFragment();
-  data.forEach(p=>{
-    var pid=++productIdSeq;productStore.set(pid,p);
-    var img=driveThumb(p["image link"]||p["Image Link"]||""),
-        title=((p.title||p.Title||"")).trim(),
-        price=parseFloat(p.price||p.Price)||0,
-        stock=parseInt(p.stocks||p.Stocks||p.stock||0),
-        status=stockStatus(stock),
-        isOut=status==="out";
-    var card=document.createElement("div");card.className="product-card";
-    var badge=status==="out"?'<div class="stock-badge out">Out of Stock</div>':status==="limited"?'<div class="stock-badge limited">Only '+stock+' left</div>':"";
-    card.innerHTML=badge+
-      '<div class="img-wrap"><img src="'+esc(img)+'" alt="'+esc(title)+'" loading="lazy" onerror="this.style.opacity=0.2"></div>'+
-      '<div class="card-body"><div class="card-title">'+esc(title)+'</div><div class="card-price">₹'+price.toLocaleString("en-IN")+'</div>'+
-      '<div class="card-actions"><button class="btn-add" data-pid="'+pid+'"'+(isOut?" disabled":"")+'>'+(isOut?"Out of Stock":"Add to Bag")+'</button>'+
-      '<button class="btn-view" data-pid="'+pid+'">View</button></div></div>';
+function renderGrid(data) {
+  var grid = document.getElementById("productGrid");
+  productStore.clear();
+  productIdSeq = 0;
+  if (!data.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">No products found.</div>';
+    return;
+  }
+  var frag = document.createDocumentFragment();
+  data.forEach(p => {
+    var pid = ++productIdSeq;
+    productStore.set(pid, p);
+    var imgUrl  = driveUrl(p["image link"] || p["Image Link"] || "", 400);
+    var title   = (p.title || p.Title || "").trim();
+    var price   = parseFloat(p.price || p.Price) || 0;
+    var stock   = parseInt(p.stocks || p.Stocks || p.stock) || 0;
+    var status  = stockStatus(stock);
+    var isOut   = status === "out";
+    var badge   = status === "out"
+      ? '<div class="stock-badge out">Out of Stock</div>'
+      : status === "limited"
+      ? '<div class="stock-badge limited">Only ' + stock + ' left</div>'
+      : "";
+    var card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = badge
+      + '<div class="img-wrap">'
+      +   '<img src="' + esc(imgUrl) + '" alt="' + esc(title) + '" loading="lazy"'
+      +   ' onload="this.classList.add(\'loaded\')"'
+      +   ' onerror="this.classList.add(\'loaded\');this.style.opacity=\'0.15\'">'
+      + '</div>'
+      + '<div class="card-body">'
+      +   '<div class="card-title">' + esc(title) + '</div>'
+      +   '<div class="card-price">&#8377;' + price.toLocaleString("en-IN") + '</div>'
+      +   '<div class="card-actions">'
+      +     '<button class="btn-add" data-pid="' + pid + '"' + (isOut ? " disabled" : "") + '>'
+      +       (isOut ? "Out of Stock" : "Add to Bag") + '</button>'
+      +     '<button class="btn-view" data-pid="' + pid + '">View</button>'
+      +   '</div>'
+      + '</div>';
     frag.appendChild(card);
   });
-  grid.innerHTML="";grid.appendChild(frag);
+  grid.innerHTML = "";
+  grid.appendChild(frag);
 }
 
-document.getElementById("productGrid").addEventListener("click",function(e){
-  var btn=e.target.closest("button[data-pid]");if(!btn)return;
-  var pid=parseInt(btn.getAttribute("data-pid")),p=productStore.get(pid);if(!p)return;
-  if(btn.classList.contains("btn-add")){
-    addToCart(((p.title||p.Title||"")).trim(),parseFloat(p.price||p.Price)||0,parseInt(p.stocks||p.Stocks||p.stock||0));
-  }else if(btn.classList.contains("btn-view")){openPview(p);}
+document.getElementById("productGrid").addEventListener("click", function(e) {
+  var btn = e.target.closest("button[data-pid]");
+  if (!btn) return;
+  var pid = parseInt(btn.getAttribute("data-pid")), p = productStore.get(pid);
+  if (!p) return;
+  if (btn.classList.contains("btn-add")) {
+    addToCart((p.title || p.Title || "").trim(), parseFloat(p.price || p.Price) || 0, parseInt(p.stocks || p.Stocks || p.stock) || 0);
+  } else if (btn.classList.contains("btn-view")) {
+    openPview(p);
+  }
 });
 
-document.querySelector(".cat-bar").addEventListener("click",function(e){
-  var btn=e.target.closest(".cat-btn");if(!btn)return;
-  document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
-  var cat=btn.getAttribute("data-cat"),
-      filtered=cat==="all"?allProducts:allProducts.filter(p=>{
-        var pCat=getProductCategory(p);
-        if(cat==="ring")return pCat==="ring";
-        if(cat==="earring")return pCat==="earring";
-        return pCat===cat||pCat.startsWith(cat);
-      });
+document.querySelector(".cat-bar").addEventListener("click", function(e) {
+  var btn = e.target.closest(".cat-btn");
+  if (!btn) return;
+  document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  var cat = btn.getAttribute("data-cat");
+  var filtered = cat === "all" ? allProducts : allProducts.filter(p => {
+    var pCat = getProductCategory(p);
+    if (cat === "ring")    return pCat === "ring";
+    if (cat === "earring") return pCat === "earring";
+    return pCat === cat || pCat.startsWith(cat);
+  });
   renderGrid(filtered);
 });
 
-function addToCart(title,price,stock){
-  var cur=cart[title],qty=cur?cur.qty:0;
-  if(qty>=stock){showToast("No more stock available");return;}
-  if(cur)cur.qty++;else cart[title]={price,qty:1,stock};
-  saveCart();updateCartUI();showToast("Added to bag ✓");
+/* =====================================================
+   CART LOGIC
+   ===================================================== */
+function addToCart(title, price, stock) {
+  var cur = cart[title], qty = cur ? cur.qty : 0;
+  if (qty >= stock) { showToast("No more stock available"); return; }
+  if (cur) cur.qty++;
+  else cart[title] = { price, qty: 1, stock };
+  saveCart();
+  updateCartUI();
+  showToast("Added to bag \u2713");
 }
-function changeQty(title,delta){
-  if(!cart[title])return;
-  cart[title].qty+=delta;
-  if(cart[title].qty<=0)delete cart[title];
-  saveCart();updateCartUI();
+function changeQty(title, delta) {
+  if (!cart[title]) return;
+  cart[title].qty += delta;
+  if (cart[title].qty <= 0) delete cart[title];
+  saveCart();
+  updateCartUI();
 }
-function removeFromCart(title){delete cart[title];saveCart();updateCartUI();}
-function cartSubtotal(){return Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);}
-function cartCount(){return Object.values(cart).reduce((s,i)=>s+i.qty,0);}
+function removeFromCart(title) {
+  delete cart[title];
+  saveCart();
+  updateCartUI();
+}
+function cartSubtotal() { return Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0); }
+function cartCount()    { return Object.values(cart).reduce((s, i) => s + i.qty, 0); }
 
-function updateCartUI(){
-  var body=document.getElementById("cartBody"),
-      foot=document.getElementById("cartFoot"),
-      badge=document.getElementById("cartBadge"),
-      count=cartCount();
-  badge.textContent=count;
-  if(!count){
-    body.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🛍️</div><p>Your bag is empty</p></div>';
-    foot.style.display="none";return;
+function updateCartUI() {
+  var body  = document.getElementById("cartBody");
+  var foot  = document.getElementById("cartFoot");
+  var badge = document.getElementById("cartBadge");
+  var count = cartCount();
+  badge.textContent = count;
+  if (!count) {
+    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">&#128717;</div><p>Your bag is empty</p></div>';
+    foot.style.display = "none";
+    return;
   }
-  var html="";
-  Object.keys(cart).forEach(title=>{
-    var item=cart[title];
-    html+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(title)+'</div>'+
-      '<div class="cart-item-sub">₹'+item.price.toLocaleString("en-IN")+' × '+item.qty+' = ₹'+(item.price*item.qty).toLocaleString("en-IN")+'</div></div>'+
-      '<div class="qty-row"><div class="qty-ctrl">'+
-      '<button data-action="dec" data-title="'+esc(title)+'">-</button>'+
-      '<span class="qty-num">'+item.qty+'</span>'+
-      '<button data-action="inc" data-title="'+esc(title)+'">+</button></div>'+
-      '<button class="btn-remove" data-action="rem" data-title="'+esc(title)+'">✕</button></div></div>';
+  var html = "";
+  Object.keys(cart).forEach(title => {
+    var item = cart[title];
+    html += '<div class="cart-item">'
+      + '<div class="cart-item-info">'
+      +   '<div class="cart-item-name">' + esc(title) + '</div>'
+      +   '<div class="cart-item-sub">&#8377;' + item.price.toLocaleString("en-IN") + ' \xd7 ' + item.qty
+      +   ' = &#8377;' + (item.price * item.qty).toLocaleString("en-IN") + '</div>'
+      + '</div>'
+      + '<div class="qty-row"><div class="qty-ctrl">'
+      +   '<button data-action="dec" data-title="' + esc(title) + '">-</button>'
+      +   '<span class="qty-num">' + item.qty + '</span>'
+      +   '<button data-action="inc" data-title="' + esc(title) + '">+</button>'
+      + '</div>'
+      + '<button class="btn-remove" data-action="rem" data-title="' + esc(title) + '">\xd7</button>'
+      + '</div></div>';
   });
-  body.innerHTML=html;
-  document.getElementById("cartSubtotalEl").textContent="₹"+cartSubtotal().toLocaleString("en-IN");
-  foot.style.display="block";
+  body.innerHTML = html;
+  document.getElementById("cartSubtotalEl").textContent = "&#8377;" + cartSubtotal().toLocaleString("en-IN");
+  foot.style.display = "block";
 }
 
-document.getElementById("cartBody").addEventListener("click",function(e){
-  var btn=e.target.closest("button[data-action]");if(!btn)return;
-  var action=btn.getAttribute("data-action"),title=unesc(btn.getAttribute("data-title"));
-  if(action==="dec")changeQty(title,-1);
-  else if(action==="inc")changeQty(title,1);
-  else if(action==="rem")removeFromCart(title);
+document.getElementById("cartBody").addEventListener("click", function(e) {
+  var btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+  var action = btn.getAttribute("data-action"), title = unesc(btn.getAttribute("data-title"));
+  if (action === "dec") changeQty(title, -1);
+  else if (action === "inc") changeQty(title, 1);
+  else if (action === "rem") removeFromCart(title);
 });
 
-function openCart(){document.getElementById("cartDrawer").classList.add("open");document.getElementById("overlay").classList.add("open");}
-function closeCart(){document.getElementById("cartDrawer").classList.remove("open");document.getElementById("overlay").classList.remove("open");}
-document.getElementById("cartFabBtn").addEventListener("click",openCart);
-document.getElementById("cartCloseBtn").addEventListener("click",closeCart);
-document.getElementById("overlay").addEventListener("click",closeCart);
-document.getElementById("shopNowBtn").addEventListener("click",()=>document.getElementById("shopAnchor").scrollIntoView({behavior:"smooth"}));
+function openCart()  { document.getElementById("cartDrawer").classList.add("open"); document.getElementById("overlay").classList.add("open"); }
+function closeCart() { document.getElementById("cartDrawer").classList.remove("open"); document.getElementById("overlay").classList.remove("open"); }
+document.getElementById("cartFabBtn").addEventListener("click", openCart);
+document.getElementById("cartCloseBtn").addEventListener("click", closeCart);
+document.getElementById("overlay").addEventListener("click", closeCart);
+document.getElementById("shopNowBtn").addEventListener("click", () => document.getElementById("shopAnchor").scrollIntoView({ behavior: "smooth" }));
 
-function openPview(p){
-  var title=((p.title||p.Title||"")).trim(),
-      price=parseFloat(p.price||p.Price)||0,
-      stock=parseInt(p.stocks||p.Stocks||p.stock||0),
-      status=stockStatus(stock);
-  document.getElementById("pviewTitle").textContent=title;
-  document.getElementById("pviewPrice").textContent="₹"+price.toLocaleString("en-IN");
-  var stockEl=document.getElementById("pviewStock");
-  if(status==="out"){stockEl.textContent="Out of Stock";stockEl.className="pview-stock out";}
-  else if(status==="limited"){stockEl.textContent="Only "+stock+" left!";stockEl.className="pview-stock limited";}
-  else{stockEl.textContent="In Stock";stockEl.className="pview-stock ok";}
-  var oldBtn=document.getElementById("pviewAddBtn"),newBtn=oldBtn.cloneNode(true);
-  oldBtn.parentNode.replaceChild(newBtn,oldBtn);
-  newBtn.disabled=(status==="out");newBtn.textContent=(status==="out")?"Out of Stock":"Add to Bag";
-  newBtn.addEventListener("click",()=>{addToCart(title,price,stock);closePview();});
-  var mainImgUrl=driveThumb(p["image link"]||p["Image Link"]||""),
-      addlRaw=p.additional_images||p["additional_images"]||"",
-      addlUrls=getAdditionalImgs(addlRaw).map(u=>driveThumb(u)),
-      allImgs=[mainImgUrl].concat(addlUrls).filter(Boolean);
-  document.getElementById("pviewMainImg").src=allImgs[0]||"";
-  var thumbsEl=document.getElementById("pviewThumbs");
-  if(allImgs.length>1){
-    thumbsEl.innerHTML="";
-    allImgs.forEach((u,i)=>{
-      var img=document.createElement("img");img.src=u;
-      img.className="pview-thumb"+(i===0?" active":"");img.alt="view "+(i+1);
-      img.addEventListener("click",()=>{
-        document.getElementById("pviewMainImg").src=u;
-        document.querySelectorAll(".pview-thumb").forEach(t=>t.classList.remove("active"));
+/* =====================================================
+   PRODUCT VIEW MODAL
+   ===================================================== */
+function openPview(p) {
+  var title  = (p.title || p.Title || "").trim();
+  var price  = parseFloat(p.price || p.Price) || 0;
+  var stock  = parseInt(p.stocks || p.Stocks || p.stock) || 0;
+  var status = stockStatus(stock);
+  document.getElementById("pviewTitle").textContent = title;
+  document.getElementById("pviewPrice").textContent = "\u20b9" + price.toLocaleString("en-IN");
+  var stockEl = document.getElementById("pviewStock");
+  if (status === "out")     { stockEl.textContent = "Out of Stock";         stockEl.className = "pview-stock out"; }
+  else if (status === "limited") { stockEl.textContent = "Only " + stock + " left!"; stockEl.className = "pview-stock limited"; }
+  else                      { stockEl.textContent = "In Stock";             stockEl.className = "pview-stock ok"; }
+  var oldBtn = document.getElementById("pviewAddBtn"), newBtn = oldBtn.cloneNode(true);
+  oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+  newBtn.disabled   = (status === "out");
+  newBtn.textContent = (status === "out") ? "Out of Stock" : "Add to Bag";
+  newBtn.addEventListener("click", () => { addToCart(title, price, stock); closePview(); });
+  var mainImgUrl = driveUrl(p["image link"] || p["Image Link"] || "", 600);
+  var addlRaw    = p.additional_images || p["additional_images"] || "";
+  var allImgs    = [mainImgUrl].concat(getAdditionalImgs(addlRaw).map(u => driveUrl(u, 600))).filter(Boolean);
+  var mainEl     = document.getElementById("pviewMainImg");
+  mainEl.src     = allImgs[0] || "";
+  var thumbsEl   = document.getElementById("pviewThumbs");
+  if (allImgs.length > 1) {
+    thumbsEl.innerHTML = "";
+    allImgs.forEach((u, i) => {
+      var img = document.createElement("img");
+      img.src = u; img.className = "pview-thumb" + (i === 0 ? " active" : ""); img.alt = "view " + (i + 1);
+      img.addEventListener("click", () => {
+        mainEl.src = u;
+        document.querySelectorAll(".pview-thumb").forEach(t => t.classList.remove("active"));
         img.classList.add("active");
       });
       thumbsEl.appendChild(img);
     });
-  }else{thumbsEl.innerHTML="";}
+  } else { thumbsEl.innerHTML = ""; }
   document.getElementById("pviewModal").classList.add("open");
   document.getElementById("pviewOverlay").classList.add("open");
 }
-function closePview(){
+function closePview() {
   document.getElementById("pviewModal").classList.remove("open");
   document.getElementById("pviewOverlay").classList.remove("open");
 }
-document.getElementById("pviewCloseBtn").addEventListener("click",closePview);
-document.getElementById("pviewOverlay").addEventListener("click",closePview);
+document.getElementById("pviewCloseBtn").addEventListener("click", closePview);
+document.getElementById("pviewOverlay").addEventListener("click", closePview);
 
-document.getElementById("checkoutBtn").addEventListener("click",openCheckout);
-document.getElementById("coCloseBtn").addEventListener("click",closeCheckout);
-document.getElementById("coOverlay").addEventListener("click",closeCheckout);
-document.getElementById("btnBack").addEventListener("click",()=>{if(currentStep>1)setStep(currentStep-1);});
-document.getElementById("btnNext").addEventListener("click",nextStep);
+/* =====================================================
+   CHECKOUT — stepper
+   ===================================================== */
+document.getElementById("checkoutBtn").addEventListener("click", openCheckout);
+document.getElementById("coCloseBtn").addEventListener("click", closeCheckout);
+document.getElementById("coOverlay").addEventListener("click", closeCheckout);
+document.getElementById("btnBack").addEventListener("click", () => { if (currentStep > 1) setStep(currentStep - 1); });
+document.getElementById("btnNext").addEventListener("click", nextStep);
 
-function openCheckout(){
-  if(!cartCount()){showToast("Add items to your bag first");return;}
-  closeCart();selectedPay=null;shippingCost=null;currentStep=1;
-  document.querySelectorAll(".pay-method-card, #codCard").forEach(c=>c.classList.remove("selected"));
+function openCheckout() {
+  if (!cartCount()) { showToast("Add items to your bag first"); return; }
+  closeCart();
+  selectedPay = null; shippingCost = null; currentStep = 1;
+  document.querySelectorAll(".pay-method-card, #codCard").forEach(c => c.classList.remove("selected"));
   document.getElementById("shippingBox").classList.remove("show");
-  document.getElementById("shippingDisplay").textContent="Calculated in next step";
-  document.getElementById("codRow").style.display="none";
+  document.getElementById("shippingDisplay").textContent = "Calculated in next step";
+  document.getElementById("codRow").style.display = "none";
   document.getElementById("errBanner").classList.remove("show");
   document.getElementById("payErr").classList.remove("show");
-  document.getElementById("confirmBox").style.display="none";
-  document.getElementById("payNote").textContent="";
-  renderOrderLines();setStep(1);
+  document.getElementById("confirmBox").style.display = "none";
+  document.getElementById("payNote").textContent = "";
+  renderOrderLines(); setStep(1);
   document.getElementById("coModal").classList.add("open");
   document.getElementById("coOverlay").classList.add("open");
 }
-function closeCheckout(){
+function closeCheckout() {
   document.getElementById("coModal").classList.remove("open");
   document.getElementById("coOverlay").classList.remove("open");
 }
 
-function renderOrderLines(){
-  var html="";
-  Object.keys(cart).forEach(title=>{
-    var item=cart[title];
-    html+='<div class="order-line"><span class="order-line-name">'+esc(title)+' × '+item.qty+'</span><span class="order-line-price">₹'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';
+function renderOrderLines() {
+  var html = "";
+  Object.keys(cart).forEach(title => {
+    var item = cart[title];
+    html += '<div class="order-line">'
+      + '<span class="order-line-name">' + esc(title) + ' \xd7 ' + item.qty + '</span>'
+      + '<span class="order-line-price">&#8377;' + (item.price * item.qty).toLocaleString("en-IN") + '</span>'
+      + '</div>';
   });
-  document.getElementById("orderLines").innerHTML=html;updateGrandTotal();
-}
-
-function updateGrandTotal(){
-  var sub=cartSubtotal(),ship=shippingCost||0,cod=0;
-  if(selectedPay==="cod"){
-    cod=Math.max(40,Math.round(sub*0.02));
-    document.getElementById("codRow").style.display="flex";
-    document.getElementById("codDisplay").textContent="₹"+cod.toLocaleString("en-IN");
-  }else{document.getElementById("codRow").style.display="none";}
-  var grand=sub+ship+cod;
-  document.getElementById("grandTotal").textContent="₹"+grand.toLocaleString("en-IN");
-  return grand;
-}
-
-function setStep(s){
-  currentStep=s;
-  for(var i=1;i<=3;i++){
-    var st=document.getElementById("st"+i),sc=document.getElementById("sc"+i);
-    st.classList.remove("active","done");
-    if(i<s){st.classList.add("done");sc.textContent="✓";}
-    else if(i===s){st.classList.add("active");sc.textContent=String(i);}
-    else{sc.textContent=String(i);}
-    if(i<3)document.getElementById("sl"+i).classList.toggle("done",i<s);
-    document.getElementById("coSec"+i).classList.toggle("active",i===s);
-  }
-  var back=document.getElementById("btnBack"),next=document.getElementById("btnNext");
-  back.style.display=(s>1)?"block":"none";
-  if(s===3){next.textContent="Place Order";next.className="btn-place";}
-  else{next.textContent="Continue →";next.className="btn-next";}
-  document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});
-  document.getElementById("errBanner").classList.remove("show");
-}
-
-function nextStep(){
-  if(currentStep===1)setStep(2);
-  else if(currentStep===2){if(!validateDelivery())return;calcShipping();setStep(3);buildConfirm();}
-  else if(currentStep===3)placeOrder();
-}
-
-function validateDelivery(){
-  var ok=true,
-      checks=[
-        {id:"f_name",err:"e_name",fn:v=>v.length>=2},
-        {id:"f_phone",err:"e_phone",fn:v=>/^\d{10}$/.test(v)},
-        {id:"f_email",err:"e_email",fn:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},
-        {id:"f_addr",err:"e_addr",fn:v=>v.length>=5},
-        {id:"f_pin",err:"e_pin",fn:v=>/^\d{6}$/.test(v)}
-      ];
-  checks.forEach(c=>{
-    var el=document.getElementById(c.id),er=document.getElementById(c.err),val=el.value.trim();
-    if(!c.fn(val)){el.classList.add("err");er.classList.add("show");ok=false;}
-    else{el.classList.remove("err");er.classList.remove("show");}
-  });
-  if(!ok)showErr("Please fill all mandatory fields correctly.");
-  return ok;
-}
-["f_name","f_phone","f_email","f_addr","f_pin"].forEach(id=>{
-  var el=document.getElementById(id);if(!el)return;
-  el.addEventListener("input",()=>{
-    el.classList.remove("err");
-    var er=document.getElementById("e_"+id.split("_")[1]);
-    if(er)er.classList.remove("show");
-  });
-});
-
-var ZONE_RATES={
-  A:{base:35.40,extra:34.22,name:"Zone A — Local (Coimbatore)"},
-  B:{base:38.94,extra:37.76,name:"Zone B — Intra-state (Tamil Nadu)"},
-  C:{base:51.92,extra:49.56,name:"Zone C — Metro"},
-  D:{base:61.36,extra:57.82,name:"Zone D — Pan India"},
-  E:{base:75.52,extra:71.98,name:"Zone E — Northeast / J&K"}
-};
-var FLAT_PREFIXES=["380","382","560","562","631","160","140","141","600","602","110","120","121","122","201","250","124","131","132","500","711","712","713","700","400","421","401","410","411","415","395","403","641","642","643","625","626","627","628"];
-
-function getPincodeZone(pin){
-  if(!pin||pin.length!==6)return"D";
-  var n=parseInt(pin),p2=pin.substring(0,2),p3=pin.substring(0,3);
-  if(p2==="18"||p2==="19")return"E";
-  if(p2==="73"&&n>=737000&&n<=737199)return"E";
-  if(p2==="78"&&n>=781000)return"E";
-  if(p2==="79"||p2==="97")return"E";
-  if(n>=744100&&n<=744304)return"E";
-  if(p3==="641"||p3==="642"||p3==="643"||p3==="638")return"A";
-  if(n>=600000&&n<=643999)return"B";
-  var metros=["110","400","600","700","500","560","380","411","160"];
-  if(metros.indexOf(p3)!==-1)return"C";
-  return"D";
-}
-
-function calcShipping(){
-  var pin=document.getElementById("f_pin").value.trim(),
-      zone=getPincodeZone(pin),
-      r=ZONE_RATES[zone]||ZONE_RATES["D"],
-      totalQty=Object.values(cart).reduce((s,i)=>s+i.qty,0),
-      weightG=Math.max(500,totalQty*150),
-      slabs=Math.ceil(weightG/500),
-      extraSlabs=Math.max(0,slabs-1),
-      baseShipping=r.base+extraSlabs*r.extra;
-  if(FLAT_PREFIXES.some(pf=>pin.startsWith(pf))&&zone!=="A")baseShipping+=2.50;
-  var fuelSurcharge=baseShipping*0.05,total=Math.ceil(baseShipping+fuelSurcharge);
-  shippingCost=total;
-  document.getElementById("shippingAmt").textContent="₹"+total;
-  document.getElementById("shippingZone").textContent=r.name+" · base ₹"+baseShipping.toFixed(2)+" + 5% fuel = ₹"+total;
-  document.getElementById("shippingBox").classList.add("show");
-  document.getElementById("shippingDisplay").textContent="₹"+total;
+  document.getElementById("orderLines").innerHTML = html;
   updateGrandTotal();
 }
 
-document.getElementById("payMethodsGrid").addEventListener("click",function(e){
-  var card=e.target.closest(".pay-method-card");if(!card)return;
+function updateGrandTotal() {
+  var sub = cartSubtotal(), ship = shippingCost || 0, cod = 0;
+  if (selectedPay === "cod") {
+    cod = Math.max(40, Math.round(sub * 0.02));
+    document.getElementById("codRow").style.display = "flex";
+    document.getElementById("codDisplay").textContent = "&#8377;" + cod.toLocaleString("en-IN");
+  } else {
+    document.getElementById("codRow").style.display = "none";
+  }
+  var grand = sub + ship + cod;
+  document.getElementById("grandTotal").textContent = "&#8377;" + grand.toLocaleString("en-IN");
+  return grand;
+}
+
+function setStep(s) {
+  currentStep = s;
+  for (var i = 1; i <= 3; i++) {
+    var st = document.getElementById("st" + i), sc = document.getElementById("sc" + i);
+    st.classList.remove("active", "done");
+    if (i < s)      { st.classList.add("done");   sc.textContent = "\u2713"; }
+    else if (i === s) { st.classList.add("active"); sc.textContent = String(i); }
+    else              {                             sc.textContent = String(i); }
+    if (i < 3) document.getElementById("sl" + i).classList.toggle("done", i < s);
+    document.getElementById("coSec" + i).classList.toggle("active", i === s);
+  }
+  document.getElementById("btnBack").style.display = (s > 1) ? "block" : "none";
+  var next = document.getElementById("btnNext");
+  if (s === 3) { next.textContent = "Place Order"; next.className = "btn-place"; }
+  else         { next.textContent = "Continue \u2192"; next.className = "btn-next"; }
+  document.getElementById("coBody").scrollTo({ top: 0, behavior: "smooth" });
+  document.getElementById("errBanner").classList.remove("show");
+}
+
+function nextStep() {
+  if      (currentStep === 1) { setStep(2); }
+  else if (currentStep === 2) { if (!validateDelivery()) return; calcShipping(); setStep(3); buildConfirm(); }
+  else if (currentStep === 3) { placeOrder(); }
+}
+
+function validateDelivery() {
+  var ok = true;
+  var checks = [
+    { id: "f_name",  err: "e_name",  fn: v => v.length >= 2 },
+    { id: "f_phone", err: "e_phone", fn: v => /^\d{10}$/.test(v) },
+    { id: "f_email", err: "e_email", fn: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: "f_addr",  err: "e_addr",  fn: v => v.length >= 5 },
+    { id: "f_pin",   err: "e_pin",   fn: v => /^\d{6}$/.test(v) }
+  ];
+  checks.forEach(c => {
+    var el = document.getElementById(c.id), er = document.getElementById(c.err), val = el.value.trim();
+    if (!c.fn(val)) { el.classList.add("err"); er.classList.add("show"); ok = false; }
+    else            { el.classList.remove("err"); er.classList.remove("show"); }
+  });
+  if (!ok) showErr("Please fill all mandatory fields correctly.");
+  return ok;
+}
+["f_name","f_phone","f_email","f_addr","f_pin"].forEach(id => {
+  var el = document.getElementById(id); if (!el) return;
+  el.addEventListener("input", () => {
+    el.classList.remove("err");
+    var er = document.getElementById("e_" + id.split("_")[1]);
+    if (er) er.classList.remove("show");
+  });
+});
+
+/* =====================================================
+   SHIPPING ZONES
+   ===================================================== */
+var ZONE_RATES = {
+  A: { base:35.40, extra:34.22, name:"Zone A \u2014 Local (Coimbatore)" },
+  B: { base:38.94, extra:37.76, name:"Zone B \u2014 Intra-state (Tamil Nadu)" },
+  C: { base:51.92, extra:49.56, name:"Zone C \u2014 Metro" },
+  D: { base:61.36, extra:57.82, name:"Zone D \u2014 Pan India" },
+  E: { base:75.52, extra:71.98, name:"Zone E \u2014 Northeast / J&K" }
+};
+var FLAT_PREFIXES = ["380","382","560","562","631","160","140","141","600","602","110","120","121","122","201","250","124","131","132","500","711","712","713","700","400","421","401","410","411","415","395","403","641","642","643","625","626","627","628"];
+
+function getPincodeZone(pin) {
+  if (!pin || pin.length !== 6) return "D";
+  var n = parseInt(pin), p2 = pin.substring(0, 2), p3 = pin.substring(0, 3);
+  if (p2==="18"||p2==="19") return "E";
+  if (p2==="73" && n>=737000 && n<=737199) return "E";
+  if (p2==="78" && n>=781000) return "E";
+  if (p2==="79"||p2==="97") return "E";
+  if (n>=744100 && n<=744304) return "E";
+  if (p3==="641"||p3==="642"||p3==="643"||p3==="638") return "A";
+  if (n>=600000 && n<=643999) return "B";
+  var metros = ["110","400","600","700","500","560","380","411","160"];
+  if (metros.indexOf(p3) !== -1) return "C";
+  return "D";
+}
+
+function calcShipping() {
+  var pin  = document.getElementById("f_pin").value.trim();
+  var zone = getPincodeZone(pin), r = ZONE_RATES[zone] || ZONE_RATES["D"];
+  var totalQty    = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+  var weightG     = Math.max(500, totalQty * 150);
+  var slabs       = Math.ceil(weightG / 500), extraSlabs = Math.max(0, slabs - 1);
+  var baseShipping = r.base + extraSlabs * r.extra;
+  if (FLAT_PREFIXES.some(pf => pin.startsWith(pf)) && zone !== "A") baseShipping += 2.50;
+  var fuelSurcharge = baseShipping * 0.05, total = Math.ceil(baseShipping + fuelSurcharge);
+  shippingCost = total;
+  document.getElementById("shippingAmt").textContent  = "\u20b9" + total;
+  document.getElementById("shippingZone").textContent = r.name + " \xb7 base \u20b9" + baseShipping.toFixed(2) + " + 5% fuel = \u20b9" + total;
+  document.getElementById("shippingBox").classList.add("show");
+  document.getElementById("shippingDisplay").textContent = "\u20b9" + total;
+  updateGrandTotal();
+}
+
+/* =====================================================
+   PAYMENT SELECTION
+   ===================================================== */
+document.getElementById("payMethodsGrid").addEventListener("click", function(e) {
+  var card = e.target.closest(".pay-method-card");
+  if (!card) return;
   selectPay(card.getAttribute("data-pay"));
 });
-document.getElementById("codCard").addEventListener("click",()=>selectPay("cod"));
+document.getElementById("codCard").addEventListener("click", () => selectPay("cod"));
 
-function selectPay(type){
-  selectedPay=type;
-  document.querySelectorAll(".pay-method-card, #codCard").forEach(c=>c.classList.remove("selected"));
-  if(type==="cod")document.getElementById("codCard").classList.add("selected");
-  else{var card=document.querySelector(".pay-method-card[data-pay='"+type+"']");if(card)card.classList.add("selected");}
+function selectPay(type) {
+  selectedPay = type;
+  document.querySelectorAll(".pay-method-card, #codCard").forEach(c => c.classList.remove("selected"));
+  if (type === "cod") document.getElementById("codCard").classList.add("selected");
+  else { var card = document.querySelector(".pay-method-card[data-pay='" + type + "']"); if (card) card.classList.add("selected"); }
   document.getElementById("payErr").classList.remove("show");
-  var note=document.getElementById("payNote"),
-      payLabels={upi:"UPI",card:"Credit/Debit Card",netbanking:"Net Banking",wallet:"Wallet",emi:"EMI"};
-  if(type==="cod"){
-    var sub=cartSubtotal(),cod=Math.max(40,Math.round(sub*0.02));
-    note.textContent="COD charge of ₹"+cod+" (₹40 or 2% of order, whichever is higher) will be added.";
-  }else{
-    note.textContent="You'll be redirected to PayU's secure page to pay via "+(payLabels[type]||"online")+".";
+  var note = document.getElementById("payNote");
+  var payLabels = { upi:"UPI", card:"Credit/Debit Card", netbanking:"Net Banking", wallet:"Wallet", emi:"EMI" };
+  if (type === "cod") {
+    var sub = cartSubtotal(), cod = Math.max(40, Math.round(sub * 0.02));
+    note.textContent = "COD charge of \u20b9" + cod + " (\u20b940 or 2% of order, whichever is higher) will be added.";
+  } else {
+    note.textContent = "You\u2019ll be redirected to PayU\u2019s secure page to pay via " + (payLabels[type] || "online") + ".";
   }
-  updateGrandTotal();buildConfirm();
+  updateGrandTotal();
+  buildConfirm();
 }
 
-function buildConfirm(){
-  var sub=cartSubtotal(),ship=shippingCost||0,
-      cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,
-      grand=sub+ship+cod,html="";
-  Object.keys(cart).forEach(title=>{
-    var item=cart[title];
-    html+='<div class="confirm-line"><span>'+esc(title)+' ×'+item.qty+'</span><span>₹'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';
+function buildConfirm() {
+  var sub = cartSubtotal(), ship = shippingCost || 0;
+  var cod = (selectedPay === "cod") ? Math.max(40, Math.round(sub * 0.02)) : 0;
+  var grand = sub + ship + cod, html = "";
+  Object.keys(cart).forEach(title => {
+    var item = cart[title];
+    html += '<div class="confirm-line"><span>' + esc(title) + ' \xd7' + item.qty + '</span><span>\u20b9' + (item.price * item.qty).toLocaleString("en-IN") + '</span></div>';
   });
-  html+='<div class="confirm-line"><span>Shipping</span><span>₹'+ship+'</span></div>';
-  if(cod)html+='<div class="confirm-line"><span>COD Charge</span><span>₹'+cod+'</span></div>';
-  document.getElementById("confirmLines").innerHTML=html;
-  document.getElementById("confirmTotal").textContent="₹"+grand.toLocaleString("en-IN");
-  document.getElementById("confirmBox").style.display="block";
+  html += '<div class="confirm-line"><span>Shipping</span><span>\u20b9' + ship + '</span></div>';
+  if (cod) html += '<div class="confirm-line"><span>COD Charge</span><span>\u20b9' + cod + '</span></div>';
+  document.getElementById("confirmLines").innerHTML = html;
+  document.getElementById("confirmTotal").textContent = "\u20b9" + grand.toLocaleString("en-IN");
+  document.getElementById("confirmBox").style.display = "block";
 }
 
-function placeOrder(){
-  if(!selectedPay){document.getElementById("payErr").classList.add("show");showErr("Please select a payment method.");return;}
-  var name=document.getElementById("f_name").value.trim(),
-      phone=document.getElementById("f_phone").value.trim(),
-      email=document.getElementById("f_email").value.trim(),
-      addr=document.getElementById("f_addr").value.trim(),
-      city=document.getElementById("f_city").value.trim(),
-      state=document.getElementById("f_state").value.trim(),
-      pin=document.getElementById("f_pin").value.trim();
-  var sub=cartSubtotal(),ship=shippingCost||0,
-      cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,
-      grand=sub+ship+cod;
-  var itemsSummary=Object.keys(cart).map(t=>t+" ×"+cart[t].qty+" = ₹"+(cart[t].price*cart[t].qty)).join("; ");
-  var orderData={
-    action:"placeOrder",name,phone,email,
-    address:addr+(city?", "+city:"")+(state?", "+state:"")+" - "+pin,
-    items:itemsSummary,subtotal:sub,shipping:ship,codCharge:cod,grandTotal:grand,
-    paymentMethod:selectedPay,
-    cartData:JSON.stringify(Object.keys(cart).map(t=>({title:t,qty:cart[t].qty,price:cart[t].price})))
+/* =====================================================
+   PLACE ORDER
+   ===================================================== */
+function placeOrder() {
+  if (!selectedPay) { document.getElementById("payErr").classList.add("show"); showErr("Please select a payment method."); return; }
+
+  var name  = document.getElementById("f_name").value.trim();
+  var phone = document.getElementById("f_phone").value.trim();
+  var email = document.getElementById("f_email").value.trim();
+  var addr  = document.getElementById("f_addr").value.trim();
+  var city  = document.getElementById("f_city").value.trim();
+  var state = document.getElementById("f_state").value.trim();
+  var pin   = document.getElementById("f_pin").value.trim();
+
+  var sub   = cartSubtotal(), ship = shippingCost || 0;
+  var cod   = (selectedPay === "cod") ? Math.max(40, Math.round(sub * 0.02)) : 0;
+  var grand = sub + ship + cod;
+
+  var itemsSummary = Object.keys(cart).map(t => t + " \xd7" + cart[t].qty + " = \u20b9" + (cart[t].price * cart[t].qty)).join("; ");
+  var fullAddress  = addr + (city ? ", " + city : "") + (state ? ", " + state : "") + " - " + pin;
+  var cartArr      = Object.keys(cart).map(t => ({ title: t, qty: cart[t].qty, price: cart[t].price }));
+
+  var orderData = {
+    action: "placeOrder", name, phone, email,
+    address: fullAddress, items: itemsSummary,
+    subtotal: sub, shipping: ship, codCharge: cod, grandTotal: grand,
+    paymentMethod: selectedPay,
+    cartData: JSON.stringify(cartArr)
   };
 
-  if(selectedPay==="cod"){
+  if (selectedPay === "cod") {
     document.getElementById("spinner").classList.add("show");
-    fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(orderData)})
-      .catch(()=>{})
-      .finally(()=>{
+    fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(orderData) })
+      .catch(() => {})
+      .finally(() => {
         clearCart();
         document.getElementById("spinner").classList.remove("show");
-        window.location.href=SUCCESS_URL+"?method=cod&name="+encodeURIComponent(name);
+        window.location.href = SUCCESS_URL + "?method=cod&name=" + encodeURIComponent(name);
       });
-  }else{
-    document.getElementById("spinner").classList.add("show");
-    var txnid="MNL"+Date.now(),
-        amount=grand.toFixed(2),
-        productinfo="Minella Jewels Order";
-
-    // ---- CAPTURE udf values BEFORE clearing cart ----
-    var udf1=JSON.stringify(Object.keys(cart).map(t=>({title:t,qty:cart[t].qty}))).substring(0,255);
-    var udf2=pin;
-    var udf3="";
-    var udf4="";
-    var udf5="";
-
-    // Correct PayU hash formula:
-    // key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt
-    var hashInput=[PAYU_KEY,txnid,amount,productinfo,name,email,udf1,udf2,udf3,udf4,udf5,"","","","","",PAYU_SALT].join("|");
-
-    computeSHA512(hashInput).then(hash=>{
-      // Log order to sheet first
-      fetch(SCRIPT_URL,{
-        method:"POST",mode:"no-cors",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-          action:"placeOrder",name,phone,email,
-          address:orderData.address,items:orderData.items,
-          subtotal:sub,shipping:ship,codCharge:0,grandTotal:grand,
-          paymentMethod:selectedPay,txnid,status:"PENDING_PAYMENT",
-          cartData:orderData.cartData
-        })
-      }).catch(()=>{});
-
-      clearCart();
-
-      // Fill PayU form - udf values must EXACTLY match what's in hash
-      document.getElementById("pu_key").value=PAYU_KEY;
-      document.getElementById("pu_txnid").value=txnid;
-      document.getElementById("pu_amount").value=amount;
-      document.getElementById("pu_productinfo").value=productinfo;
-      document.getElementById("pu_firstname").value=name;
-      document.getElementById("pu_email").value=email;
-      document.getElementById("pu_phone").value=phone;
-      document.getElementById("pu_surl").value=SUCCESS_URL;
-      document.getElementById("pu_furl").value=FAIL_URL;
-      document.getElementById("pu_hash").value=hash;
-      document.getElementById("pu_udf1").value=udf1;
-      document.getElementById("pu_udf2").value=udf2;
-      document.getElementById("pu_udf3").value=udf3;
-      document.getElementById("pu_udf4").value=udf4;
-      document.getElementById("pu_udf5").value=udf5;
-
-      document.getElementById("payuForm").submit();
-    }).catch(err=>{
-      document.getElementById("spinner").classList.remove("show");
-      showErr("Payment setup failed. Please try again. ("+err.message+")");
-    });
+    return;
   }
+
+  // ---- ONLINE PAYMENT via PayU ----
+  document.getElementById("spinner").classList.add("show");
+
+  var txnid       = "MNL" + Date.now();
+  var amount      = grand.toFixed(2);
+  var productinfo = "Minella Jewels Order";
+
+  // Set UDF values BEFORE computing hash
+  var udf1 = JSON.stringify(cartArr).substring(0, 255);
+  var udf2 = pin;
+  var udf3 = "";
+  var udf4 = "";
+  var udf5 = "";
+
+  /*
+   * CORRECT PayU hash formula (matches PHP reference):
+   *   key|txnid|amount|productinfo|firstname|email|
+   *   udf1|udf2|udf3|udf4|udf5||||||salt
+   *
+   * After udf5 there are exactly 6 empty-pipe fields (|||||| = 6 pipes,
+   * representing additional_charges + 5 unused udf slots), then the salt.
+   */
+  var hashInput = PAYU_KEY + "|" + txnid + "|" + amount + "|" + productinfo + "|"
+    + name + "|" + email + "|"
+    + udf1 + "|" + udf2 + "|" + udf3 + "|" + udf4 + "|" + udf5
+    + "||||||" + PAYU_SALT;
+
+  computeSHA512(hashInput).then(hash => {
+    // Log pending order to sheet
+    fetch(SCRIPT_URL, {
+      method: "POST", mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "placeOrder", name, phone, email,
+        address: fullAddress, items: itemsSummary,
+        subtotal: sub, shipping: ship, codCharge: 0, grandTotal: grand,
+        paymentMethod: selectedPay, txnid, status: "PENDING_PAYMENT",
+        cartData: orderData.cartData
+      })
+    }).catch(() => {});
+
+    clearCart();
+
+    // Populate PayU form
+    document.getElementById("pu_key").value         = PAYU_KEY;
+    document.getElementById("pu_txnid").value       = txnid;
+    document.getElementById("pu_amount").value      = amount;
+    document.getElementById("pu_productinfo").value = productinfo;
+    document.getElementById("pu_firstname").value   = name;
+    document.getElementById("pu_email").value       = email;
+    document.getElementById("pu_phone").value       = phone;
+    document.getElementById("pu_surl").value        = SUCCESS_URL;
+    document.getElementById("pu_furl").value        = FAIL_URL;
+    document.getElementById("pu_hash").value        = hash;
+    document.getElementById("pu_udf1").value        = udf1;
+    document.getElementById("pu_udf2").value        = udf2;
+    document.getElementById("pu_udf3").value        = udf3;
+    document.getElementById("pu_udf4").value        = udf4;
+    document.getElementById("pu_udf5").value        = udf5;
+
+    document.getElementById("payuForm").submit();
+  }).catch(err => {
+    document.getElementById("spinner").classList.remove("show");
+    showErr("Payment setup failed. Please try again. (" + err.message + ")");
+  });
 }
 
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
-function unesc(s){var d=document.createElement("div");d.innerHTML=s;return d.textContent;}
-function showErr(msg){document.getElementById("errMsg").textContent=msg;document.getElementById("errBanner").classList.add("show");document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});}
-function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
-function computeSHA512(message){
-  var encoder=new TextEncoder(),data=encoder.encode(message);
-  return window.crypto.subtle.digest("SHA-512",data).then(hashBuffer=>{
-    var hashArray=Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b=>b.toString(16).padStart(2,"0")).join("");
+/* =====================================================
+   UTILITIES
+   ===================================================== */
+function esc(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function unesc(s) { var d = document.createElement("div"); d.innerHTML = s; return d.textContent; }
+function showErr(msg) {
+  document.getElementById("errMsg").textContent = msg;
+  document.getElementById("errBanner").classList.add("show");
+  document.getElementById("coBody").scrollTo({ top: 0, behavior: "smooth" });
+}
+function showToast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2400);
+}
+function computeSHA512(message) {
+  var encoder = new TextEncoder(), data = encoder.encode(message);
+  return window.crypto.subtle.digest("SHA-512", data).then(hashBuffer => {
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
   });
 }
 </script>
