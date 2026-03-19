@@ -486,7 +486,7 @@ function updateCartUI() {
       + '<button class="btn-remove" data-action="rem" data-title="' + esc(title) + '">\xd7</button></div></div>';
   });
   body.innerHTML = html;
-  document.getElementById("cartSubtotalEl").textContent = "&#8377;" + cartSubtotal().toLocaleString("en-IN");
+  document.getElementById("cartSubtotalEl").textContent = "₹" + cartSubtotal().toLocaleString("en-IN");
   foot.style.display = "block";
 }
 document.getElementById("cartBody").addEventListener("click", function(e) {
@@ -563,9 +563,9 @@ function renderOrderLines() {
 }
 function updateGrandTotal() {
   var sub = cartSubtotal(), ship = shippingCost||0, cod = 0;
-  if (selectedPay==="cod") { cod = Math.max(40,Math.round(sub*0.02)); document.getElementById("codRow").style.display="flex"; document.getElementById("codDisplay").textContent="&#8377;"+cod.toLocaleString("en-IN"); }
+  if (selectedPay==="cod") { cod = Math.max(40,Math.round(sub*0.02)); document.getElementById("codRow").style.display="flex"; document.getElementById("codDisplay").textContent="₹"+cod.toLocaleString("en-IN"); }
   else document.getElementById("codRow").style.display = "none";
-  var grand = sub+ship+cod; document.getElementById("grandTotal").textContent = "&#8377;"+grand.toLocaleString("en-IN"); return grand;
+  var grand = sub+ship+cod; document.getElementById("grandTotal").textContent = "₹"+grand.toLocaleString("en-IN"); return grand;
 }
 function setStep(s) {
   currentStep = s;
