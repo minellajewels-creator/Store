@@ -1351,12 +1351,14 @@ function placeOrder() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        action: "generateHash",
+        action:      "generateHash",
         txnid:       txnid,
         amount:      amount,
         productinfo: productinfo,
         firstname:   name,
         email:       email,
+        /* udf1-5 intentionally empty — must match hash string in code.gs exactly */
+        udf1: "", udf2: "", udf3: "", udf4: "", udf5: "",
         orderData:   orderData,
       }),
     })
