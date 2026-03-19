@@ -28,152 +28,56 @@ input,select{font-family:'Outfit',sans-serif}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--cream2)}
 ::-webkit-scrollbar-thumb{background:var(--plum2);border-radius:4px}
-
-/* TOPBAR */
-.topbar{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  height:60px;
-  background:rgba(250,246,240,0.92);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;padding-top:var(--safe-top)
-}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
 .topbar-logo img{height:36px;width:auto;object-fit:contain}
 .topbar-logo span{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px}
-.cart-fab{
-  position:relative;background:var(--plum);color:white;border:none;
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(74,25,66,0.30);
-  transition:transform .2s,box-shadow .2s;flex-shrink:0
-}
+.cart-fab{position:relative;background:var(--plum);color:white;border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,25,66,0.30);transition:transform .2s,box-shadow .2s;flex-shrink:0}
 .cart-fab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(74,25,66,0.40)}
 .cart-fab svg{width:20px;height:20px}
-.cart-badge{
-  position:absolute;top:-4px;right:-4px;
-  background:var(--gold2);color:var(--plum);
-  font-size:10px;font-weight:700;min-width:18px;height:18px;
-  border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px
-}
-
-/* HERO */
-.hero{
-  padding-top:calc(60px + var(--safe-top));min-height:52vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding-left:24px;padding-right:24px;padding-bottom:40px;
-  position:relative;overflow:hidden
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 50% at 20% 80%,rgba(184,144,58,0.08) 0%,transparent 60%),
-             radial-gradient(ellipse 60% 40% at 80% 20%,rgba(74,25,66,0.06) 0%,transparent 60%);
-  pointer-events:none
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);
-  border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;
-  text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px
-}
-.hero h1{
-  font-family:'Libre Baskerville',serif;font-size:clamp(38px,9vw,80px);
-  font-weight:400;line-height:1.05;color:var(--plum);margin-bottom:14px
-}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--gold2);color:var(--plum);font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.hero{padding-top:calc(60px + var(--safe-top));min-height:52vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-left:24px;padding-right:24px;padding-bottom:40px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 80%,rgba(184,144,58,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(74,25,66,0.06) 0%,transparent 60%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px}
+.hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(38px,9vw,80px);font-weight:400;line-height:1.05;color:var(--plum);margin-bottom:14px}
 .hero h1 em{font-style:italic;color:var(--gold)}
 .hero-sub{font-size:clamp(14px,3vw,17px);color:var(--muted);font-weight:300;margin-bottom:32px;max-width:380px}
-.hero-cta{
-  background:var(--plum);color:white;border:none;
-  padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;
-  letter-spacing:1px;box-shadow:0 6px 24px rgba(74,25,66,0.28);transition:.25s
-}
+.hero-cta{background:var(--plum);color:white;border:none;padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;letter-spacing:1px;box-shadow:0 6px 24px rgba(74,25,66,0.28);transition:.25s}
 .hero-cta:hover{background:var(--plum2);transform:translateY(-2px)}
-
-/* CATEGORY BAR */
-.cat-bar{
-  position:sticky;top:calc(60px + var(--safe-top));z-index:400;
-  background:rgba(250,246,240,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  display:flex;justify-content:center;gap:6px;
-  padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none
-}
+.cat-bar{position:sticky;top:calc(60px + var(--safe-top));z-index:400;background:rgba(250,246,240,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:6px;padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .cat-bar::-webkit-scrollbar{display:none}
-.cat-btn{
-  background:transparent;color:var(--muted);border:1px solid var(--border);
-  padding:7px 20px;border-radius:30px;font-size:13px;font-weight:500;
-  white-space:nowrap;transition:.2s;flex-shrink:0
-}
+.cat-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:7px 20px;border-radius:30px;font-size:13px;font-weight:500;white-space:nowrap;transition:.2s;flex-shrink:0}
 .cat-btn.active,.cat-btn:hover{background:var(--plum);color:white;border-color:var(--plum)}
-
-/* PRODUCT GRID */
 .grid-wrap{padding:32px 16px 80px;max-width:1200px;margin:0 auto}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:16px;align-items:start
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;align-items:start}
 .product-card:nth-child(3n+2){margin-top:28px}
 .product-card:nth-child(5n+4){margin-top:14px}
 .product-card:nth-child(7n+3){margin-top:42px}
-.product-card{
-  background:var(--white);border-radius:var(--r);overflow:hidden;
-  box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;position:relative
-}
+.product-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;position:relative}
 .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
-.stock-badge{
-  position:absolute;top:10px;left:10px;z-index:10;
-  font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;
-  padding:4px 10px;border-radius:20px
-}
+.stock-badge{position:absolute;top:10px;left:10px;z-index:10;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:4px 10px;border-radius:20px}
 .stock-badge.out{background:#2a1010;color:#ff9999}
 .stock-badge.limited{background:#2a1e08;color:var(--gold2)}
 .stock-badge.available{display:none}
-
-/* FIX: aspect-ratio so image never crops on any device */
 .img-wrap{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--cream2)}
 .img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .product-card:hover .img-wrap img{transform:scale(1.06)}
-
 .card-body{padding:13px 14px 14px}
 .card-title{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:400;color:var(--ink);margin-bottom:4px;line-height:1.4}
 .card-price{font-size:15px;font-weight:600;color:var(--plum);margin-bottom:12px}
 .card-actions{display:flex;gap:8px}
-.btn-add,.btn-view{
-  flex:1;border:none;padding:9px 10px;border-radius:30px;
-  font-size:12px;font-weight:500;letter-spacing:0.3px;transition:.2s
-}
+.btn-add,.btn-view{flex:1;border:none;padding:9px 10px;border-radius:30px;font-size:12px;font-weight:500;letter-spacing:0.3px;transition:.2s}
 .btn-add{background:var(--plum);color:white}
 .btn-add:hover:not(:disabled){background:var(--plum2)}
 .btn-add:disabled{background:var(--muted);cursor:not-allowed;opacity:0.6}
 .btn-view{background:transparent;color:var(--plum);border:1px solid var(--plum)}
 .btn-view:hover{background:var(--cream2)}
-
-/* OVERLAYS */
-.overlay{
-  position:fixed;inset:0;background:rgba(28,16,24,0.5);
-  z-index:600;opacity:0;pointer-events:none;transition:opacity .3s
-}
+.overlay{position:fixed;inset:0;background:rgba(28,16,24,0.5);z-index:600;opacity:0;pointer-events:none;transition:opacity .3s}
 .overlay.open{opacity:1;pointer-events:all}
-
-/* CART DRAWER */
-.cart-drawer{
-  position:fixed;top:0;right:0;
-  width:min(380px,100vw);height:100%;height:100dvh;
-  background:var(--white);z-index:700;
-  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;
-  box-shadow:-8px 0 40px rgba(28,16,24,0.15)
-}
+.cart-drawer{position:fixed;top:0;right:0;width:min(380px,100vw);height:100%;height:100dvh;background:var(--white);z-index:700;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(28,16,24,0.15)}
 .cart-drawer.open{transform:translateX(0)}
-.drawer-head{
-  padding:20px 20px 16px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0
-}
+.drawer-head{padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .drawer-head h3{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;color:var(--plum)}
-.btn-close{
-  background:var(--cream2);border:none;width:34px;height:34px;border-radius:50%;
-  font-size:18px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:.2s
-}
+.btn-close{background:var(--cream2);border:none;width:34px;height:34px;border-radius:50%;font-size:18px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:.2s}
 .btn-close:hover{background:var(--cream3);color:var(--ink)}
 .cart-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px}
 .cart-empty{text-align:center;padding:60px 20px;color:var(--muted)}
@@ -185,148 +89,70 @@ input,select{font-family:'Outfit',sans-serif}
 .cart-item-sub{font-size:12px;color:var(--muted);margin-top:2px}
 .qty-row{display:flex;align-items:center;gap:8px}
 .qty-ctrl{display:flex;align-items:center;gap:6px;background:var(--cream2);border-radius:20px;padding:3px 10px}
-.qty-ctrl button{
-  background:none;border:none;color:var(--plum);font-size:18px;font-weight:600;
-  width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  transition:.15s;line-height:1
-}
+.qty-ctrl button{background:none;border:none;color:var(--plum);font-size:18px;font-weight:600;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.15s;line-height:1}
 .qty-ctrl button:hover{background:var(--plum);color:white}
 .qty-num{font-size:14px;font-weight:600;min-width:18px;text-align:center}
 .btn-remove{background:none;border:none;color:var(--cream3);font-size:16px;transition:.15s;padding:4px}
 .btn-remove:hover{color:var(--error)}
-.cart-foot{
-  padding:16px 20px;padding-bottom:calc(16px + var(--safe-bottom));
-  border-top:1px solid var(--border);flex-shrink:0
-}
+.cart-foot{padding:16px 20px;padding-bottom:calc(16px + var(--safe-bottom));border-top:1px solid var(--border);flex-shrink:0}
 .cart-total-row{display:flex;justify-content:space-between;font-size:16px;font-weight:600;margin-bottom:14px}
-.btn-checkout{
-  width:100%;background:var(--plum);color:white;border:none;
-  padding:15px;border-radius:var(--r-sm);font-size:15px;font-weight:500;
-  letter-spacing:0.5px;transition:.2s
-}
+.btn-checkout{width:100%;background:var(--plum);color:white;border:none;padding:15px;border-radius:var(--r-sm);font-size:15px;font-weight:500;letter-spacing:0.5px;transition:.2s}
 .btn-checkout:hover{background:var(--plum2)}
-
-/* PRODUCT VIEW MODAL */
-.pview-modal{
-  position:fixed;inset:0;z-index:800;display:none;
-  align-items:flex-end;justify-content:center;padding:0
-}
+.pview-modal{position:fixed;inset:0;z-index:800;display:none;align-items:flex-end;justify-content:center;padding:0}
 .pview-modal.open{display:flex}
 @media(min-width:600px){.pview-modal{align-items:center;padding:20px}}
-.pview-box{
-  background:var(--white);width:100%;max-width:520px;max-height:92dvh;
-  border-radius:var(--r) var(--r) 0 0;overflow:hidden;
-  display:flex;flex-direction:column;
-  box-shadow:var(--shadow-lg);animation:slideUp .3s ease
-}
+.pview-box{background:var(--white);width:100%;max-width:520px;max-height:92dvh;border-radius:var(--r) var(--r) 0 0;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);animation:slideUp .3s ease}
 @media(min-width:600px){.pview-box{border-radius:var(--r);max-height:88vh}}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
 .pview-imgs{flex-shrink:0;position:relative;background:var(--cream2);height:280px}
 @media(min-width:600px){.pview-imgs{height:320px}}
 .pview-main-img{width:100%;height:100%;object-fit:contain;transition:opacity .25s}
-.pview-thumbs{
-  position:absolute;bottom:10px;left:0;right:0;
-  display:flex;gap:8px;justify-content:center;padding:0 12px;
-  overflow-x:auto;scrollbar-width:none
-}
+.pview-thumbs{position:absolute;bottom:10px;left:0;right:0;display:flex;gap:8px;justify-content:center;padding:0 12px;overflow-x:auto;scrollbar-width:none}
 .pview-thumbs::-webkit-scrollbar{display:none}
-.pview-thumb{
-  width:44px;height:44px;border-radius:8px;object-fit:cover;
-  border:2px solid transparent;cursor:pointer;flex-shrink:0;
-  background:var(--cream3);transition:border-color .2s,opacity .2s;opacity:0.75
-}
+.pview-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;border:2px solid transparent;cursor:pointer;flex-shrink:0;background:var(--cream3);transition:border-color .2s,opacity .2s;opacity:0.75}
 .pview-thumb.active{border-color:var(--plum);opacity:1}
 .pview-thumb:hover{opacity:1}
-.pview-close{
-  position:absolute;top:12px;right:12px;
-  background:rgba(255,255,255,0.9);border:none;width:34px;height:34px;border-radius:50%;
-  font-size:18px;color:var(--ink);display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:.15s;z-index:5
-}
+.pview-close{position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.9);border:none;width:34px;height:34px;border-radius:50%;font-size:18px;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:.15s;z-index:5}
 .pview-close:hover{background:white}
-.pview-info{
-  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:20px 22px;padding-bottom:calc(20px + var(--safe-bottom))
-}
+.pview-info{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 22px;padding-bottom:calc(20px + var(--safe-bottom))}
 .pview-title{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:6px}
 .pview-price{font-size:22px;font-weight:600;color:var(--plum);margin-bottom:16px}
 .pview-stock{font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
 .pview-stock.out{color:var(--error)}.pview-stock.limited{color:var(--gold)}.pview-stock.ok{color:var(--ok)}
-.btn-pview-add{
-  width:100%;background:var(--plum);color:white;border:none;
-  padding:14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;transition:.2s
-}
+.btn-pview-add{width:100%;background:var(--plum);color:white;border:none;padding:14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;transition:.2s}
 .btn-pview-add:hover:not(:disabled){background:var(--plum2)}
 .btn-pview-add:disabled{background:var(--muted);cursor:not-allowed}
-
-/* CHECKOUT MODAL */
-.co-modal{
-  position:fixed;inset:0;z-index:800;display:none;
-  align-items:flex-end;justify-content:center
-}
+.co-modal{position:fixed;inset:0;z-index:800;display:none;align-items:flex-end;justify-content:center}
 .co-modal.open{display:flex}
 @media(min-width:640px){.co-modal{align-items:center;padding:20px}}
-.co-box{
-  background:var(--white);width:100%;max-width:580px;height:92dvh;
-  border-radius:var(--r) var(--r) 0 0;display:flex;flex-direction:column;
-  box-shadow:var(--shadow-lg);overflow:hidden;animation:slideUp .3s ease
-}
+.co-box{background:var(--white);width:100%;max-width:580px;height:92dvh;border-radius:var(--r) var(--r) 0 0;display:flex;flex-direction:column;box-shadow:var(--shadow-lg);overflow:hidden;animation:slideUp .3s ease}
 @media(min-width:640px){.co-box{border-radius:var(--r);height:auto;max-height:90vh}}
-.co-head{
-  padding:18px 20px 14px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  flex-shrink:0;background:var(--white)
-}
+.co-head{padding:18px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--white)}
 .co-head h3{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;color:var(--plum)}
-
-/* Stepper */
-.stepper{
-  display:flex;align-items:center;justify-content:center;
-  padding:14px 20px;gap:0;flex-shrink:0;border-bottom:1px solid var(--cream2)
-}
+.stepper{display:flex;align-items:center;justify-content:center;padding:14px 20px;gap:0;flex-shrink:0;border-bottom:1px solid var(--cream2)}
 .step-item{display:flex;flex-direction:column;align-items:center;gap:5px}
-.step-circle{
-  width:28px;height:28px;border-radius:50%;border:2px solid var(--border);
-  background:var(--cream2);display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:600;color:var(--muted);transition:.3s
-}
+.step-circle{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--muted);transition:.3s}
 .step-item.active .step-circle{background:var(--plum);border-color:var(--plum);color:white}
 .step-item.done .step-circle{background:var(--ok);border-color:var(--ok);color:white;font-size:14px}
 .step-label{font-size:10px;letter-spacing:0.5px;color:var(--muted);text-transform:uppercase;white-space:nowrap}
 .step-item.active .step-label{color:var(--plum);font-weight:600}
 .step-line{flex:1;height:2px;background:var(--border);max-width:60px;margin-bottom:18px;transition:.3s}
 .step-line.done{background:var(--ok)}
-
 .co-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px}
 .co-section{display:none}
 .co-section.active{display:block}
-.co-sec-title{
-  font-family:'Libre Baskerville',serif;font-size:17px;font-weight:400;color:var(--plum);
-  margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--cream2)
-}
-.order-line{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:9px 0;font-size:14px;border-bottom:1px solid var(--cream2)
-}
+.co-sec-title{font-family:'Libre Baskerville',serif;font-size:17px;font-weight:400;color:var(--plum);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--cream2)}
+.order-line{display:flex;justify-content:space-between;align-items:center;padding:9px 0;font-size:14px;border-bottom:1px solid var(--cream2)}
 .order-line-name{color:var(--ink);flex:1}
 .order-line-price{color:var(--muted);font-weight:500;white-space:nowrap;margin-left:12px}
-.order-line.total-line{
-  border-bottom:none;border-top:2px solid var(--border);
-  margin-top:6px;padding-top:12px;font-size:17px;font-weight:700;color:var(--plum)
-}
+.order-line.total-line{border-bottom:none;border-top:2px solid var(--border);margin-top:6px;padding-top:12px;font-size:17px;font-weight:700;color:var(--plum)}
 .order-line.sub-line{font-size:13px;color:var(--muted)}
-
-/* Form */
 .form-g{margin-bottom:14px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:400px){.form-row{grid-template-columns:1fr}}
 .form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
 .req{color:var(--error);margin-left:2px}
-.form-input{
-  width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);
-  padding:11px 13px;font-size:14px;color:var(--ink);background:var(--cream);
-  outline:none;transition:.2s;-webkit-appearance:none
-}
+.form-input{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:.2s;-webkit-appearance:none}
 .form-input:focus{border-color:var(--plum);background:white;box-shadow:0 0 0 3px rgba(74,25,66,0.07)}
 .form-input.err{border-color:var(--error)}
 .field-err{font-size:11px;color:var(--error);margin-top:4px;display:none}
@@ -336,92 +162,40 @@ input,select{font-family:'Outfit',sans-serif}
 .shipping-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600}
 .shipping-amount{font-size:20px;font-weight:700;color:var(--plum);margin:3px 0}
 .shipping-zone{font-size:12px;color:var(--muted)}
-
-/* Payment section */
 .pay-sec-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
-
-/* Payment method cards — full grid */
-.pay-methods-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-  gap:10px;margin-bottom:18px
-}
-.pay-method-card{
-  border:2px solid var(--border);border-radius:var(--r-sm);
-  padding:14px 10px;cursor:pointer;text-align:center;transition:.2s;
-  background:var(--white)
-}
+.pay-methods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:18px}
+.pay-method-card{border:2px solid var(--border);border-radius:var(--r-sm);padding:14px 10px;cursor:pointer;text-align:center;transition:.2s;background:var(--white)}
 .pay-method-card:hover{border-color:var(--plum2);background:#fdf8fc}
 .pay-method-card.selected{border-color:var(--plum);background:#fdf0fb}
 .pay-method-icon{font-size:22px;margin-bottom:5px}
 .pay-method-label{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3}
 .pay-method-sub{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
-
-/* COD separate card */
-.cod-card{
-  border:2px solid var(--border);border-radius:var(--r-sm);
-  padding:14px 16px;cursor:pointer;transition:.2s;
-  display:flex;align-items:center;gap:14px;margin-bottom:18px;
-  background:var(--white)
-}
+.cod-card{border:2px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:14px;margin-bottom:18px;background:var(--white)}
 .cod-card:hover{border-color:var(--plum2);background:#fdf8fc}
 .cod-card.selected{border-color:var(--plum);background:#fdf0fb}
 .cod-card-icon{font-size:28px;flex-shrink:0}
-.cod-card-text{}
 .cod-card-label{font-size:14px;font-weight:600;color:var(--ink)}
 .cod-card-sub{font-size:12px;color:var(--muted);margin-top:2px}
-
-.pay-divider{
-  display:flex;align-items:center;gap:10px;
-  margin:0 0 14px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px
-}
+.pay-divider{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
 .pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* Confirm box */
 .confirm-box{background:var(--cream2);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:16px}
 .confirm-box-title{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:10px}
 .confirm-line{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid var(--border)}
 .confirm-line:last-child{border-bottom:none}
 .confirm-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--plum);padding-top:10px}
-.err-banner{
-  background:#fff0f0;border:1px solid #f5c6c2;border-radius:var(--r-sm);
-  padding:11px 14px;font-size:13px;color:var(--error);display:none;
-  margin-bottom:14px;align-items:center;gap:8px
-}
+.err-banner{background:#fff0f0;border:1px solid #f5c6c2;border-radius:var(--r-sm);padding:11px 14px;font-size:13px;color:var(--error);display:none;margin-bottom:14px;align-items:center;gap:8px}
 .err-banner.show{display:flex}
-
-/* Co footer */
-.co-foot{
-  padding:14px 20px;padding-bottom:calc(14px + var(--safe-bottom));
-  border-top:1px solid var(--border);display:flex;gap:10px;
-  flex-shrink:0;background:var(--white)
-}
-.btn-back{
-  background:transparent;color:var(--plum);border:1.5px solid var(--plum);
-  padding:12px 20px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:.2s;white-space:nowrap
-}
+.co-foot{padding:14px 20px;padding-bottom:calc(14px + var(--safe-bottom));border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;background:var(--white)}
+.btn-back{background:transparent;color:var(--plum);border:1.5px solid var(--plum);padding:12px 20px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:.2s;white-space:nowrap}
 .btn-back:hover{background:var(--cream2)}
 .btn-next{flex:1;background:var(--plum);color:white;border:none;padding:12px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:.2s}
 .btn-next:hover{background:var(--plum2)}
 .btn-place{flex:1;background:var(--gold);color:white;border:none;padding:12px;border-radius:var(--r-sm);font-size:14px;font-weight:600;letter-spacing:0.5px;transition:.2s}
 .btn-place:hover{background:var(--gold2)}
-
-/* TOAST */
-.toast{
-  position:fixed;bottom:calc(24px + var(--safe-bottom));left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:var(--ink);color:white;padding:10px 22px;border-radius:30px;
-  font-size:13px;z-index:9999;opacity:0;pointer-events:none;transition:.3s;
-  white-space:nowrap;max-width:90vw;text-align:center
-}
+.toast{position:fixed;bottom:calc(24px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:white;padding:10px 22px;border-radius:30px;font-size:13px;z-index:9999;opacity:0;pointer-events:none;transition:.3s;white-space:nowrap;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 #payuForm{display:none}
-
-.spinner-overlay{
-  position:fixed;inset:0;background:rgba(250,246,240,0.85);z-index:9998;
-  display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px
-}
+.spinner-overlay{position:fixed;inset:0;background:rgba(250,246,240,0.85);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .spinner-overlay.show{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--cream3);border-top-color:var(--plum);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -430,30 +204,20 @@ input,select{font-family:'Outfit',sans-serif}
 </style>
 </head>
 <body>
-
-<div class="spinner-overlay" id="spinner">
-  <div class="spinner"></div>
-  <div class="spinner-text">Processing…</div>
-</div>
-
+<div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text">Processing\u2026</div></div>
 <nav class="topbar">
   <div class="topbar-logo" id="topbarLogo"><span>Minella Jewels</span></div>
   <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
     <span class="cart-badge" id="cartBadge">0</span>
   </button>
 </nav>
-
 <section class="hero">
-  <div class="hero-tag">✦ Anti-tarnish jewellery</div>
+  <div class="hero-tag">\u2726 Anti-tarnish jewellery</div>
   <h1>Minella<br><em>Jewels</em></h1>
   <p class="hero-sub">Delicate pieces for every story, built to last.</p>
   <button class="hero-cta" id="shopNowBtn">Shop the Collection</button>
 </section>
-
 <div class="cat-bar" id="shopAnchor">
   <button class="cat-btn active" data-cat="all">All</button>
   <button class="cat-btn" data-cat="necklace">Necklace</button>
@@ -462,36 +226,21 @@ input,select{font-family:'Outfit',sans-serif}
   <button class="cat-btn" data-cat="earring">Earrings</button>
   <button class="cat-btn" data-cat="ring">Rings</button>
 </div>
-
-<div class="grid-wrap">
-  <div class="grid" id="productGrid">
-    <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)">Loading collection…</div>
-  </div>
-</div>
-
+<div class="grid-wrap"><div class="grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)">Loading collection\u2026</div></div></div>
 <div class="overlay" id="overlay"></div>
-
-<!-- CART DRAWER -->
 <div class="cart-drawer" id="cartDrawer">
-  <div class="drawer-head">
-    <h3>Your Bag</h3>
-    <button class="btn-close" id="cartCloseBtn">✕</button>
-  </div>
-  <div class="cart-body" id="cartBody">
-    <div class="cart-empty"><div class="cart-empty-icon">🛍️</div><p>Your bag is empty</p></div>
-  </div>
+  <div class="drawer-head"><h3>Your Bag</h3><button class="btn-close" id="cartCloseBtn">\u2715</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty"><div class="cart-empty-icon">\U0001f6cd\ufe0f</div><p>Your bag is empty</p></div></div>
   <div class="cart-foot" id="cartFoot" style="display:none">
-    <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotalEl">₹0</span></div>
+    <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotalEl">\u20b90</span></div>
     <button class="btn-checkout" id="checkoutBtn">Proceed to Checkout</button>
   </div>
 </div>
-
-<!-- PRODUCT VIEW MODAL -->
 <div class="overlay" id="pviewOverlay"></div>
 <div class="pview-modal" id="pviewModal">
   <div class="pview-box">
     <div class="pview-imgs">
-      <button class="pview-close" id="pviewCloseBtn">✕</button>
+      <button class="pview-close" id="pviewCloseBtn">\u2715</button>
       <img class="pview-main-img" id="pviewMainImg" src="" alt="">
       <div class="pview-thumbs" id="pviewThumbs"></div>
     </div>
@@ -503,15 +252,10 @@ input,select{font-family:'Outfit',sans-serif}
     </div>
   </div>
 </div>
-
-<!-- CHECKOUT MODAL -->
 <div class="overlay" id="coOverlay"></div>
 <div class="co-modal" id="coModal">
   <div class="co-box">
-    <div class="co-head">
-      <h3>Checkout</h3>
-      <button class="btn-close" id="coCloseBtn">✕</button>
-    </div>
+    <div class="co-head"><h3>Checkout</h3><button class="btn-close" id="coCloseBtn">\u2715</button></div>
     <div class="stepper">
       <div class="step-item active" id="st1"><div class="step-circle" id="sc1">1</div><div class="step-label">Review</div></div>
       <div class="step-line" id="sl1"></div>
@@ -519,954 +263,277 @@ input,select{font-family:'Outfit',sans-serif}
       <div class="step-line" id="sl2"></div>
       <div class="step-item" id="st3"><div class="step-circle" id="sc3">3</div><div class="step-label">Payment</div></div>
     </div>
-
     <div class="co-body" id="coBody">
-      <div class="err-banner" id="errBanner">⚠️ <span id="errMsg"></span></div>
-
-      <!-- Step 1: Review -->
+      <div class="err-banner" id="errBanner">\u26a0\ufe0f <span id="errMsg"></span></div>
       <div class="co-section active" id="coSec1">
         <div class="co-sec-title">Order Summary</div>
         <div id="orderLines"></div>
         <div class="order-line sub-line"><span>Shipping</span><span id="shippingDisplay">Calculated in next step</span></div>
         <div class="order-line sub-line" id="codRow" style="display:none"><span>COD Charge</span><span id="codDisplay"></span></div>
-        <div class="order-line total-line"><span>Grand Total</span><span id="grandTotal">—</span></div>
+        <div class="order-line total-line"><span>Grand Total</span><span id="grandTotal">\u2014</span></div>
       </div>
-
-      <!-- Step 2: Delivery -->
       <div class="co-section" id="coSec2">
         <div class="co-sec-title">Delivery Details</div>
-        <div class="form-g">
-          <label class="form-label">Full Name <span class="req">*</span></label>
-          <input class="form-input" id="f_name" placeholder="e.g. Priya Krishnan" autocomplete="name">
-          <div class="field-err" id="e_name">Please enter your full name</div>
-        </div>
-        <div class="form-g">
-          <label class="form-label">Mobile Number <span class="req">*</span></label>
-          <input class="form-input" id="f_phone" placeholder="10-digit mobile" maxlength="10" type="tel" autocomplete="tel" inputmode="numeric">
-          <div class="field-err" id="e_phone">Enter a valid 10-digit number</div>
-        </div>
-        <div class="form-g">
-          <label class="form-label">Email <span class="req">*</span></label>
-          <input class="form-input" id="f_email" placeholder="yourname@email.com" type="email" autocomplete="email">
-          <div class="field-err" id="e_email">Enter a valid email address</div>
-        </div>
-        <div class="form-g">
-          <label class="form-label">Address <span class="req">*</span></label>
-          <input class="form-input" id="f_addr" placeholder="House/Flat no., Street, Area" autocomplete="street-address">
-          <div class="field-err" id="e_addr">Please enter your address</div>
-        </div>
-        <div class="form-row">
-          <div class="form-g">
-            <label class="form-label">City</label>
-            <input class="form-input" id="f_city" placeholder="City" autocomplete="address-level2">
-          </div>
-          <div class="form-g">
-            <label class="form-label">State</label>
-            <input class="form-input" id="f_state" placeholder="State" autocomplete="address-level1">
-          </div>
-        </div>
-        <div class="form-g">
-          <label class="form-label">Pincode <span class="req">*</span></label>
-          <input class="form-input" id="f_pin" placeholder="6-digit pincode" maxlength="6" type="tel" inputmode="numeric" autocomplete="postal-code">
-          <div class="field-err" id="e_pin">Enter a valid 6-digit pincode</div>
-        </div>
-        <div class="shipping-info" id="shippingBox">
-          <div class="shipping-label">Estimated Shipping</div>
-          <div class="shipping-amount" id="shippingAmt"></div>
-          <div class="shipping-zone" id="shippingZone"></div>
-        </div>
+        <div class="form-g"><label class="form-label">Full Name <span class="req">*</span></label><input class="form-input" id="f_name" placeholder="e.g. Priya Krishnan" autocomplete="name"><div class="field-err" id="e_name">Please enter your full name</div></div>
+        <div class="form-g"><label class="form-label">Mobile Number <span class="req">*</span></label><input class="form-input" id="f_phone" placeholder="10-digit mobile" maxlength="10" type="tel" autocomplete="tel" inputmode="numeric"><div class="field-err" id="e_phone">Enter a valid 10-digit number</div></div>
+        <div class="form-g"><label class="form-label">Email <span class="req">*</span></label><input class="form-input" id="f_email" placeholder="yourname@email.com" type="email" autocomplete="email"><div class="field-err" id="e_email">Enter a valid email address</div></div>
+        <div class="form-g"><label class="form-label">Address <span class="req">*</span></label><input class="form-input" id="f_addr" placeholder="House/Flat no., Street, Area" autocomplete="street-address"><div class="field-err" id="e_addr">Please enter your address</div></div>
+        <div class="form-row"><div class="form-g"><label class="form-label">City</label><input class="form-input" id="f_city" placeholder="City" autocomplete="address-level2"></div><div class="form-g"><label class="form-label">State</label><input class="form-input" id="f_state" placeholder="State" autocomplete="address-level1"></div></div>
+        <div class="form-g"><label class="form-label">Pincode <span class="req">*</span></label><input class="form-input" id="f_pin" placeholder="6-digit pincode" maxlength="6" type="tel" inputmode="numeric" autocomplete="postal-code"><div class="field-err" id="e_pin">Enter a valid 6-digit pincode</div></div>
+        <div class="shipping-info" id="shippingBox"><div class="shipping-label">Estimated Shipping</div><div class="shipping-amount" id="shippingAmt"></div><div class="shipping-zone" id="shippingZone"></div></div>
       </div>
-
-      <!-- Step 3: Payment -->
       <div class="co-section" id="coSec3">
         <div class="co-sec-title">Payment Method</div>
-
-        <!-- Online payment methods -->
         <div class="pay-sec-label">Pay Online</div>
         <div class="pay-methods-grid" id="payMethodsGrid">
-          <div class="pay-method-card" data-pay="upi">
-            <div class="pay-method-icon">📲</div>
-            <div class="pay-method-label">UPI</div>
-            <div class="pay-method-sub">GPay, PhonePe, Paytm</div>
-          </div>
-          <div class="pay-method-card" data-pay="card">
-            <div class="pay-method-icon">💳</div>
-            <div class="pay-method-label">Credit / Debit Card</div>
-            <div class="pay-method-sub">Visa, Mastercard, RuPay</div>
-          </div>
-          <div class="pay-method-card" data-pay="netbanking">
-            <div class="pay-method-icon">🏦</div>
-            <div class="pay-method-label">Net Banking</div>
-            <div class="pay-method-sub">All major banks</div>
-          </div>
-          <div class="pay-method-card" data-pay="wallet">
-            <div class="pay-method-icon">👛</div>
-            <div class="pay-method-label">Wallets</div>
-            <div class="pay-method-sub">Paytm, Mobikwik, Airtel</div>
-          </div>
-          <div class="pay-method-card" data-pay="emi">
-            <div class="pay-method-icon">📅</div>
-            <div class="pay-method-label">EMI</div>
-            <div class="pay-method-sub">Credit card EMI</div>
-          </div>
+          <div class="pay-method-card" data-pay="upi"><div class="pay-method-icon">\U0001f4f2</div><div class="pay-method-label">UPI</div><div class="pay-method-sub">GPay, PhonePe, Paytm</div></div>
+          <div class="pay-method-card" data-pay="card"><div class="pay-method-icon">\U0001f4b3</div><div class="pay-method-label">Credit / Debit Card</div><div class="pay-method-sub">Visa, Mastercard, RuPay</div></div>
+          <div class="pay-method-card" data-pay="netbanking"><div class="pay-method-icon">\U0001f3e6</div><div class="pay-method-label">Net Banking</div><div class="pay-method-sub">All major banks</div></div>
+          <div class="pay-method-card" data-pay="wallet"><div class="pay-method-icon">\U0001f45b</div><div class="pay-method-label">Wallets</div><div class="pay-method-sub">Paytm, Mobikwik, Airtel</div></div>
+          <div class="pay-method-card" data-pay="emi"><div class="pay-method-icon">\U0001f4c5</div><div class="pay-method-label">EMI</div><div class="pay-method-sub">Credit card EMI</div></div>
         </div>
-
         <div class="pay-divider">or</div>
-
-        <!-- COD -->
-        <div class="cod-card" id="codCard" data-pay="cod">
-          <div class="cod-card-icon">💵</div>
-          <div class="cod-card-text">
-            <div class="cod-card-label">Cash on Delivery</div>
-            <div class="cod-card-sub">Pay when your order arrives</div>
-          </div>
-        </div>
-
-        <div class="err-banner" id="payErr">⚠️ Please select a payment method</div>
-
-        <div class="confirm-box" id="confirmBox" style="display:none">
-          <div class="confirm-box-title">Order Summary</div>
-          <div id="confirmLines"></div>
-          <div class="confirm-total"><span>Grand Total</span><span id="confirmTotal"></span></div>
-        </div>
-
+        <div class="cod-card" id="codCard" data-pay="cod"><div class="cod-card-icon">\U0001f4b5</div><div class="cod-card-text"><div class="cod-card-label">Cash on Delivery</div><div class="cod-card-sub">Pay when your order arrives</div></div></div>
+        <div class="err-banner" id="payErr">\u26a0\ufe0f Please select a payment method</div>
+        <div class="confirm-box" id="confirmBox" style="display:none"><div class="confirm-box-title">Order Summary</div><div id="confirmLines"></div><div class="confirm-total"><span>Grand Total</span><span id="confirmTotal"></span></div></div>
         <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:8px" id="payNote"></div>
       </div>
     </div>
-
     <div class="co-foot">
-      <button class="btn-back" id="btnBack" style="display:none">← Back</button>
-      <button class="btn-next" id="btnNext">Continue →</button>
+      <button class="btn-back" id="btnBack" style="display:none">\u2190 Back</button>
+      <button class="btn-next" id="btnNext">Continue \u2192</button>
     </div>
   </div>
 </div>
-
-<!-- PayU hidden form -->
 <form id="payuForm" method="POST" action="https://secure.payu.in/_payment">
-  <input type="hidden" name="key"         id="pu_key">
-  <input type="hidden" name="txnid"       id="pu_txnid">
-  <input type="hidden" name="amount"      id="pu_amount">
+  <input type="hidden" name="key" id="pu_key">
+  <input type="hidden" name="txnid" id="pu_txnid">
+  <input type="hidden" name="amount" id="pu_amount">
   <input type="hidden" name="productinfo" id="pu_productinfo">
-  <input type="hidden" name="firstname"   id="pu_firstname">
-  <input type="hidden" name="email"       id="pu_email">
-  <input type="hidden" name="phone"       id="pu_phone">
-  <input type="hidden" name="surl"        id="pu_surl">
-  <input type="hidden" name="furl"        id="pu_furl">
-  <input type="hidden" name="hash"        id="pu_hash">
-  <input type="hidden" name="udf1"        id="pu_udf1">
-  <input type="hidden" name="udf2"        id="pu_udf2">
+  <input type="hidden" name="firstname" id="pu_firstname">
+  <input type="hidden" name="email" id="pu_email">
+  <input type="hidden" name="phone" id="pu_phone">
+  <input type="hidden" name="surl" id="pu_surl">
+  <input type="hidden" name="furl" id="pu_furl">
+  <input type="hidden" name="hash" id="pu_hash">
+  <input type="hidden" name="udf1" id="pu_udf1">
+  <input type="hidden" name="udf2" id="pu_udf2">
 </form>
-
 <div class="toast" id="toast"></div>
-
 <script src="https://elfsightcdn.com/platform.js" async></script>
-<div class="chatbot-wrap">
-  <div class="elfsight-app-75dfa8d4-87e1-476c-80e8-b28d2c2f2e35"></div>
-</div>
-
+<div class="chatbot-wrap"><div class="elfsight-app-75dfa8d4-87e1-476c-80e8-b28d2c2f2e35"></div></div>
 <script>
-/* ═══════════════════════════════════════════
-   CONFIG
-═══════════════════════════════════════════ */
-const SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
-const PAYU_KEY    = "82z65K";
-const PAYU_SALT   = "ZZBEVz6pjGiSI2fOoGH6EdGJ2EbS24oR";
-const SHEET_ID    = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
-const SHEET_URL   = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1";
-const SUCCESS_URL = "https://store.minella.in/success.html";
-const FAIL_URL    = "https://store.minella.in/fail.html";
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+const PAYU_KEY="82z65K";
+const PAYU_SALT="ZZBEVz6pjGiSI2fOoGH6EdGJ2EbS24oR";
+const SHEET_ID="1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
+const SHEET_URL="https://opensheet.elk.sh/"+SHEET_ID+"/Sheet1";
+const SUCCESS_URL="https://store.minella.in/success.html";
+const FAIL_URL="https://store.minella.in/fail.html";
+const CART_KEY="minella_cart_v1";
 
-/* ═══════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════ */
-let allProducts  = [];   // master list — never mutated
-let cart         = {};   // { title: { price, qty, stock } }
-let selectedPay  = null; // 'upi' | 'card' | 'netbanking' | 'wallet' | 'emi' | 'cod'
-let shippingCost = null;
-let currentStep  = 1;
+let allProducts=[],cart={},selectedPay=null,shippingCost=null,currentStep=1;
 
-/* ═══════════════════════════════════════════
-   PRODUCT LOADING
-═══════════════════════════════════════════ */
-fetch(SHEET_URL)
-  .then(r => r.json())
-  .then(data => {
-    allProducts = data;
-    const logoP = data.find(p => p.logo_link && p.logo_link.trim());
-    if (logoP) {
-      const id  = extractDriveId(logoP.logo_link.trim());
-      const url = id ? `https://drive.google.com/thumbnail?id=${id}&sz=w200` : logoP.logo_link.trim();
-      const el  = document.getElementById("topbarLogo");
-      const img = new Image();
-      img.src = url;
-      img.alt = "Minella Jewels";
-      img.style.cssText = "height:36px;width:auto;object-fit:contain";
-      img.onerror = () => {
-        el.innerHTML = '<span style="font-family:\'Libre Baskerville\',serif;font-size:20px;color:var(--plum)">Minella Jewels</span>';
-      };
-      el.innerHTML = "";
-      el.appendChild(img);
-    }
-    renderGrid(allProducts);
-  })
-  .catch(() => {
-    document.getElementById("productGrid").innerHTML =
-      '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">Could not load products. Please refresh.</div>';
+/* ---- CART PERSISTENCE ---- */
+function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}}
+function loadCart(){try{var r=localStorage.getItem(CART_KEY);if(r){var p=JSON.parse(r);if(p&&typeof p==="object")cart=p;}}catch(e){cart={};}}
+function clearCart(){cart={};saveCart();}
+loadCart();
+
+/* ---- PRODUCT LOADING ---- */
+fetch(SHEET_URL).then(r=>r.json()).then(data=>{
+  allProducts=data;
+  var logoP=data.find(p=>p.logo_link&&p.logo_link.trim());
+  if(logoP){var id=extractDriveId(logoP.logo_link.trim()),url=id?"https://drive.google.com/thumbnail?id="+id+"&sz=w200":logoP.logo_link.trim(),el=document.getElementById("topbarLogo"),img=new Image();img.src=url;img.alt="Minella Jewels";img.style.cssText="height:36px;width:auto;object-fit:contain";img.onerror=()=>{el.innerHTML='<span style="font-family:\'Libre Baskerville\',serif;font-size:20px;color:var(--plum)">Minella Jewels</span>';};el.innerHTML="";el.appendChild(img);}
+  renderGrid(allProducts);updateCartUI();
+}).catch(()=>{document.getElementById("productGrid").innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">Could not load products. Please refresh.</div>';updateCartUI();});
+
+function extractDriveId(url){if(!url)return null;var m=url.match(/[?&]id=([^&]+)/)||url.match(/\/d\/([^/]+)/);return m?m[1]:null;}
+function driveThumb(url,sz){sz=sz||"w600";if(!url||!url.trim())return"";var id=extractDriveId(url.trim());return id?"https://drive.google.com/thumbnail?id="+id+"&sz="+sz:url.trim();}
+function getAdditionalImgs(cell){if(!cell||!cell.trim())return[];return cell.replace(/^"|"$/g,"").split(",").map(u=>u.trim()).filter(Boolean);}
+function stockStatus(stock){var s=parseInt(stock)||0;if(s<=0)return"out";if(s<=3)return"limited";return"available";}
+function getProductCategory(p){var cat=((p.category||p.Category||"")).trim().toLowerCase();if(cat)return cat;var t=((p.title||p.Title||"")).trim().toLowerCase();if(/earring|ear\s*ring|stud|hoop|jhumk/i.test(t))return"earring";if(/necklace|pendant|chain|heartstring/i.test(t))return"necklace";if(/bracelet|bangle/i.test(t))return"bracelet";if(/anklet|payal/i.test(t))return"anklet";if(/\bring\b/i.test(t))return"ring";return"other";}
+
+const productStore=new Map();let productIdSeq=0;
+function renderGrid(data){
+  var grid=document.getElementById("productGrid");productStore.clear();
+  if(!data.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">No products found.</div>';return;}
+  var frag=document.createDocumentFragment();
+  data.forEach(p=>{
+    var pid=++productIdSeq;productStore.set(pid,p);
+    var img=driveThumb(p["image link"]||p["Image Link"]||""),title=((p.title||p.Title||"")).trim(),price=parseFloat(p.price||p.Price)||0,stock=parseInt(p.stocks||p.Stocks||p.stock||0),status=stockStatus(stock),isOut=status==="out";
+    var card=document.createElement("div");card.className="product-card";
+    var badge=status==="out"?'<div class="stock-badge out">Out of Stock</div>':status==="limited"?'<div class="stock-badge limited">Only '+stock+' left</div>':"";
+    card.innerHTML=badge+'<div class="img-wrap"><img src="'+esc(img)+'" alt="'+esc(title)+'" loading="lazy" onerror="this.style.opacity=0.2"></div><div class="card-body"><div class="card-title">'+esc(title)+'</div><div class="card-price">\u20b9'+price.toLocaleString("en-IN")+'</div><div class="card-actions"><button class="btn-add" data-pid="'+pid+'"'+(isOut?" disabled":"")+'>'+(isOut?"Out of Stock":"Add to Bag")+'</button><button class="btn-view" data-pid="'+pid+'">View</button></div></div>';
+    frag.appendChild(card);
   });
-
-function extractDriveId(url) {
-  if (!url) return null;
-  const m = url.match(/[?&]id=([^&]+)/) || url.match(/\/d\/([^/]+)/);
-  return m ? m[1] : null;
+  grid.innerHTML="";grid.appendChild(frag);
 }
 
-function driveThumb(url, sz) {
-  sz = sz || "w600";
-  if (!url || !url.trim()) return "";
-  const id = extractDriveId(url.trim());
-  return id ? ("https://drive.google.com/thumbnail?id=" + id + "&sz=" + sz) : url.trim();
-}
-
-function getAdditionalImgs(cell) {
-  if (!cell || !cell.trim()) return [];
-  return cell.replace(/^"|"$/g, "").split(",").map(function(u){ return u.trim(); }).filter(Boolean);
-}
-
-function stockStatus(stock) {
-  const s = parseInt(stock) || 0;
-  if (s <= 0) return "out";
-  if (s <= 3) return "limited";
-  return "available";
-}
-
-/* ═══════════════════════════════════════════
-   CATEGORY DETECTION
-   Checks explicit 'category' column first,
-   then title — earring checked before ring
-   so "Heartstrings Necklace" → necklace, not ring
-═══════════════════════════════════════════ */
-function getProductCategory(p) {
-  const cat = ((p.category || p.Category || "")).trim().toLowerCase();
-  if (cat) return cat;
-  const t = ((p.title || p.Title || "")).trim().toLowerCase();
-  if (/earring|ear\s*ring|stud|hoop|jhumk/i.test(t)) return "earring";
-  if (/necklace|pendant|chain|heartstring/i.test(t)) return "necklace";
-  if (/bracelet|bangle/i.test(t)) return "bracelet";
-  if (/anklet|payal/i.test(t)) return "anklet";
-  if (/\bring\b/i.test(t)) return "ring"; // word-boundary so "earring" never matches
-  return "other";
-}
-
-/* ═══════════════════════════════════════════
-   RENDER GRID
-   FIX: store products in a JS Map keyed by a
-   numeric id stamped on each card element —
-   works identically on desktop and mobile,
-   no JSON serialisation in HTML attributes
-═══════════════════════════════════════════ */
-const productStore = new Map(); // id → product object
-let   productIdSeq = 0;
-
-function renderGrid(data) {
-  const grid = document.getElementById("productGrid");
-  productStore.clear();
-
-  if (!data.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted)">No products found.</div>';
-    return;
-  }
-
-  const fragment = document.createDocumentFragment();
-
-  data.forEach(function(p) {
-    const pid   = ++productIdSeq;
-    productStore.set(pid, p);
-
-    const img    = driveThumb(p["image link"] || p["Image Link"] || "");
-    const title  = ((p.title || p.Title || "")).trim();
-    const price  = parseFloat(p.price || p.Price) || 0;
-    const stock  = parseInt(p.stocks || p.Stocks || p.stock || 0);
-    const status = stockStatus(stock);
-    const isOut  = status === "out";
-
-    const card = document.createElement("div");
-    card.className = "product-card";
-
-    let badge = "";
-    if (status === "out")          badge = '<div class="stock-badge out">Out of Stock</div>';
-    else if (status === "limited") badge = '<div class="stock-badge limited">Only ' + stock + ' left</div>';
-
-    card.innerHTML =
-      badge +
-      '<div class="img-wrap"><img src="' + esc(img) + '" alt="' + esc(title) + '" loading="lazy" onerror="this.style.opacity=0.2"></div>' +
-      '<div class="card-body">' +
-        '<div class="card-title">' + esc(title) + '</div>' +
-        '<div class="card-price">₹' + price.toLocaleString("en-IN") + '</div>' +
-        '<div class="card-actions">' +
-          '<button class="btn-add" data-pid="' + pid + '"' + (isOut ? ' disabled' : '') + '>' +
-            (isOut ? "Out of Stock" : "Add to Bag") +
-          '</button>' +
-          '<button class="btn-view" data-pid="' + pid + '">View</button>' +
-        '</div>' +
-      '</div>';
-
-    fragment.appendChild(card);
-  });
-
-  grid.innerHTML = "";
-  grid.appendChild(fragment);
-}
-
-/* ═══════════════════════════════════════════
-   SINGLE EVENT LISTENER ON GRID
-   Works on desktop (click) and mobile (touch)
-   because we use 'click' which fires on both.
-   data-pid lookup into productStore is safe
-   regardless of any characters in product data.
-═══════════════════════════════════════════ */
-document.getElementById("productGrid").addEventListener("click", function(e) {
-  var btn = e.target.closest("button[data-pid]");
-  if (!btn) return;
-  var pid = parseInt(btn.getAttribute("data-pid"));
-  var p   = productStore.get(pid);
-  if (!p) return;
-
-  if (btn.classList.contains("btn-add")) {
-    var title = ((p.title || p.Title || "")).trim();
-    var price = parseFloat(p.price || p.Price) || 0;
-    var stock = parseInt(p.stocks || p.Stocks || p.stock || 0);
-    addToCart(title, price, stock);
-  } else if (btn.classList.contains("btn-view")) {
-    openPview(p);
-  }
+document.getElementById("productGrid").addEventListener("click",function(e){
+  var btn=e.target.closest("button[data-pid]");if(!btn)return;
+  var pid=parseInt(btn.getAttribute("data-pid")),p=productStore.get(pid);if(!p)return;
+  if(btn.classList.contains("btn-add")){addToCart(((p.title||p.Title||"")).trim(),parseFloat(p.price||p.Price)||0,parseInt(p.stocks||p.Stocks||p.stock||0));}
+  else if(btn.classList.contains("btn-view")){openPview(p);}
 });
 
-/* ═══════════════════════════════════════════
-   CATEGORY FILTER
-═══════════════════════════════════════════ */
-document.querySelector(".cat-bar").addEventListener("click", function(e) {
-  var btn = e.target.closest(".cat-btn");
-  if (!btn) return;
-  document.querySelectorAll(".cat-btn").forEach(function(b){ b.classList.remove("active"); });
-  btn.classList.add("active");
-  var cat = btn.getAttribute("data-cat");
-  var filtered = cat === "all" ? allProducts : allProducts.filter(function(p) {
-    var pCat = getProductCategory(p);
-    if (cat === "ring")    return pCat === "ring";
-    if (cat === "earring") return pCat === "earring";
-    return pCat === cat || pCat.startsWith(cat);
-  });
+document.querySelector(".cat-bar").addEventListener("click",function(e){
+  var btn=e.target.closest(".cat-btn");if(!btn)return;
+  document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+  var cat=btn.getAttribute("data-cat"),filtered=cat==="all"?allProducts:allProducts.filter(p=>{var pCat=getProductCategory(p);if(cat==="ring")return pCat==="ring";if(cat==="earring")return pCat==="earring";return pCat===cat||pCat.startsWith(cat);});
   renderGrid(filtered);
 });
 
-/* ═══════════════════════════════════════════
-   CART
-═══════════════════════════════════════════ */
-function addToCart(title, price, stock) {
-  var cur = cart[title];
-  var qty = cur ? cur.qty : 0;
-  if (qty >= stock) { showToast("No more stock available"); return; }
-  if (cur) cur.qty++;
-  else cart[title] = { price: price, qty: 1, stock: stock };
-  updateCartUI();
-  showToast("Added to bag ✓");
+function addToCart(title,price,stock){var cur=cart[title],qty=cur?cur.qty:0;if(qty>=stock){showToast("No more stock available");return;}if(cur)cur.qty++;else cart[title]={price,qty:1,stock};saveCart();updateCartUI();showToast("Added to bag \u2713");}
+function changeQty(title,delta){if(!cart[title])return;cart[title].qty+=delta;if(cart[title].qty<=0)delete cart[title];saveCart();updateCartUI();}
+function removeFromCart(title){delete cart[title];saveCart();updateCartUI();}
+function cartSubtotal(){return Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);}
+function cartCount(){return Object.values(cart).reduce((s,i)=>s+i.qty,0);}
+
+function updateCartUI(){
+  var body=document.getElementById("cartBody"),foot=document.getElementById("cartFoot"),badge=document.getElementById("cartBadge"),count=cartCount();
+  badge.textContent=count;
+  if(!count){body.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">\U0001f6cd\ufe0f</div><p>Your bag is empty</p></div>';foot.style.display="none";return;}
+  var html="";
+  Object.keys(cart).forEach(title=>{var item=cart[title];html+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(title)+'</div><div class="cart-item-sub">\u20b9'+item.price.toLocaleString("en-IN")+' \xd7 '+item.qty+' = \u20b9'+(item.price*item.qty).toLocaleString("en-IN")+'</div></div><div class="qty-row"><div class="qty-ctrl"><button data-action="dec" data-title="'+esc(title)+'">-</button><span class="qty-num">'+item.qty+'</span><button data-action="inc" data-title="'+esc(title)+'">+</button></div><button class="btn-remove" data-action="rem" data-title="'+esc(title)+'">\u2715</button></div></div>';});
+  body.innerHTML=html;document.getElementById("cartSubtotalEl").textContent="\u20b9"+cartSubtotal().toLocaleString("en-IN");foot.style.display="block";
 }
 
-function changeQty(title, delta) {
-  if (!cart[title]) return;
-  cart[title].qty += delta;
-  if (cart[title].qty <= 0) delete cart[title];
-  updateCartUI();
-}
-
-function removeFromCart(title) {
-  delete cart[title];
-  updateCartUI();
-}
-
-function cartSubtotal() {
-  return Object.values(cart).reduce(function(s, i){ return s + i.price * i.qty; }, 0);
-}
-
-function cartCount() {
-  return Object.values(cart).reduce(function(s, i){ return s + i.qty; }, 0);
-}
-
-function updateCartUI() {
-  var body  = document.getElementById("cartBody");
-  var foot  = document.getElementById("cartFoot");
-  var badge = document.getElementById("cartBadge");
-  var count = cartCount();
-  badge.textContent = count;
-
-  if (!count) {
-    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛍️</div><p>Your bag is empty</p></div>';
-    foot.style.display = "none";
-    return;
-  }
-
-  var html = "";
-  Object.keys(cart).forEach(function(title) {
-    var item = cart[title];
-    html +=
-      '<div class="cart-item">' +
-        '<div class="cart-item-info">' +
-          '<div class="cart-item-name">' + esc(title) + '</div>' +
-          '<div class="cart-item-sub">₹' + item.price.toLocaleString("en-IN") + ' × ' + item.qty + ' = ₹' + (item.price * item.qty).toLocaleString("en-IN") + '</div>' +
-        '</div>' +
-        '<div class="qty-row">' +
-          '<div class="qty-ctrl">' +
-            '<button data-action="dec" data-title="' + esc(title) + '">−</button>' +
-            '<span class="qty-num">' + item.qty + '</span>' +
-            '<button data-action="inc" data-title="' + esc(title) + '">+</button>' +
-          '</div>' +
-          '<button class="btn-remove" data-action="rem" data-title="' + esc(title) + '">✕</button>' +
-        '</div>' +
-      '</div>';
-  });
-
-  body.innerHTML = html;
-  document.getElementById("cartSubtotalEl").textContent = "₹" + cartSubtotal().toLocaleString("en-IN");
-  foot.style.display = "block";
-}
-
-/* Cart body event delegation — works on all devices */
-document.getElementById("cartBody").addEventListener("click", function(e) {
-  var btn = e.target.closest("button[data-action]");
-  if (!btn) return;
-  var action = btn.getAttribute("data-action");
-  /* data-title is HTML-escaped, unescape before use */
-  var title = unesc(btn.getAttribute("data-title"));
-  if (action === "dec") changeQty(title, -1);
-  else if (action === "inc") changeQty(title,  1);
-  else if (action === "rem") removeFromCart(title);
+document.getElementById("cartBody").addEventListener("click",function(e){
+  var btn=e.target.closest("button[data-action]");if(!btn)return;
+  var action=btn.getAttribute("data-action"),title=unesc(btn.getAttribute("data-title"));
+  if(action==="dec")changeQty(title,-1);else if(action==="inc")changeQty(title,1);else if(action==="rem")removeFromCart(title);
 });
 
-function openCart()  {
-  document.getElementById("cartDrawer").classList.add("open");
-  document.getElementById("overlay").classList.add("open");
+function openCart(){document.getElementById("cartDrawer").classList.add("open");document.getElementById("overlay").classList.add("open");}
+function closeCart(){document.getElementById("cartDrawer").classList.remove("open");document.getElementById("overlay").classList.remove("open");}
+document.getElementById("cartFabBtn").addEventListener("click",openCart);
+document.getElementById("cartCloseBtn").addEventListener("click",closeCart);
+document.getElementById("overlay").addEventListener("click",closeCart);
+document.getElementById("shopNowBtn").addEventListener("click",()=>document.getElementById("shopAnchor").scrollIntoView({behavior:"smooth"}));
+
+function openPview(p){
+  var title=((p.title||p.Title||"")).trim(),price=parseFloat(p.price||p.Price)||0,stock=parseInt(p.stocks||p.Stocks||p.stock||0),status=stockStatus(stock);
+  document.getElementById("pviewTitle").textContent=title;document.getElementById("pviewPrice").textContent="\u20b9"+price.toLocaleString("en-IN");
+  var stockEl=document.getElementById("pviewStock");
+  if(status==="out"){stockEl.textContent="Out of Stock";stockEl.className="pview-stock out";}else if(status==="limited"){stockEl.textContent="Only "+stock+" left!";stockEl.className="pview-stock limited";}else{stockEl.textContent="In Stock";stockEl.className="pview-stock ok";}
+  var oldBtn=document.getElementById("pviewAddBtn"),newBtn=oldBtn.cloneNode(true);oldBtn.parentNode.replaceChild(newBtn,oldBtn);
+  newBtn.disabled=(status==="out");newBtn.textContent=(status==="out")?"Out of Stock":"Add to Bag";
+  newBtn.addEventListener("click",()=>{addToCart(title,price,stock);closePview();});
+  var mainImgUrl=driveThumb(p["image link"]||p["Image Link"]||""),addlRaw=p.additional_images||p["additional_images"]||"",addlUrls=getAdditionalImgs(addlRaw).map(u=>driveThumb(u)),allImgs=[mainImgUrl].concat(addlUrls).filter(Boolean);
+  document.getElementById("pviewMainImg").src=allImgs[0]||"";
+  var thumbsEl=document.getElementById("pviewThumbs");
+  if(allImgs.length>1){thumbsEl.innerHTML="";allImgs.forEach((u,i)=>{var img=document.createElement("img");img.src=u;img.className="pview-thumb"+(i===0?" active":"");img.alt="view "+(i+1);img.addEventListener("click",()=>{document.getElementById("pviewMainImg").src=u;document.querySelectorAll(".pview-thumb").forEach(t=>t.classList.remove("active"));img.classList.add("active");});thumbsEl.appendChild(img);});}else{thumbsEl.innerHTML="";}
+  document.getElementById("pviewModal").classList.add("open");document.getElementById("pviewOverlay").classList.add("open");
 }
-function closeCart() {
-  document.getElementById("cartDrawer").classList.remove("open");
-  document.getElementById("overlay").classList.remove("open");
+function closePview(){document.getElementById("pviewModal").classList.remove("open");document.getElementById("pviewOverlay").classList.remove("open");}
+document.getElementById("pviewCloseBtn").addEventListener("click",closePview);
+document.getElementById("pviewOverlay").addEventListener("click",closePview);
+
+document.getElementById("checkoutBtn").addEventListener("click",openCheckout);
+document.getElementById("coCloseBtn").addEventListener("click",closeCheckout);
+document.getElementById("coOverlay").addEventListener("click",closeCheckout);
+document.getElementById("btnBack").addEventListener("click",()=>{if(currentStep>1)setStep(currentStep-1);});
+document.getElementById("btnNext").addEventListener("click",nextStep);
+
+function openCheckout(){
+  if(!cartCount()){showToast("Add items to your bag first");return;}
+  closeCart();selectedPay=null;shippingCost=null;currentStep=1;
+  document.querySelectorAll(".pay-method-card, #codCard").forEach(c=>c.classList.remove("selected"));
+  document.getElementById("shippingBox").classList.remove("show");document.getElementById("shippingDisplay").textContent="Calculated in next step";
+  document.getElementById("codRow").style.display="none";document.getElementById("errBanner").classList.remove("show");
+  document.getElementById("payErr").classList.remove("show");document.getElementById("confirmBox").style.display="none";document.getElementById("payNote").textContent="";
+  renderOrderLines();setStep(1);document.getElementById("coModal").classList.add("open");document.getElementById("coOverlay").classList.add("open");
 }
+function closeCheckout(){document.getElementById("coModal").classList.remove("open");document.getElementById("coOverlay").classList.remove("open");}
 
-document.getElementById("cartFabBtn").addEventListener("click", openCart);
-document.getElementById("cartCloseBtn").addEventListener("click", closeCart);
-document.getElementById("overlay").addEventListener("click", closeCart);
-document.getElementById("shopNowBtn").addEventListener("click", function(){
-  document.getElementById("shopAnchor").scrollIntoView({ behavior: "smooth" });
-});
-
-/* ═══════════════════════════════════════════
-   PRODUCT VIEW MODAL
-═══════════════════════════════════════════ */
-function openPview(p) {
-  var title  = ((p.title || p.Title || "")).trim();
-  var price  = parseFloat(p.price || p.Price) || 0;
-  var stock  = parseInt(p.stocks || p.Stocks || p.stock || 0);
-  var status = stockStatus(stock);
-
-  document.getElementById("pviewTitle").textContent = title;
-  document.getElementById("pviewPrice").textContent = "₹" + price.toLocaleString("en-IN");
-
-  var stockEl = document.getElementById("pviewStock");
-  if (status === "out")          { stockEl.textContent = "Out of Stock";       stockEl.className = "pview-stock out"; }
-  else if (status === "limited") { stockEl.textContent = "Only " + stock + " left!"; stockEl.className = "pview-stock limited"; }
-  else                           { stockEl.textContent = "In Stock";           stockEl.className = "pview-stock ok"; }
-
-  /* Refresh add button — clone to clear old listeners */
-  var oldBtn  = document.getElementById("pviewAddBtn");
-  var newBtn  = oldBtn.cloneNode(true);
-  oldBtn.parentNode.replaceChild(newBtn, oldBtn);
-  newBtn.disabled    = (status === "out");
-  newBtn.textContent = (status === "out") ? "Out of Stock" : "Add to Bag";
-  newBtn.addEventListener("click", function() {
-    addToCart(title, price, stock);
-    closePview();
-  });
-
-  var mainImgUrl = driveThumb(p["image link"] || p["Image Link"] || "");
-  var addlRaw    = p.additional_images || p["additional_images"] || "";
-  var addlUrls   = getAdditionalImgs(addlRaw).map(function(u){ return driveThumb(u); });
-  var allImgs    = [mainImgUrl].concat(addlUrls).filter(Boolean);
-
-  document.getElementById("pviewMainImg").src = allImgs[0] || "";
-
-  var thumbsEl = document.getElementById("pviewThumbs");
-  if (allImgs.length > 1) {
-    thumbsEl.innerHTML = "";
-    allImgs.forEach(function(u, i) {
-      var img = document.createElement("img");
-      img.src       = u;
-      img.className = "pview-thumb" + (i === 0 ? " active" : "");
-      img.alt       = "view " + (i + 1);
-      img.addEventListener("click", function() {
-        document.getElementById("pviewMainImg").src = u;
-        document.querySelectorAll(".pview-thumb").forEach(function(t){ t.classList.remove("active"); });
-        img.classList.add("active");
-      });
-      thumbsEl.appendChild(img);
-    });
-  } else {
-    thumbsEl.innerHTML = "";
-  }
-
-  document.getElementById("pviewModal").classList.add("open");
-  document.getElementById("pviewOverlay").classList.add("open");
+function renderOrderLines(){
+  var html="";Object.keys(cart).forEach(title=>{var item=cart[title];html+='<div class="order-line"><span class="order-line-name">'+esc(title)+' \xd7 '+item.qty+'</span><span class="order-line-price">\u20b9'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';});
+  document.getElementById("orderLines").innerHTML=html;updateGrandTotal();
 }
 
-function closePview() {
-  document.getElementById("pviewModal").classList.remove("open");
-  document.getElementById("pviewOverlay").classList.remove("open");
+function updateGrandTotal(){
+  var sub=cartSubtotal(),ship=shippingCost||0,cod=0;
+  if(selectedPay==="cod"){cod=Math.max(40,Math.round(sub*0.02));document.getElementById("codRow").style.display="flex";document.getElementById("codDisplay").textContent="\u20b9"+cod.toLocaleString("en-IN");}else{document.getElementById("codRow").style.display="none";}
+  var grand=sub+ship+cod;document.getElementById("grandTotal").textContent="\u20b9"+grand.toLocaleString("en-IN");return grand;
 }
 
-document.getElementById("pviewCloseBtn").addEventListener("click", closePview);
-document.getElementById("pviewOverlay").addEventListener("click", closePview);
+function setStep(s){
+  currentStep=s;
+  for(var i=1;i<=3;i++){var st=document.getElementById("st"+i),sc=document.getElementById("sc"+i);st.classList.remove("active","done");if(i<s){st.classList.add("done");sc.textContent="\u2713";}else if(i===s){st.classList.add("active");sc.textContent=String(i);}else{sc.textContent=String(i);}if(i<3)document.getElementById("sl"+i).classList.toggle("done",i<s);document.getElementById("coSec"+i).classList.toggle("active",i===s);}
+  var back=document.getElementById("btnBack"),next=document.getElementById("btnNext");back.style.display=(s>1)?"block":"none";
+  if(s===3){next.textContent="Place Order";next.className="btn-place";}else{next.textContent="Continue \u2192";next.className="btn-next";}
+  document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});document.getElementById("errBanner").classList.remove("show");
+}
 
-/* ═══════════════════════════════════════════
-   CHECKOUT
-═══════════════════════════════════════════ */
-document.getElementById("checkoutBtn").addEventListener("click", openCheckout);
-document.getElementById("coCloseBtn").addEventListener("click", closeCheckout);
-document.getElementById("coOverlay").addEventListener("click", closeCheckout);
-document.getElementById("btnBack").addEventListener("click", function(){ if (currentStep > 1) setStep(currentStep - 1); });
-document.getElementById("btnNext").addEventListener("click", nextStep);
+function nextStep(){if(currentStep===1)setStep(2);else if(currentStep===2){if(!validateDelivery())return;calcShipping();setStep(3);buildConfirm();}else if(currentStep===3)placeOrder();}
 
-function openCheckout() {
-  if (!cartCount()) { showToast("Add items to your bag first"); return; }
-  closeCart();
-  selectedPay  = null;
-  shippingCost = null;
-  currentStep  = 1;
+function validateDelivery(){
+  var ok=true,checks=[{id:"f_name",err:"e_name",fn:v=>v.length>=2},{id:"f_phone",err:"e_phone",fn:v=>/^\d{10}$/.test(v)},{id:"f_email",err:"e_email",fn:v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)},{id:"f_addr",err:"e_addr",fn:v=>v.length>=5},{id:"f_pin",err:"e_pin",fn:v=>/^\d{6}$/.test(v)}];
+  checks.forEach(c=>{var el=document.getElementById(c.id),er=document.getElementById(c.err),val=el.value.trim();if(!c.fn(val)){el.classList.add("err");er.classList.add("show");ok=false;}else{el.classList.remove("err");er.classList.remove("show");}});
+  if(!ok)showErr("Please fill all mandatory fields correctly.");return ok;
+}
+["f_name","f_phone","f_email","f_addr","f_pin"].forEach(id=>{var el=document.getElementById(id);if(!el)return;el.addEventListener("input",()=>{el.classList.remove("err");var er=document.getElementById("e_"+id.split("_")[1]);if(er)er.classList.remove("show");});});
 
-  /* Reset UI */
-  document.querySelectorAll(".pay-method-card, #codCard").forEach(function(c){ c.classList.remove("selected"); });
-  document.getElementById("shippingBox").classList.remove("show");
-  document.getElementById("shippingDisplay").textContent = "Calculated in next step";
-  document.getElementById("codRow").style.display = "none";
-  document.getElementById("errBanner").classList.remove("show");
+var ZONE_RATES={A:{base:35.40,extra:34.22,name:"Zone A \u2014 Local (Coimbatore)"},B:{base:38.94,extra:37.76,name:"Zone B \u2014 Intra-state (Tamil Nadu)"},C:{base:51.92,extra:49.56,name:"Zone C \u2014 Metro"},D:{base:61.36,extra:57.82,name:"Zone D \u2014 Pan India"},E:{base:75.52,extra:71.98,name:"Zone E \u2014 Northeast / J&K"}};
+var FLAT_PREFIXES=["380","382","560","562","631","160","140","141","600","602","110","120","121","122","201","250","124","131","132","500","711","712","713","700","400","421","401","410","411","415","395","403","641","642","643","625","626","627","628"];
+
+function getPincodeZone(pin){if(!pin||pin.length!==6)return"D";var n=parseInt(pin),p2=pin.substring(0,2),p3=pin.substring(0,3);if(p2==="18"||p2==="19")return"E";if(p2==="73"&&n>=737000&&n<=737199)return"E";if(p2==="78"&&n>=781000)return"E";if(p2==="79"||p2==="97")return"E";if(n>=744100&&n<=744304)return"E";if(p3==="641"||p3==="642"||p3==="643"||p3==="638")return"A";if(n>=600000&&n<=643999)return"B";var metros=["110","400","600","700","500","560","380","411","160"];if(metros.indexOf(p3)!==-1)return"C";return"D";}
+
+function calcShipping(){
+  var pin=document.getElementById("f_pin").value.trim(),zone=getPincodeZone(pin),r=ZONE_RATES[zone]||ZONE_RATES["D"],totalQty=Object.values(cart).reduce((s,i)=>s+i.qty,0),weightG=Math.max(500,totalQty*150),slabs=Math.ceil(weightG/500),extraSlabs=Math.max(0,slabs-1),baseShipping=r.base+extraSlabs*r.extra;
+  if(FLAT_PREFIXES.some(pf=>pin.startsWith(pf))&&zone!=="A")baseShipping+=2.50;
+  var fuelSurcharge=baseShipping*0.05,total=Math.ceil(baseShipping+fuelSurcharge);shippingCost=total;
+  document.getElementById("shippingAmt").textContent="\u20b9"+total;document.getElementById("shippingZone").textContent=r.name+" \xb7 base \u20b9"+baseShipping.toFixed(2)+" + 5% fuel = \u20b9"+total;document.getElementById("shippingBox").classList.add("show");document.getElementById("shippingDisplay").textContent="\u20b9"+total;updateGrandTotal();
+}
+
+document.getElementById("payMethodsGrid").addEventListener("click",function(e){var card=e.target.closest(".pay-method-card");if(!card)return;selectPay(card.getAttribute("data-pay"));});
+document.getElementById("codCard").addEventListener("click",()=>selectPay("cod"));
+
+function selectPay(type){
+  selectedPay=type;document.querySelectorAll(".pay-method-card, #codCard").forEach(c=>c.classList.remove("selected"));
+  if(type==="cod")document.getElementById("codCard").classList.add("selected");else{var card=document.querySelector(".pay-method-card[data-pay='"+type+"']");if(card)card.classList.add("selected");}
   document.getElementById("payErr").classList.remove("show");
-  document.getElementById("confirmBox").style.display = "none";
-  document.getElementById("payNote").textContent = "";
-
-  renderOrderLines();
-  setStep(1);
-
-  document.getElementById("coModal").classList.add("open");
-  document.getElementById("coOverlay").classList.add("open");
+  var note=document.getElementById("payNote"),payLabels={upi:"UPI",card:"Credit/Debit Card",netbanking:"Net Banking",wallet:"Wallet",emi:"EMI"};
+  if(type==="cod"){var sub=cartSubtotal(),cod=Math.max(40,Math.round(sub*0.02));note.textContent="COD charge of \u20b9"+cod+" (\u20b940 or 2% of order, whichever is higher) will be added.";}else{note.textContent="You'll be redirected to PayU's secure page to pay via "+(payLabels[type]||"online")+".";}
+  updateGrandTotal();buildConfirm();
 }
 
-function closeCheckout() {
-  document.getElementById("coModal").classList.remove("open");
-  document.getElementById("coOverlay").classList.remove("open");
+function buildConfirm(){
+  var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod,html="";
+  Object.keys(cart).forEach(title=>{var item=cart[title];html+='<div class="confirm-line"><span>'+esc(title)+' \xd7'+item.qty+'</span><span>\u20b9'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';});
+  html+='<div class="confirm-line"><span>Shipping</span><span>\u20b9'+ship+'</span></div>';
+  if(cod)html+='<div class="confirm-line"><span>COD Charge</span><span>\u20b9'+cod+'</span></div>';
+  document.getElementById("confirmLines").innerHTML=html;document.getElementById("confirmTotal").textContent="\u20b9"+grand.toLocaleString("en-IN");document.getElementById("confirmBox").style.display="block";
 }
 
-function renderOrderLines() {
-  var html = "";
-  Object.keys(cart).forEach(function(title) {
-    var item = cart[title];
-    html +=
-      '<div class="order-line">' +
-        '<span class="order-line-name">' + esc(title) + ' × ' + item.qty + '</span>' +
-        '<span class="order-line-price">₹' + (item.price * item.qty).toLocaleString("en-IN") + '</span>' +
-      '</div>';
-  });
-  document.getElementById("orderLines").innerHTML = html;
-  updateGrandTotal();
-}
-
-function updateGrandTotal() {
-  var sub  = cartSubtotal();
-  var ship = shippingCost || 0;
-  var cod  = 0;
-  if (selectedPay === "cod") {
-    cod = Math.max(40, Math.round(sub * 0.02));
-    document.getElementById("codRow").style.display = "flex";
-    document.getElementById("codDisplay").textContent = "₹" + cod.toLocaleString("en-IN");
-  } else {
-    document.getElementById("codRow").style.display = "none";
-  }
-  var grand = sub + ship + cod;
-  document.getElementById("grandTotal").textContent = "₹" + grand.toLocaleString("en-IN");
-  return grand;
-}
-
-function setStep(s) {
-  currentStep = s;
-  for (var i = 1; i <= 3; i++) {
-    var st = document.getElementById("st" + i);
-    var sc = document.getElementById("sc" + i);
-    st.classList.remove("active", "done");
-    if (i < s)       { st.classList.add("done");   sc.textContent = "✓"; }
-    else if (i === s){ st.classList.add("active"); sc.textContent = String(i); }
-    else             { sc.textContent = String(i); }
-    if (i < 3) document.getElementById("sl" + i).classList.toggle("done", i < s);
-    document.getElementById("coSec" + i).classList.toggle("active", i === s);
-  }
-  var back = document.getElementById("btnBack");
-  var next = document.getElementById("btnNext");
-  back.style.display = (s > 1) ? "block" : "none";
-  if (s === 3) { next.textContent = "Place Order"; next.className = "btn-place"; }
-  else         { next.textContent = "Continue →";  next.className = "btn-next";  }
-  document.getElementById("coBody").scrollTo({ top: 0, behavior: "smooth" });
-  document.getElementById("errBanner").classList.remove("show");
-}
-
-function nextStep() {
-  if (currentStep === 1)      { setStep(2); }
-  else if (currentStep === 2) { if (!validateDelivery()) return; calcShipping(); setStep(3); buildConfirm(); }
-  else if (currentStep === 3) { placeOrder(); }
-}
-
-/* Validation */
-function validateDelivery() {
-  var ok = true;
-  var checks = [
-    { id: "f_name",  err: "e_name",  fn: function(v){ return v.length >= 2; } },
-    { id: "f_phone", err: "e_phone", fn: function(v){ return /^\d{10}$/.test(v); } },
-    { id: "f_email", err: "e_email", fn: function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
-    { id: "f_addr",  err: "e_addr",  fn: function(v){ return v.length >= 5; } },
-    { id: "f_pin",   err: "e_pin",   fn: function(v){ return /^\d{6}$/.test(v); } },
-  ];
-  checks.forEach(function(c) {
-    var el  = document.getElementById(c.id);
-    var er  = document.getElementById(c.err);
-    var val = el.value.trim();
-    if (!c.fn(val)) { el.classList.add("err"); er.classList.add("show"); ok = false; }
-    else            { el.classList.remove("err"); er.classList.remove("show"); }
-  });
-  if (!ok) showErr("Please fill all mandatory fields correctly.");
-  return ok;
-}
-
-["f_name","f_phone","f_email","f_addr","f_pin"].forEach(function(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  el.addEventListener("input", function() {
-    el.classList.remove("err");
-    var suffix = id.split("_")[1];
-    var er = document.getElementById("e_" + suffix);
-    if (er) er.classList.remove("show");
-  });
-});
-
-/* ═══════════════════════════════════════════
-   SHIPPING CALCULATION
-   FIX: fuel surcharge is 5% of shipping cost
-   only — not of product price
-═══════════════════════════════════════════ */
-var ZONE_RATES = {
-  A: { base: 35.40, extra: 34.22, name: "Zone A — Local (Coimbatore)" },
-  B: { base: 38.94, extra: 37.76, name: "Zone B — Intra-state (Tamil Nadu)" },
-  C: { base: 51.92, extra: 49.56, name: "Zone C — Metro" },
-  D: { base: 61.36, extra: 57.82, name: "Zone D — Pan India" },
-  E: { base: 75.52, extra: 71.98, name: "Zone E — Northeast / J&K" },
-};
-
-var FLAT_PREFIXES = [
-  "380","382","560","562","631","160","140","141","600","602",
-  "110","120","121","122","201","250","124","131","132","500",
-  "711","712","713","700","400","421","401","410","411","415",
-  "395","403","641","642","643","625","626","627","628",
-];
-
-function getPincodeZone(pin) {
-  if (!pin || pin.length !== 6) return "D";
-  var n  = parseInt(pin);
-  var p2 = pin.substring(0, 2);
-  var p3 = pin.substring(0, 3);
-  if (p2 === "18" || p2 === "19") return "E";
-  if (p2 === "73" && n >= 737000 && n <= 737199) return "E";
-  if (p2 === "78" && n >= 781000) return "E";
-  if (p2 === "79" || p2 === "97") return "E";
-  if (n >= 744100 && n <= 744304) return "E";
-  if (p3 === "641" || p3 === "642" || p3 === "643" || p3 === "638") return "A";
-  if (n >= 600000 && n <= 643999) return "B";
-  var metros = ["110","400","600","700","500","560","380","411","160"];
-  if (metros.indexOf(p3) !== -1) return "C";
-  return "D";
-}
-
-function calcShipping() {
-  var pin   = document.getElementById("f_pin").value.trim();
-  var zone  = getPincodeZone(pin);
-  var r     = ZONE_RATES[zone] || ZONE_RATES["D"];
-
-  /* Weight-based slab — ~150g per item, minimum 500g */
-  var totalQty = Object.values(cart).reduce(function(s, i){ return s + i.qty; }, 0);
-  var weightG  = Math.max(500, totalQty * 150);
-  var slabs    = Math.ceil(weightG / 500);
-  var extraSlabs = Math.max(0, slabs - 1);
-
-  /* Base shipping before fuel surcharge */
-  var baseShipping = r.base + extraSlabs * r.extra;
-
-  /* Special city surcharge (₹2.50) — applied before fuel */
-  if (FLAT_PREFIXES.some(function(pf){ return pin.startsWith(pf); }) && zone !== "A") {
-    baseShipping += 2.50;
-  }
-
-  /* FIX: 5% fuel surcharge on shipping cost only */
-  var fuelSurcharge = baseShipping * 0.05;
-  var total = Math.ceil(baseShipping + fuelSurcharge);
-
-  shippingCost = total;
-
-  document.getElementById("shippingAmt").textContent  = "₹" + total;
-  document.getElementById("shippingZone").textContent = r.name + " · base ₹" + baseShipping.toFixed(2) + " + 5% fuel = ₹" + total;
-  document.getElementById("shippingBox").classList.add("show");
-  document.getElementById("shippingDisplay").textContent = "₹" + total;
-  updateGrandTotal();
-}
-
-/* ═══════════════════════════════════════════
-   PAYMENT SELECTION
-   All online methods → PayU (UPI/Card/NB/Wallet/EMI)
-   COD → direct order + email
-═══════════════════════════════════════════ */
-/* Delegate clicks on payment cards */
-document.getElementById("payMethodsGrid").addEventListener("click", function(e) {
-  var card = e.target.closest(".pay-method-card");
-  if (!card) return;
-  selectPay(card.getAttribute("data-pay"));
-});
-
-document.getElementById("codCard").addEventListener("click", function() {
-  selectPay("cod");
-});
-
-function selectPay(type) {
-  selectedPay = type;
-  document.querySelectorAll(".pay-method-card, #codCard").forEach(function(c){ c.classList.remove("selected"); });
-
-  if (type === "cod") {
-    document.getElementById("codCard").classList.add("selected");
-  } else {
-    var card = document.querySelector(".pay-method-card[data-pay='" + type + "']");
-    if (card) card.classList.add("selected");
-  }
-
-  document.getElementById("payErr").classList.remove("show");
-
-  var note = document.getElementById("payNote");
-  var payLabels = { upi: "UPI", card: "Credit/Debit Card", netbanking: "Net Banking", wallet: "Wallet", emi: "EMI" };
-
-  if (type === "cod") {
-    var sub = cartSubtotal();
-    var cod = Math.max(40, Math.round(sub * 0.02));
-    note.textContent = "COD charge of ₹" + cod + " (₹40 or 2% of order, whichever is higher) will be added.";
-  } else {
-    note.textContent = "You'll be redirected to PayU's secure page to pay via " + (payLabels[type] || "online") + ".";
-  }
-
-  updateGrandTotal();
-  buildConfirm();
-}
-
-function buildConfirm() {
-  var sub   = cartSubtotal();
-  var ship  = shippingCost || 0;
-  var cod   = (selectedPay === "cod") ? Math.max(40, Math.round(sub * 0.02)) : 0;
-  var grand = sub + ship + cod;
-  var html  = "";
-  Object.keys(cart).forEach(function(title) {
-    var item = cart[title];
-    html += '<div class="confirm-line"><span>' + esc(title) + ' ×' + item.qty + '</span><span>₹' + (item.price * item.qty).toLocaleString("en-IN") + '</span></div>';
-  });
-  html += '<div class="confirm-line"><span>Shipping</span><span>₹' + ship + '</span></div>';
-  if (cod) html += '<div class="confirm-line"><span>COD Charge</span><span>₹' + cod + '</span></div>';
-  document.getElementById("confirmLines").innerHTML = html;
-  document.getElementById("confirmTotal").textContent = "₹" + grand.toLocaleString("en-IN");
-  document.getElementById("confirmBox").style.display = "block";
-}
-
-/* ═══════════════════════════════════════════
-   PLACE ORDER
-   FIX: PayU hash must use empty strings for
-   udf1-5 in hash — match exactly with code.gs
-   The udf1/udf2 fields in the form do NOT go
-   into the hash string per PayU spec.
-═══════════════════════════════════════════ */
-function placeOrder() {
-  if (!selectedPay) {
-    document.getElementById("payErr").classList.add("show");
-    showErr("Please select a payment method.");
-    return;
-  }
-
-  var name  = document.getElementById("f_name").value.trim();
-  var phone = document.getElementById("f_phone").value.trim();
-  var email = document.getElementById("f_email").value.trim();
-  var addr  = document.getElementById("f_addr").value.trim();
-  var city  = document.getElementById("f_city").value.trim();
-  var state = document.getElementById("f_state").value.trim();
-  var pin   = document.getElementById("f_pin").value.trim();
-
-  var sub   = cartSubtotal();
-  var ship  = shippingCost || 0;
-  var cod   = (selectedPay === "cod") ? Math.max(40, Math.round(sub * 0.02)) : 0;
-  var grand = sub + ship + cod;
-
-  var itemsSummary = Object.keys(cart).map(function(t) {
-    var i = cart[t];
-    return t + " ×" + i.qty + " = ₹" + (i.price * i.qty);
-  }).join("; ");
-
-  var orderData = {
-    action: "placeOrder",
-    name: name, phone: phone, email: email,
-    address: addr + (city ? ", " + city : "") + (state ? ", " + state : "") + " - " + pin,
-    items: itemsSummary,
-    subtotal: sub, shipping: ship, codCharge: cod, grandTotal: grand,
-    paymentMethod: selectedPay,
-    cartData: JSON.stringify(
-      Object.keys(cart).map(function(t){ return { title: t, qty: cart[t].qty, price: cart[t].price }; })
-    ),
-  };
-
-  if (selectedPay === "cod") {
-    /* COD: post to Apps Script then redirect */
+function placeOrder(){
+  if(!selectedPay){document.getElementById("payErr").classList.add("show");showErr("Please select a payment method.");return;}
+  var name=document.getElementById("f_name").value.trim(),phone=document.getElementById("f_phone").value.trim(),email=document.getElementById("f_email").value.trim(),addr=document.getElementById("f_addr").value.trim(),city=document.getElementById("f_city").value.trim(),state=document.getElementById("f_state").value.trim(),pin=document.getElementById("f_pin").value.trim();
+  var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod;
+  var itemsSummary=Object.keys(cart).map(t=>t+" \xd7"+cart[t].qty+" = \u20b9"+(cart[t].price*cart[t].qty)).join("; ");
+  var orderData={action:"placeOrder",name,phone,email,address:addr+(city?", "+city:"")+(state?", "+state:"")+" - "+pin,items:itemsSummary,subtotal:sub,shipping:ship,codCharge:cod,grandTotal:grand,paymentMethod:selectedPay,cartData:JSON.stringify(Object.keys(cart).map(t=>({title:t,qty:cart[t].qty,price:cart[t].price})))};
+  if(selectedPay==="cod"){
     document.getElementById("spinner").classList.add("show");
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData),
-    })
-    .catch(function(){})
-    .finally(function() {
-      document.getElementById("spinner").classList.remove("show");
-      window.location.href = SUCCESS_URL + "?method=cod&name=" + encodeURIComponent(name);
-    });
-
-  } else {
-    /* Online payment — hash generated client-side (avoids CORS block on Apps Script)
-       Then log order via no-cors fire-and-forget, then submit PayU form */
+    fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(orderData)}).catch(()=>{}).finally(()=>{clearCart();document.getElementById("spinner").classList.remove("show");window.location.href=SUCCESS_URL+"?method=cod&name="+encodeURIComponent(name);});
+  }else{
     document.getElementById("spinner").classList.add("show");
-
-    var txnid       = "MNL" + Date.now();
-    var amount      = grand.toFixed(2);
-    var productinfo = "Minella Jewels Order";
-
-    /* PayU hash: key|txnid|amount|productinfo|firstname|email|||||||||||||SALT
-       Scenario 3: no udf params → 5 empty udf slots + 6 trailing empties = 15 pipes */
-    /* PayU hash format (Scenario 3 — no udf params):
-       key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT
-       = 18 segments joined by 17 pipes (per PayU PHP sample code) */
-    var hashInput = [
-      PAYU_KEY,    /* 1  key         */
-      txnid,       /* 2  txnid       */
-      amount,      /* 3  amount      */
-      productinfo, /* 4  productinfo */
-      name,        /* 5  firstname   */
-      email,       /* 6  email       */
-      "",          /* 7  udf1        */
-      "",          /* 8  udf2        */
-      "",          /* 9  udf3        */
-      "",          /* 10 udf4        */
-      "",          /* 11 udf5        */
-      "",          /* 12 trailing    */
-      "",          /* 13 trailing    */
-      "",          /* 14 trailing    */
-      "",          /* 15 trailing    */
-      "",          /* 16 trailing    */
-      "",          /* 17 trailing    */
-      PAYU_SALT    /* 18 SALT        */
-    ].join("|");
-
-    computeSHA512(hashInput).then(function(hash) {
-
-      /* Fire-and-forget order log to Apps Script (no-cors, we don't read response) */
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        mode:   "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "placeOrder",
-          name: name, phone: phone, email: email,
-          address: orderData.address,
-          items: orderData.items,
-          subtotal: sub, shipping: ship, codCharge: 0, grandTotal: grand,
-          paymentMethod: selectedPay,
-          txnid: txnid,
-          status: "PENDING_PAYMENT",
-          cartData: orderData.cartData,
-        }),
-      }).catch(function(){});
-
-      document.getElementById("pu_key").value         = PAYU_KEY;
-      document.getElementById("pu_txnid").value       = txnid;
-      document.getElementById("pu_amount").value      = amount;
-      document.getElementById("pu_productinfo").value = productinfo;
-      document.getElementById("pu_firstname").value   = name;
-      document.getElementById("pu_email").value       = email;
-      document.getElementById("pu_phone").value       = phone;
-      document.getElementById("pu_surl").value        = SUCCESS_URL;
-      document.getElementById("pu_furl").value        = FAIL_URL;
-      document.getElementById("pu_hash").value        = hash;
-      /* udf fields: order metadata, NOT part of hash */
-      document.getElementById("pu_udf1").value        = JSON.stringify(
-        Object.keys(cart).map(function(t){ return { title: t, qty: cart[t].qty }; })
-      ).substring(0, 255);
-      document.getElementById("pu_udf2").value        = pin;
-
+    var txnid="MNL"+Date.now(),amount=grand.toFixed(2),productinfo="Minella Jewels Order";
+    var hashInput=[PAYU_KEY,txnid,amount,productinfo,name,email,"","","","","","","","","","","",PAYU_SALT].join("|");
+    computeSHA512(hashInput).then(hash=>{
+      fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"placeOrder",name,phone,email,address:orderData.address,items:orderData.items,subtotal:sub,shipping:ship,codCharge:0,grandTotal:grand,paymentMethod:selectedPay,txnid,status:"PENDING_PAYMENT",cartData:orderData.cartData})}).catch(()=>{});
+      clearCart();
+      document.getElementById("pu_key").value=PAYU_KEY;document.getElementById("pu_txnid").value=txnid;document.getElementById("pu_amount").value=amount;document.getElementById("pu_productinfo").value=productinfo;document.getElementById("pu_firstname").value=name;document.getElementById("pu_email").value=email;document.getElementById("pu_phone").value=phone;document.getElementById("pu_surl").value=SUCCESS_URL;document.getElementById("pu_furl").value=FAIL_URL;document.getElementById("pu_hash").value=hash;document.getElementById("pu_udf1").value=JSON.stringify(Object.keys(cart).map(t=>({title:t,qty:cart[t].qty}))).substring(0,255);document.getElementById("pu_udf2").value=pin;
       document.getElementById("payuForm").submit();
-
-    }).catch(function(err) {
-      document.getElementById("spinner").classList.remove("show");
-      showErr("Payment setup failed. Please try again. (" + err.message + ")");
-    });
+    }).catch(err=>{document.getElementById("spinner").classList.remove("show");showErr("Payment setup failed. Please try again. ("+err.message+")");});
   }
 }
 
-/* ═══════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════ */
-function esc(s) {
-  return String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function unesc(s) {
-  var d = document.createElement("div");
-  d.innerHTML = s;
-  return d.textContent;
-}
-
-function showErr(msg) {
-  document.getElementById("errMsg").textContent = msg;
-  document.getElementById("errBanner").classList.add("show");
-  document.getElementById("coBody").scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function showToast(msg) {
-  var t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  setTimeout(function(){ t.classList.remove("show"); }, 2400);
-}
-
-/* ═══════════════════════════════════════════
-   CLIENT-SIDE SHA-512
-   Uses Web Crypto API (built into every modern
-   browser — no external library needed).
-   Returns a Promise<string> of hex digest.
-═══════════════════════════════════════════ */
-function computeSHA512(message) {
-  var encoder = new TextEncoder();
-  var data = encoder.encode(message);
-  return window.crypto.subtle.digest("SHA-512", data).then(function(hashBuffer) {
-    var hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(function(b) {
-      return b.toString(16).padStart(2, "0");
-    }).join("");
-  });
-}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function unesc(s){var d=document.createElement("div");d.innerHTML=s;return d.textContent;}
+function showErr(msg){document.getElementById("errMsg").textContent=msg;document.getElementById("errBanner").classList.add("show");document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});}
+function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
+function computeSHA512(message){var encoder=new TextEncoder(),data=encoder.encode(message);return window.crypto.subtle.digest("SHA-512",data).then(hashBuffer=>{var hashArray=Array.from(new Uint8Array(hashBuffer));return hashArray.map(b=>b.toString(16).padStart(2,"0")).join("");});}
 </script>
 </body>
 </html>
