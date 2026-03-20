@@ -682,42 +682,47 @@ function placeOrder() {
   var txnid="MNL"+Date.now(), amount=grand.toFixed(2), productinfo="Minella Jewels Order";
   var udf1=JSON.stringify(cartArr).substring(0,255), udf2=pin;
 
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action:      "generateHash",
-      txnid,
-      amount,
-      productinfo,
-      firstname:   name,
-      email,
-      udf1,
-      udf2,
-      udf3:        "",
-      udf4:        "",
-      udf5:        "",
-      orderData: {
-        name, phone, email,
-        address:       fullAddress,
-        items:         itemsSummary,
-        subtotal:      sub,
-        shipping:      ship,
-        codCharge:     0,
-        grandTotal:    grand,
-        paymentMethod: selectedPay,
-        cartData:      JSON.stringify(cartArr)
-      }
-    })
-  })
-  .then(r => r.json())
-  .then(res => {
+ // ── ONLINE PAYMENT — GET request avoids CORS preflight ──
+document.getElementById("spinner").classList.add("show");
+var txnid       = "MNL" + Date.now();
+var amount      = grand.toFixed(2);
+var productinfo = "Minella Jewels Order";
+var udf1        = JSON.stringify(cartArr).substring(0, 255);
+var udf2        = pin;
+
+var payload = {
+  action:      "generateHash",
+  txnid:       txnid,
+  amount:      amount,
+  productinfo: productinfo,
+  firstname:   name,
+  email:       email,
+  udf1:        udf1,
+  udf2:        udf2,
+  udf3:        "",
+  udf4:        "",
+  udf5:        "",
+  orderData: {
+    name:          name,
+    phone:         phone,
+    email:         email,
+    address:       fullAddress,
+    items:         itemsSummary,
+    subtotal:      sub,
+    shipping:      ship,
+    codCharge:     0,
+    grandTotal:    grand,
+    paymentMethod: selectedPay,
+    cartData:      JSON.stringify(cartArr)
+  }
+};
+
+fetch(SCRIPT_URL + "?action=generateHash&payload=" + encodeURIComponent(JSON.stringify(payload)))
+  .then(function(r) { return r.json(); })
+  .then(function(res) {
     if (!res.ok || !res.hash) throw new Error(res.error || "Hash generation failed");
-
     clearCart();
-
-    // Populate PayU form — key comes from server response, salt is never sent
-    document.getElementById("pu_key").value         = res.key; // returned by server
+    document.getElementById("pu_key").value         = res.key;
     document.getElementById("pu_txnid").value       = txnid;
     document.getElementById("pu_amount").value      = amount;
     document.getElementById("pu_productinfo").value = productinfo;
@@ -729,10 +734,9 @@ function placeOrder() {
     document.getElementById("pu_hash").value        = res.hash;
     document.getElementById("pu_udf1").value        = udf1;
     document.getElementById("pu_udf2").value        = udf2;
-
     document.getElementById("payuForm").submit();
   })
-  .catch(err => {
+  .catch(function(err) {
     document.getElementById("spinner").classList.remove("show");
     showErr("Payment setup failed. Please try again. (" + err.message + ")");
   });
