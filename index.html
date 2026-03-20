@@ -811,5 +811,14 @@ function unesc(s) { var d=document.createElement("div"); d.innerHTML=s; return d
 function showErr(msg) { document.getElementById("errMsg").textContent=msg; document.getElementById("errBanner").classList.add("show"); document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"}); }
 function showToast(msg) { var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2400); }
 </script>
+  <footer style="text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:10px">
+    <a href="/about.html" style="color:var(--muted);text-decoration:none">About Us</a>
+    <a href="/contact.html" style="color:var(--muted);text-decoration:none">Contact</a>
+    <a href="/track.html" style="color:var(--muted);text-decoration:none">Track Order</a>
+    <a href="/shipping-policy.html" style="color:var(--muted);text-decoration:none">Shipping & Returns</a>
+  </div>
+  © 2025 Minella Jewels · Made with ♥ in Coimbatore
+</footer>
 </body>
 </html>
