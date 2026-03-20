@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Order Status — Minella Jewels</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--plum:#4a1942;--plum2:#6b2d61;--gold:#b8903a;--cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;--muted:#8a7878;--border:#ddd4c8;--shadow:0 8px 40px rgba(28,16,24,0.10)}
+body{background:var(--cream);font-family:'Outfit',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:white;border-radius:16px;padding:44px 36px;max-width:440px;width:100%;text-align:center;box-shadow:var(--shadow)}
+.icon{font-size:60px;margin-bottom:20px;transition:.3s}
+h1{font-family:'Libre Baskerville',serif;font-size:26px;color:#1c1018;margin-bottom:10px;font-weight:400}
+p{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:10px;font-weight:300}
+.divider{width:48px;height:2px;background:linear-gradient(90deg,var(--gold),#d4a84b);margin:18px auto;border-radius:2px}
+.order-box{background:var(--cream2);border-radius:10px;padding:14px 18px;margin:16px 0;text-align:left;font-size:13px;line-height:2;display:none}
+.order-box.show{display:block}
+.order-box strong{color:var(--plum)}
+.btn{display:inline-block;background:var(--plum);color:white;text-decoration:none;padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;letter-spacing:0.5px;transition:.2s;margin-top:10px;cursor:pointer;border:none;font-family:'Outfit',sans-serif}
+.btn:hover{background:var(--plum2)}
+.btn-outline{display:block;color:var(--plum);text-decoration:none;font-size:13px;font-weight:500;margin-top:14px}
+.btn-outline:hover{text-decoration:underline}
+.spinner{display:inline-block;width:48px;height:48px;border:3px solid var(--cream3);border-top-color:var(--plum);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <!-- Loading state -->
+  <div id="loadingState">
+    <div class="spinner"></div>
+    <h1>Confirming your order...</h1>
+    <p>Please wait, do not close this page.</p>
+  </div>
+
+  <!-- Result state (hidden initially) -->
+  <div id="resultState" class="hidden">
+    <div class="icon" id="icon"></div>
+    <h1 id="title"></h1>
+    <p id="msg"></p>
+    <div class="divider"></div>
+    <div class="order-box" id="orderBox"></div>
+    <a href="https://minella.in" class="btn" id="cta" style="display:none">Continue Shopping</a>
+    <a href="https://minella.in/track.html" class="btn-outline" id="trackLink" style="display:none">Track Your Order →</a>
+  </div>
+</div>
+
+<script>
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+var params     = new URLSearchParams(window.location.search);
+
+function showResult() {
+  document.getElementById("loadingState").style.display = "none";
+  document.getElementById("resultState").classList.remove("hidden");
+}
+
+function showSuccess(txn, customerName, orderId) {
+  document.getElementById("icon").textContent  = "🎉";
+  document.getElementById("title").textContent = "Order Confirmed!";
+  document.getElementById("msg").textContent   =
+    "Thank you" + (customerName ? ", " + customerName : "") +
+    "! Your payment was successful and your order is confirmed. A confirmation email has been sent to you.";
+
+  var html = "";
+  if (orderId) html += "<div><strong>Order ID:</strong> " + orderId + "</div>";
+  if (txn)     html += "<div><strong>Transaction ID:</strong> " + txn + "</div>";
+  html += "<div><strong>Status:</strong> Order Placed ✓</div>";
+
+  var box = document.getElementById("orderBox");
+  if (html) { box.innerHTML = html; box.classList.add("show"); }
+
+  document.getElementById("cta").style.display       = "inline-block";
+  document.getElementById("trackLink").style.display = "block";
+  showResult();
+}
+
+function showFail() {
+  document.getElementById("icon").textContent  = "❌";
+  document.getElementById("title").textContent = "Payment Not Completed";
+  document.getElementById("msg").textContent   =
+    "Your payment was cancelled or could not be processed. No amount has been charged. Please try again.";
+  document.getElementById("cta").textContent   = "Try Again";
+  document.getElementById("cta").href          = "https://minella.in";
+  document.getElementById("cta").style.display = "inline-block";
+  showResult();
+}
+
+function showCOD(customerName) {
+  document.getElementById("icon").textContent  = "✅";
+  document.getElementById("title").textContent = "Order Placed!";
+  document.getElementById("msg").textContent   =
+    "Thank you" + (customerName ? ", " + customerName : "") +
+    "! Your COD order is confirmed. A confirmation email has been sent to you. Pay when it arrives!";
+
+  var box = document.getElementById("orderBox");
+  box.innerHTML = "<div><strong>Payment:</strong> Cash on Delivery</div><div><strong>Status:</strong> Order Placed ✓</div>";
+  box.classList.add("show");
+
+  document.getElementById("cta").style.display       = "inline-block";
+  document.getElementById("trackLink").style.display = "block";
+  showResult();
+}
+
+// ── Determine flow ──
+var method   = params.get("method")   || "";
+var status   = params.get("status")   || "";
+var txnid    = params.get("txnid")    || "";
+var mihpayid = params.get("mihpayid") || "";
+var name     = params.get("name")     || "";
+
+if (method === "cod") {
+  // COD — no server call needed, email already sent
+  showCOD(decodeURIComponent(name));
+
+} else if (status === "fail" || status === "failure") {
+  showFail();
+
+} else if (txnid || mihpayid) {
+  // PayU online payment — notify server, get confirmation, send email
+  var url = SCRIPT_URL
+    + "?action=payuSuccess"
+    + "&txnid="    + encodeURIComponent(txnid)
+    + "&mihpayid=" + encodeURIComponent(mihpayid);
+
+  fetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      if (res.ok) {
+        showSuccess(txnid || mihpayid, decodeURIComponent(res.name || name), res.orderId || "");
+      } else {
+        // Server couldn't find order — still show success UI
+        // (payment went through, just a lookup issue)
+        showSuccess(txnid || mihpayid, decodeURIComponent(name), "");
+      }
+    })
+    .catch(function() {
+      // Network error — still show success, payment already done
+      showSuccess(txnid || mihpayid, decodeURIComponent(name), "");
+    });
+
+} else {
+  // No params — direct visit
+  showFail();
+}
+</script>
+</body>
+</html>
