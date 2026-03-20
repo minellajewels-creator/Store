@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+  // GitHub Pages 404 trick — redirect POST requests to the right page
+  var path = window.location.pathname;
+  if (path.indexOf("payment-result") !== -1) {
+    window.location.replace("/payment-result.html" + window.location.search);
+  } else {
+    window.location.replace("/");
+  }
+</script>
+</head>
+<body></body>
+</html>
