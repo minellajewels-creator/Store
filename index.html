@@ -600,33 +600,88 @@ function validateDelivery() {
 
 // =====================================================
 // SHIPPING
+// SHIPPING — origin: 641025 (Coimbatore)
+// 50g per product, min 500g first slab
+// 5% fuel surcharge on base shipping
+// FREE shipping on orders above ₹999
 // =====================================================
 var ZONE_RATES = {
-  A:{base:35.40,extra:34.22,name:"Zone A \u2014 Local (Coimbatore)"},
-  B:{base:38.94,extra:37.76,name:"Zone B \u2014 Intra-state (Tamil Nadu)"},
-  C:{base:51.92,extra:49.56,name:"Zone C \u2014 Metro"},
-  D:{base:61.36,extra:57.82,name:"Zone D \u2014 Pan India"},
-  E:{base:75.52,extra:71.98,name:"Zone E \u2014 Northeast / J&K"}
+  A:{base:35.40, extra:34.22, name:"Zone A — Local (Coimbatore)"},
+  B:{base:38.94, extra:37.76, name:"Zone B — Intra-state (Tamil Nadu)"},
+  C:{base:51.92, extra:49.56, name:"Zone C — Metro"},
+  D:{base:61.36, extra:57.82, name:"Zone D — Pan India"},
+  E:{base:75.52, extra:71.98, name:"Zone E — Northeast / J&K"}
 };
+
 var FLAT_PREFIXES = ["380","382","560","562","631","160","140","141","600","602","110","120","121","122","201","250","124","131","132","500","711","712","713","700","400","421","401","410","411","415","395","403","641","642","643","625","626","627","628"];
+
 function getPincodeZone(pin) {
-  if (!pin||pin.length!==6) return "D";
-  var n=parseInt(pin),p2=pin.substring(0,2),p3=pin.substring(0,3);
-  if (p2==="18"||p2==="19") return "E"; if (p2==="73"&&n>=737000&&n<=737199) return "E";
-  if (p2==="78"&&n>=781000) return "E"; if (p2==="79"||p2==="97") return "E";
-  if (n>=744100&&n<=744304) return "E"; if (p3==="641"||p3==="642"||p3==="643"||p3==="638") return "A";
-  if (n>=600000&&n<=643999) return "B";
-  if (["110","400","600","700","500","560","380","411","160"].indexOf(p3)!==-1) return "C"; return "D";
+  if (!pin || pin.length !== 6) return "D";
+  var n  = parseInt(pin);
+  var p2 = pin.substring(0, 2);
+  var p3 = pin.substring(0, 3);
+  // Zone E — Northeast, J&K, Andaman
+  if (p2==="18"||p2==="19") return "E";
+  if (p2==="73" && n>=737000 && n<=737199) return "E";
+  if (p2==="78" && n>=781000) return "E";
+  if (p2==="79" || p2==="97") return "E";
+  if (n>=744100 && n<=744304) return "E";
+  // Zone A — Coimbatore local (641xxx, 642xxx, 643xxx, 638xxx)
+  if (p3==="641"||p3==="642"||p3==="643"||p3==="638") return "A";
+  // Zone B — Tamil Nadu intra-state
+  if (n>=600000 && n<=643999) return "B";
+  // Zone C — Metro pincodes
+  if (["110","400","600","700","500","560","380","411","160"].indexOf(p3) !== -1) return "C";
+  // Zone D — everything else
+  return "D";
 }
+
 function calcShipping() {
-  var pin=document.getElementById("f_pin").value.trim(), zone=getPincodeZone(pin), r=ZONE_RATES[zone]||ZONE_RATES["D"];
-  var totalQty=Object.values(cart).reduce((s,i)=>s+i.qty,0), weightG=Math.max(500,totalQty*150);
-  var slabs=Math.ceil(weightG/500), extraSlabs=Math.max(0,slabs-1), baseShipping=r.base+extraSlabs*r.extra;
-  if (FLAT_PREFIXES.some(pf=>pin.startsWith(pf))&&zone!=="A") baseShipping+=2.50;
-  var fuelSurcharge=baseShipping*0.05, total=Math.ceil(baseShipping+fuelSurcharge); shippingCost=total;
-  document.getElementById("shippingAmt").textContent="\u20b9"+total;
-  document.getElementById("shippingZone").textContent=r.name+" \xb7 base \u20b9"+baseShipping.toFixed(2)+" + 5% fuel = \u20b9"+total;
-  document.getElementById("shippingBox").classList.add("show"); document.getElementById("shippingDisplay").textContent="\u20b9"+total; updateGrandTotal();
+  var pin      = document.getElementById("f_pin").value.trim();
+  var subtotal = cartSubtotal();
+
+  // ── FREE SHIPPING above ₹999 ──
+  if (subtotal >= 999) {
+    shippingCost = 0;
+    document.getElementById("shippingAmt").textContent  = "₹0 — FREE!";
+    document.getElementById("shippingZone").textContent = "Free shipping on orders above ₹999 🎉";
+    document.getElementById("shippingBox").classList.add("show");
+    document.getElementById("shippingDisplay").textContent = "FREE";
+    updateGrandTotal();
+    return;
+  }
+
+  var zone  = getPincodeZone(pin);
+  var r     = ZONE_RATES[zone] || ZONE_RATES["D"];
+
+  // Weight: 50g per product item, minimum first slab = 500g
+  var totalItems = Object.values(cart).reduce(function(s, i) { return s + i.qty; }, 0);
+  var weightG    = Math.max(500, totalItems * 50);
+
+  // Slabs: first 500g = base rate, each additional 500g = extra rate
+  var slabs      = Math.ceil(weightG / 500);
+  var extraSlabs = Math.max(0, slabs - 1);
+  var baseShip   = r.base + (extraSlabs * r.extra);
+
+  // Flat area surcharge for certain pincodes
+  if (FLAT_PREFIXES.some(function(pf){ return pin.startsWith(pf); }) && zone !== "A") {
+    baseShip += 2.50;
+  }
+
+  // 5% fuel surcharge
+  var fuel  = baseShip * 0.05;
+  var total = Math.ceil(baseShip + fuel);
+
+  shippingCost = total;
+
+  document.getElementById("shippingAmt").textContent  = "₹" + total;
+  document.getElementById("shippingZone").textContent =
+    r.name + " · " + totalItems + " item(s) · " +
+    weightG + "g · base ₹" + baseShip.toFixed(2) +
+    " + 5% fuel = ₹" + total;
+  document.getElementById("shippingBox").classList.add("show");
+  document.getElementById("shippingDisplay").textContent = "₹" + total;
+  updateGrandTotal();
 }
 
 // =====================================================
