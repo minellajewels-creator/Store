@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>About Us — Minella Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;--gold:#b8903a;--gold2:#d4a84b;--cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;--muted:#8a7878;--white:#ffffff;--border:#ddd4c8;--shadow:0 4px 24px rgba(28,16,24,0.10);--r:14px;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;padding-top:var(--safe-top)}
+.topbar-logo{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px;text-decoration:none}
+.topbar-back{color:var(--plum);text-decoration:none;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px}
+.topbar-back:hover{color:var(--plum2)}
+.page{padding-top:calc(60px + var(--safe-top));padding-bottom:calc(60px + var(--safe-bottom));max-width:700px;margin:0 auto;padding-left:24px;padding-right:24px}
+.hero-sec{text-align:center;padding:60px 0 48px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px}
+.hero-sec h1{font-family:'Libre Baskerville',serif;font-size:clamp(32px,7vw,52px);font-weight:400;color:var(--plum);line-height:1.1;margin-bottom:16px}
+.hero-sec h1 em{font-style:italic;color:var(--gold)}
+.hero-sec p{font-size:16px;color:var(--muted);font-weight:300;line-height:1.8;max-width:500px;margin:0 auto}
+.divider{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));margin:40px auto;border-radius:2px}
+.section{margin-bottom:48px}
+.section h2{font-family:'Libre Baskerville',serif;font-size:22px;font-weight:400;color:var(--plum);margin-bottom:14px}
+.section p{font-size:15px;color:var(--ink);line-height:1.9;margin-bottom:12px;font-weight:300}
+.values-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:20px}
+.value-card{background:var(--white);border-radius:var(--r);padding:24px 20px;box-shadow:var(--shadow);text-align:center}
+.value-icon{font-size:32px;margin-bottom:12px}
+.value-title{font-family:'Libre Baskerville',serif;font-size:15px;color:var(--plum);margin-bottom:6px}
+.value-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.cta-box{background:var(--plum);border-radius:var(--r);padding:40px 32px;text-align:center;color:white;margin-top:48px}
+.cta-box h2{font-family:'Libre Baskerville',serif;font-size:24px;font-weight:400;margin-bottom:10px}
+.cta-box p{font-size:14px;opacity:0.8;margin-bottom:24px;line-height:1.7}
+.cta-btn{display:inline-block;background:var(--gold);color:white;text-decoration:none;padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;letter-spacing:0.5px;transition:.2s}
+.cta-btn:hover{background:var(--gold2)}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <a href="/" class="topbar-logo">Minella Jewels</a>
+  <a href="/" class="topbar-back">&#8592; Back to Store</a>
+</nav>
+<div class="page">
+  <div class="hero-sec">
+    <div class="hero-tag">&#10022; Our Story</div>
+    <h1>Crafted with<br><em>Love & Care</em></h1>
+    <p>Minella Jewels was born from a simple belief — that every woman deserves jewellery that lasts, looks beautiful, and doesn't cost a fortune.</p>
+  </div>
+  <div class="divider"></div>
+  <div class="section">
+    <h2>Who We Are</h2>
+    <p>We are a small, passionate team based in Coimbatore, Tamil Nadu. We design and curate anti-tarnish jewellery that is built to last — pieces you can wear every day without worrying about them losing their shine.</p>
+    <p>Every piece in our collection is carefully selected for its quality, finish, and wearability. We believe jewellery should be accessible, not a luxury reserved for special occasions.</p>
+  </div>
+  <div class="section">
+    <h2>What Makes Us Different</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">✨</div>
+        <div class="value-title">Anti-Tarnish</div>
+        <div class="value-desc">Our pieces are treated to resist tarnish, keeping them looking new for longer.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💎</div>
+        <div class="value-title">Quality First</div>
+        <div class="value-desc">Every piece is hand-checked before it's shipped to you.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🚚</div>
+        <div class="value-title">Pan India Delivery</div>
+        <div class="value-desc">We ship to every corner of India, quickly and safely.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💛</div>
+        <div class="value-title">Made for You</div>
+        <div class="value-desc">Designs that suit everyday wear, special occasions, and everything in between.</div>
+      </div>
+    </div>
+  </div>
+  <div class="cta-box">
+    <h2>Explore the Collection</h2>
+    <p>Find your next favourite piece from our curated range of necklaces, bracelets, earrings, anklets and rings.</p>
+    <a href="/" class="cta-btn">Shop Now</a>
+  </div>
+</div>
+</body>
+</html>
