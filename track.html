@@ -219,14 +219,17 @@ body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);-w
   <div class="tab-content" id="tabContent_myorders">
     <div class="card">
       <div class="form-g" style="margin-bottom:0">
-        <label class="form-label">Your Email Address</label>
-        <input class="form-input" id="mo_email" placeholder="Email used at checkout" type="email" onkeydown="if(event.key==='Enter')loadMyOrders()">
+        <label class="form-label">Email or Mobile Number</label>
+        <input class="form-input" id="mo_lookup" placeholder="Email address or 10-digit mobile" onkeydown="if(event.key==='Enter')loadMyOrders()">
       </div>
       <div class="btn-row" style="margin-top:14px">
         <button class="btn-primary full" onclick="loadMyOrders()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           View My Orders
         </button>
+      </div>
+      <div class="info-box">
+        Enter the <strong>email address</strong> or <strong>mobile number</strong> you used when placing your order.
       </div>
     </div>
 
@@ -370,12 +373,16 @@ function showStatus(data) {
 }
 
 // =====================================================
-// TAB 2 — MY ORDERS
+// TAB 2 — MY ORDERS (email OR phone)
 // =====================================================
 function loadMyOrders() {
-  var email = document.getElementById("mo_email").value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showMoErr("Please enter a valid email address."); return;
+  var raw   = document.getElementById("mo_lookup").value.trim();
+  var email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw) ? raw : "";
+  var phone = /^\d{10}$/.test(raw) ? raw : "";
+
+  if (!email && !phone) {
+    showMoErr("Please enter a valid email address or 10-digit mobile number.");
+    return;
   }
 
   document.getElementById("ordersList").innerHTML = "";
@@ -383,7 +390,9 @@ function loadMyOrders() {
   document.getElementById("moErr").classList.remove("show");
   document.getElementById("moSpinner").classList.add("show");
 
-  var url = SCRIPT_URL + "?action=getOrdersByEmail&email=" + encodeURIComponent(email);
+  var url = SCRIPT_URL + "?action=getOrdersByEmailOrPhone"
+    + "&email=" + encodeURIComponent(email)
+    + "&phone=" + encodeURIComponent(phone);
 
   fetch(url)
     .then(function(r) { return r.json(); })
@@ -409,11 +418,10 @@ function renderOrdersList(orders) {
   list.innerHTML = "";
 
   orders.forEach(function(o) {
-    var cfg        = STATUS_CONFIG[o.status] || STATUS_CONFIG["Order Placed"];
     var statusClass = getStatusClass(o.status);
-    var div        = document.createElement("div");
-    div.className  = "order-card";
-    div.innerHTML  =
+    var div         = document.createElement("div");
+    div.className   = "order-card";
+    div.innerHTML   =
       "<div class='order-card-header'>" +
         "<div class='order-card-id'>" + (o.orderId || "") + "</div>" +
         "<span class='order-card-status " + statusClass + "'>" + (o.status || "") + "</span>" +
@@ -491,7 +499,7 @@ function updateProgress(dotPrefix, lblPrefix, fillId, activeStep, status) {
       dot.style.borderColor = "#b83232";
       continue;
     }
-    if (i < activeStep)      { dot.classList.add("done"); lbl.classList.add("done"); dot.textContent = "✓"; }
+    if (i < activeStep)       { dot.classList.add("done"); lbl.classList.add("done"); dot.textContent = "✓"; }
     else if (i === activeStep){ dot.classList.add("active"); lbl.classList.add("active"); }
   }
   var pct = isCancelled ? 0 : (activeStep / 4) * 100;
