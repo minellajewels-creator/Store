@@ -652,9 +652,6 @@ function buildConfirm() {
   document.getElementById("confirmLines").innerHTML=html; document.getElementById("confirmTotal").textContent="\u20b9"+grand.toLocaleString("en-IN"); document.getElementById("confirmBox").style.display="block";
 }
 
-// =====================================================
-// PLACE ORDER — hash fetched from server, salt never in browser
-// =====================================================
 function placeOrder() {
   if (!selectedPay) { document.getElementById("payErr").classList.add("show"); showErr("Please select a payment method."); return; }
   var name=document.getElementById("f_name").value.trim(), phone=document.getElementById("f_phone").value.trim();
@@ -662,84 +659,83 @@ function placeOrder() {
   var city=document.getElementById("f_city").value.trim(), state=document.getElementById("f_state").value.trim();
   var pin=document.getElementById("f_pin").value.trim();
   var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod;
-  var itemsSummary=Object.keys(cart).map(t=>t+" \xd7"+cart[t].qty+" = \u20b9"+(cart[t].price*cart[t].qty)).join("; ");
+  var itemsSummary=Object.keys(cart).map(t=>t+" x"+cart[t].qty+" = Rs."+(cart[t].price*cart[t].qty)).join("; ");
   var fullAddress=addr+(city?", "+city:"")+(state?", "+state:"")+" - "+pin;
   var cartArr=Object.keys(cart).map(t=>({title:t,qty:cart[t].qty,price:cart[t].price}));
 
+  // ── COD — GET request, no CORS issue ──
   if (selectedPay==="cod") {
     document.getElementById("spinner").classList.add("show");
-    fetch(SCRIPT_URL, {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({action:"placeOrder",paymentMethod:"cod",name,phone,email,address:fullAddress,items:itemsSummary,subtotal:sub,shipping:ship,codCharge:cod,grandTotal:grand,cartData:JSON.stringify(cartArr)})
-    }).catch(()=>{}).finally(()=>{
-      clearCart(); document.getElementById("spinner").classList.remove("show");
-      window.location.href = SUCCESS_URL+"?method=cod&name="+encodeURIComponent(name);
-    }); return;
+    var codPayload = {
+      name:name, phone:phone, email:email,
+      address:fullAddress, items:itemsSummary,
+      subtotal:sub, shipping:ship,
+      codCharge:cod, grandTotal:grand,
+      cartData:JSON.stringify(cartArr)
+    };
+    fetch(SCRIPT_URL + "?action=placeOrder&payload=" + encodeURIComponent(JSON.stringify(codPayload)))
+      .catch(function(){})
+      .finally(function(){
+        clearCart();
+        document.getElementById("spinner").classList.remove("show");
+        window.location.href = SUCCESS_URL + "?method=cod&name=" + encodeURIComponent(name);
+      });
+    return;
   }
 
-  // ── ONLINE: ask server to compute hash (salt stays server-side) ──
+  // ── ONLINE PAYMENT — GET request, no CORS issue ──
   document.getElementById("spinner").classList.add("show");
-  var txnid="MNL"+Date.now(), amount=grand.toFixed(2), productinfo="Minella Jewels Order";
-  var udf1=JSON.stringify(cartArr).substring(0,255), udf2=pin;
+  var txnid       = "MNL" + Date.now();
+  var amount      = grand.toFixed(2);
+  var productinfo = "Minella Jewels Order";
+  var udf1        = JSON.stringify(cartArr).substring(0, 200);
+  var udf2        = pin;
 
- // ── ONLINE PAYMENT — GET request avoids CORS preflight ──
-document.getElementById("spinner").classList.add("show");
-var txnid       = "MNL" + Date.now();
-var amount      = grand.toFixed(2);
-var productinfo = "Minella Jewels Order";
-var udf1        = JSON.stringify(cartArr).substring(0, 255);
-var udf2        = pin;
+  var payload = {
+    action:      "generateHash",
+    txnid:       txnid,
+    amount:      amount,
+    productinfo: productinfo,
+    firstname:   name,
+    email:       email,
+    udf1:        udf1,
+    udf2:        udf2,
+    udf3:        "",
+    udf4:        "",
+    udf5:        "",
+    orderData: {
+      name:name, phone:phone, email:email,
+      address:fullAddress, items:itemsSummary,
+      subtotal:sub, shipping:ship,
+      codCharge:0, grandTotal:grand,
+      paymentMethod:selectedPay,
+      cartData:JSON.stringify(cartArr)
+    }
+  };
 
-var payload = {
-  action:      "generateHash",
-  txnid:       txnid,
-  amount:      amount,
-  productinfo: productinfo,
-  firstname:   name,
-  email:       email,
-  udf1:        udf1,
-  udf2:        udf2,
-  udf3:        "",
-  udf4:        "",
-  udf5:        "",
-  orderData: {
-    name:          name,
-    phone:         phone,
-    email:         email,
-    address:       fullAddress,
-    items:         itemsSummary,
-    subtotal:      sub,
-    shipping:      ship,
-    codCharge:     0,
-    grandTotal:    grand,
-    paymentMethod: selectedPay,
-    cartData:      JSON.stringify(cartArr)
-  }
-};
-
-fetch(SCRIPT_URL + "?action=generateHash&payload=" + encodeURIComponent(JSON.stringify(payload)))
-  .then(function(r) { return r.json(); })
-  .then(function(res) {
-    if (!res.ok || !res.hash) throw new Error(res.error || "Hash generation failed");
-    clearCart();
-    document.getElementById("pu_key").value         = res.key;
-    document.getElementById("pu_txnid").value       = txnid;
-    document.getElementById("pu_amount").value      = amount;
-    document.getElementById("pu_productinfo").value = productinfo;
-    document.getElementById("pu_firstname").value   = name;
-    document.getElementById("pu_email").value       = email;
-    document.getElementById("pu_phone").value       = phone;
-    document.getElementById("pu_surl").value        = SUCCESS_URL;
-    document.getElementById("pu_furl").value        = FAIL_URL;
-    document.getElementById("pu_hash").value        = res.hash;
-    document.getElementById("pu_udf1").value        = udf1;
-    document.getElementById("pu_udf2").value        = udf2;
-    document.getElementById("payuForm").submit();
-  })
-  .catch(function(err) {
-    document.getElementById("spinner").classList.remove("show");
-    showErr("Payment setup failed. Please try again. (" + err.message + ")");
-  });
+  fetch(SCRIPT_URL + "?action=generateHash&payload=" + encodeURIComponent(JSON.stringify(payload)))
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (!res.ok || !res.hash) throw new Error(res.error || "Hash generation failed");
+      clearCart();
+      document.getElementById("pu_key").value         = res.key;
+      document.getElementById("pu_txnid").value       = txnid;
+      document.getElementById("pu_amount").value      = amount;
+      document.getElementById("pu_productinfo").value = productinfo;
+      document.getElementById("pu_firstname").value   = name;
+      document.getElementById("pu_email").value       = email;
+      document.getElementById("pu_phone").value       = phone;
+      document.getElementById("pu_surl").value        = SUCCESS_URL;
+      document.getElementById("pu_furl").value        = FAIL_URL;
+      document.getElementById("pu_hash").value        = res.hash;
+      document.getElementById("pu_udf1").value        = udf1;
+      document.getElementById("pu_udf2").value        = udf2;
+      document.getElementById("payuForm").submit();
+    })
+    .catch(function(err){
+      document.getElementById("spinner").classList.remove("show");
+      showErr("Payment setup failed. Please try again. (" + err.message + ")");
+    });
 }
 
 // =====================================================
