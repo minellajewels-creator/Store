@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Track Order — Minella Jewels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;--gold:#b8903a;--gold2:#d4a84b;--cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;--muted:#8a7878;--white:#ffffff;--border:#ddd4c8;--shadow:0 4px 24px rgba(28,16,24,0.10);--r:14px;--r-sm:8px;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;padding-top:var(--safe-top)}
+.topbar-logo{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px;text-decoration:none}
+.topbar-back{color:var(--plum);text-decoration:none;font-size:13px;font-weight:500}
+.topbar-back:hover{color:var(--plum2)}
+.page{padding-top:calc(60px + var(--safe-top));padding-bottom:calc(60px + var(--safe-bottom));max-width:560px;margin:0 auto;padding-left:24px;padding-right:24px}
+.hero-sec{text-align:center;padding:52px 0 40px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:18px}
+.hero-sec h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,6vw,44px);font-weight:400;color:var(--plum);margin-bottom:12px}
+.hero-sec p{font-size:15px;color:var(--muted);font-weight:300;line-height:1.7}
+.track-box{background:var(--white);border-radius:var(--r);padding:32px 28px;box-shadow:var(--shadow);margin-bottom:24px}
+.form-g{margin-bottom:16px}
+.form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
+.form-input{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:.2s;font-family:'Outfit',sans-serif;-webkit-appearance:none}
+.form-input:focus{border-color:var(--plum);background:white;box-shadow:0 0 0 3px rgba(74,25,66,0.07)}
+.btn-track{width:100%;background:var(--plum);color:white;border:none;padding:14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:.2s}
+.btn-track:hover{background:var(--plum2)}
+.info-box{background:var(--cream2);border-radius:var(--r-sm);padding:16px 18px;margin-top:20px;font-size:13px;color:var(--muted);line-height:1.7}
+.info-box strong{color:var(--ink)}
+.courier-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+@media(max-width:400px){.courier-grid{grid-template-columns:1fr}}
+.courier-card{background:var(--white);border-radius:var(--r-sm);padding:16px;box-shadow:var(--shadow);text-align:center;text-decoration:none;transition:.2s;border:1.5px solid var(--border)}
+.courier-card:hover{border-color:var(--plum);transform:translateY(-2px)}
+.courier-icon{font-size:24px;margin-bottom:6px}
+.courier-name{font-size:13px;font-weight:600;color:var(--ink)}
+.courier-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.sec-title{font-family:'Libre Baskerville',serif;font-size:17px;color:var(--plum);margin-bottom:14px}
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <a href="/" class="topbar-logo">Minella Jewels</a>
+  <a href="/" class="topbar-back">&#8592; Back to Store</a>
+</nav>
+<div class="page">
+  <div class="hero-sec">
+    <div class="hero-tag">&#10022; Order Tracking</div>
+    <h1>Track Your Order</h1>
+    <p>Enter your order details or tracking number to check the status of your delivery.</p>
+  </div>
+  <div class="track-box">
+    <div class="form-g">
+      <label class="form-label">Tracking Number / Order ID</label>
+      <input class="form-input" id="t_track" placeholder="e.g. MNL1234567890 or courier AWB">
+    </div>
+    <div class="form-g">
+      <label class="form-label">Mobile Number</label>
+      <input class="form-input" id="t_phone" placeholder="10-digit number used at checkout" type="tel" maxlength="10" inputmode="numeric">
+    </div>
+    <button class="btn-track" onclick="trackOrder()">Track Order</button>
+    <div class="info-box">
+      <strong>Shipping Timeline</strong><br>
+      Orders are dispatched within <strong>1–2 business days</strong>.<br>
+      Delivery takes <strong>3–7 business days</strong> depending on your location.<br>
+      You will receive a tracking number via WhatsApp or SMS once shipped.
+    </div>
+  </div>
+  <div class="sec-title">Track directly on courier website</div>
+  <div class="courier-grid">
+    <a href="https://www.delhivery.com/track/" target="_blank" class="courier-card">
+      <div class="courier-icon">🚚</div>
+      <div class="courier-name">Delhivery</div>
+      <div class="courier-sub">Track on website</div>
+    </a>
+    <a href="https://www.indiapost.gov.in/vas/pages/trackconsignment.aspx" target="_blank" class="courier-card">
+      <div class="courier-icon">📮</div>
+      <div class="courier-name">India Post</div>
+      <div class="courier-sub">Track on website</div>
+    </a>
+    <a href="https://www.bluedart.com/tracking" target="_blank" class="courier-card">
+      <div class="courier-icon">🔵</div>
+      <div class="courier-name">BlueDart</div>
+      <div class="courier-sub">Track on website</div>
+    </a>
+    <a href="https://www.ekartlogistics.com/" target="_blank" class="courier-card">
+      <div class="courier-icon">📦</div>
+      <div class="courier-name">Ekart</div>
+      <div class="courier-sub">Track on website</div>
+    </a>
+  </div>
+</div>
+<script>
+function trackOrder() {
+  var track = document.getElementById("t_track").value.trim();
+  var phone = document.getElementById("t_phone").value.trim();
+  if (!track && !phone) { alert("Please enter your tracking number or mobile number."); return; }
+  var text = "Hi! I want to track my order.%0ATracking / Order ID: " + encodeURIComponent(track) +
+             "%0AMobile: " + encodeURIComponent(phone);
+  window.open("https://wa.me/91XXXXXXXXXX?text=" + text, "_blank");
+}
+</script>
+</body>
+</html>
