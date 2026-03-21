@@ -202,7 +202,6 @@ input,select{font-family:'Outfit',sans-serif}
 .btn-place:hover{background:var(--gold2)}
 .toast{position:fixed;bottom:calc(24px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:white;padding:10px 22px;border-radius:30px;font-size:13px;z-index:9999;opacity:0;pointer-events:none;transition:.3s;white-space:nowrap;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#payuForm{display:none}
 .spinner-overlay{position:fixed;inset:0;background:rgba(250,246,240,0.85);z-index:9998;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .spinner-overlay.show{display:flex}
 .spinner{width:40px;height:40px;border:3px solid var(--cream3);border-top-color:var(--plum);border-radius:50%;animation:spin .8s linear infinite}
@@ -216,7 +215,7 @@ input,select{font-family:'Outfit',sans-serif}
 </style>
 </head>
 <body>
-<div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text">Processing&#8230;</div></div>
+<div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text" id="spinnerText">Processing&#8230;</div></div>
 <nav class="topbar">
   <div class="topbar-logo" id="topbarLogo"><span>Minella Jewels</span></div>
   <div class="topbar-nav">
@@ -226,9 +225,9 @@ input,select{font-family:'Outfit',sans-serif}
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <a href="/track" class="orders-fab" aria-label="My Orders">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-  <span>My Orders</span>
-</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>My Orders</span>
+    </a>
     <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <span class="cart-badge" id="cartBadge">0</span>
@@ -329,9 +328,12 @@ input,select{font-family:'Outfit',sans-serif}
   </div>
 </div>
 
-<!-- PayU form — populated just before submit, hash comes from server -->
-<!-- <form id="payuForm" method="POST" action="https://test.payu.in/_payment"> -->
-  <form id="payuForm" method="POST" action="https://secure.payu.in/_payment">
+<!--
+  PayU form — fields populated entirely from server response.
+  Browser sends order data → Apps Script generates hash + all fields → browser submits this form.
+  No PayU keys, no hash logic, no salt anywhere in this file.
+-->
+<form id="payuForm" method="POST">
   <input type="hidden" name="key"         id="pu_key">
   <input type="hidden" name="txnid"       id="pu_txnid">
   <input type="hidden" name="amount"      id="pu_amount">
@@ -355,23 +357,19 @@ input,select{font-family:'Outfit',sans-serif}
 
 <script>
 // =====================================================
-// SECURE CONFIG — NO salt, NO PAYU_KEY here
-// All sensitive operations happen in Code.gs
+// CONFIG — NO PayU keys, NO salt, NO hash logic here.
+// All payment security lives in Code.gs only.
 // =====================================================
-const SCRIPT_URL  = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
-const SHEET_ID    = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
-const SHEET_URL   = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1";
-const SUCCESS_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
-const FAIL_URL    = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
-const CART_KEY    = "minella_cart_v1";
-// NOTE: PAYU_KEY and PAYU_SALT have been removed from this file.
-// The hash is now computed server-side in Code.gs → handleGenerateHash()
-// The PAYU_KEY is returned with the hash response from the server.
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
+const SHEET_URL  = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1";
+const STORE_URL  = "https://store.minella.in";
+const CART_KEY   = "minella_cart_v1";
 
 let allProducts = [], cart = {}, selectedPay = null, shippingCost = null, currentStep = 1;
 
 // =====================================================
-// CART — persists across browser refresh via localStorage
+// CART
 // =====================================================
 function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {} }
 function loadCart() {
@@ -382,7 +380,7 @@ function clearCart() { cart = {}; saveCart(); }
 loadCart();
 
 // =====================================================
-// IMAGE HELPERS — lh3.googleusercontent.com is more reliable
+// IMAGE HELPERS
 // =====================================================
 function extractDriveId(url) {
   if (!url) return null;
@@ -621,11 +619,7 @@ function validateDelivery() {
 });
 
 // =====================================================
-// SHIPPING
 // SHIPPING — origin: 641025 (Coimbatore)
-// 50g per product, min 500g first slab
-// 5% fuel surcharge on base shipping
-// FREE shipping on orders above ₹999
 // =====================================================
 var ZONE_RATES = {
   A:{base:35.40, extra:34.22, name:"Zone A — Local (Coimbatore)"},
@@ -634,75 +628,43 @@ var ZONE_RATES = {
   D:{base:61.36, extra:57.82, name:"Zone D — Pan India"},
   E:{base:75.52, extra:71.98, name:"Zone E — Northeast / J&K"}
 };
-
 var FLAT_PREFIXES = ["380","382","560","562","631","160","140","141","600","602","110","120","121","122","201","250","124","131","132","500","711","712","713","700","400","421","401","410","411","415","395","403","641","642","643","625","626","627","628"];
 
 function getPincodeZone(pin) {
   if (!pin || pin.length !== 6) return "D";
-  var n  = parseInt(pin);
-  var p2 = pin.substring(0, 2);
-  var p3 = pin.substring(0, 3);
-  // Zone E — Northeast, J&K, Andaman
+  var n=parseInt(pin), p2=pin.substring(0,2), p3=pin.substring(0,3);
   if (p2==="18"||p2==="19") return "E";
   if (p2==="73" && n>=737000 && n<=737199) return "E";
   if (p2==="78" && n>=781000) return "E";
   if (p2==="79" || p2==="97") return "E";
   if (n>=744100 && n<=744304) return "E";
-  // Zone A — Coimbatore local (641xxx, 642xxx, 643xxx, 638xxx)
   if (p3==="641"||p3==="642"||p3==="643"||p3==="638") return "A";
-  // Zone B — Tamil Nadu intra-state
   if (n>=600000 && n<=643999) return "B";
-  // Zone C — Metro pincodes
   if (["110","400","600","700","500","560","380","411","160"].indexOf(p3) !== -1) return "C";
-  // Zone D — everything else
   return "D";
 }
 
 function calcShipping() {
-  var pin      = document.getElementById("f_pin").value.trim();
-  var subtotal = cartSubtotal();
-
-  // ── FREE SHIPPING above ₹999 ──
+  var pin = document.getElementById("f_pin").value.trim(), subtotal = cartSubtotal();
   if (subtotal >= 999) {
     shippingCost = 0;
     document.getElementById("shippingAmt").textContent  = "₹0 — FREE!";
     document.getElementById("shippingZone").textContent = "Free shipping on orders above ₹999 🎉";
     document.getElementById("shippingBox").classList.add("show");
     document.getElementById("shippingDisplay").textContent = "FREE";
-    updateGrandTotal();
-    return;
+    updateGrandTotal(); return;
   }
-
-  var zone  = getPincodeZone(pin);
-  var r     = ZONE_RATES[zone] || ZONE_RATES["D"];
-
-  // Weight: 50g per product item, minimum first slab = 500g
-  var totalItems = Object.values(cart).reduce(function(s, i) { return s + i.qty; }, 0);
-  var weightG    = Math.max(500, totalItems * 50);
-
-  // Slabs: first 500g = base rate, each additional 500g = extra rate
-  var slabs      = Math.ceil(weightG / 500);
-  var extraSlabs = Math.max(0, slabs - 1);
-  var baseShip   = r.base + (extraSlabs * r.extra);
-
-  // Flat area surcharge for certain pincodes
-  if (FLAT_PREFIXES.some(function(pf){ return pin.startsWith(pf); }) && zone !== "A") {
-    baseShip += 2.50;
-  }
-
-  // 5% fuel surcharge
-  var fuel  = baseShip * 0.05;
-  var total = Math.ceil(baseShip + fuel);
-
+  var zone=getPincodeZone(pin), r=ZONE_RATES[zone]||ZONE_RATES["D"];
+  var totalItems=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  var weightG=Math.max(500,totalItems*50), slabs=Math.ceil(weightG/500), extraSlabs=Math.max(0,slabs-1);
+  var baseShip=r.base+(extraSlabs*r.extra);
+  if (FLAT_PREFIXES.some(pf=>pin.startsWith(pf)) && zone!=="A") baseShip += 2.50;
+  var fuel=baseShip*0.05, total=Math.ceil(baseShip+fuel);
   shippingCost = total;
-
-  document.getElementById("shippingAmt").textContent  = "₹" + total;
-  document.getElementById("shippingZone").textContent =
-    r.name + " · " + totalItems + " item(s) · " +
-    weightG + "g · base ₹" + baseShip.toFixed(2) +
-    " + 5% fuel = ₹" + total;
+  document.getElementById("shippingAmt").textContent  = "₹"+total;
+  document.getElementById("shippingZone").textContent = r.name+" · "+totalItems+" item(s) · "+weightG+"g · base ₹"+baseShip.toFixed(2)+" + 5% fuel = ₹"+total;
   document.getElementById("shippingBox").classList.add("show");
-  document.getElementById("shippingDisplay").textContent = "₹" + total;
+  document.getElementById("shippingDisplay").textContent = "₹"+total;
   updateGrandTotal();
 }
 
@@ -729,88 +691,94 @@ function buildConfirm() {
   document.getElementById("confirmLines").innerHTML=html; document.getElementById("confirmTotal").textContent="\u20b9"+grand.toLocaleString("en-IN"); document.getElementById("confirmBox").style.display="block";
 }
 
+// =====================================================
+// PLACE ORDER
+// =====================================================
 function placeOrder() {
   if (!selectedPay) { document.getElementById("payErr").classList.add("show"); showErr("Please select a payment method."); return; }
-  var name=document.getElementById("f_name").value.trim(), phone=document.getElementById("f_phone").value.trim();
-  var email=document.getElementById("f_email").value.trim(), addr=document.getElementById("f_addr").value.trim();
-  var city=document.getElementById("f_city").value.trim(), state=document.getElementById("f_state").value.trim();
-  var pin=document.getElementById("f_pin").value.trim();
-  var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod;
-  var itemsSummary=Object.keys(cart).map(t=>t+" x"+cart[t].qty+" = Rs."+(cart[t].price*cart[t].qty)).join("; ");
-  var fullAddress=addr+(city?", "+city:"")+(state?", "+state:"")+" - "+pin;
-  var cartArr=Object.keys(cart).map(t=>({title:t,qty:cart[t].qty,price:cart[t].price}));
 
-  // ── COD — GET request, no CORS issue ──
-  if (selectedPay==="cod") {
-    document.getElementById("spinner").classList.add("show");
+  var name  = document.getElementById("f_name").value.trim();
+  var phone = document.getElementById("f_phone").value.trim();
+  var email = document.getElementById("f_email").value.trim();
+  var addr  = document.getElementById("f_addr").value.trim();
+  var city  = document.getElementById("f_city").value.trim();
+  var state = document.getElementById("f_state").value.trim();
+  var pin   = document.getElementById("f_pin").value.trim();
+
+  var sub   = cartSubtotal();
+  var ship  = shippingCost || 0;
+  var cod   = (selectedPay === "cod") ? Math.max(40, Math.round(sub * 0.02)) : 0;
+  var grand = sub + ship + cod;
+
+  var itemsSummary = Object.keys(cart).map(t => t + " x" + cart[t].qty + " = Rs." + (cart[t].price * cart[t].qty)).join("; ");
+  var fullAddress  = addr + (city ? ", " + city : "") + (state ? ", " + state : "") + " - " + pin;
+  var cartArr      = Object.keys(cart).map(t => ({ title: t, qty: cart[t].qty, price: cart[t].price }));
+
+  // ── COD ──
+  if (selectedPay === "cod") {
+    showSpinner("Placing your order\u2026");
     var codPayload = {
-      name:name, phone:phone, email:email,
-      address:fullAddress, items:itemsSummary,
-      subtotal:sub, shipping:ship,
-      codCharge:cod, grandTotal:grand,
-      cartData:JSON.stringify(cartArr)
+      name, phone, email, address: fullAddress, items: itemsSummary,
+      subtotal: sub, shipping: ship, codCharge: cod, grandTotal: grand,
+      cartData: JSON.stringify(cartArr)
     };
     fetch(SCRIPT_URL + "?action=placeOrder&payload=" + encodeURIComponent(JSON.stringify(codPayload)))
-      .catch(function(){})
-      .finally(function(){
+      .catch(function() {})
+      .finally(function() {
         clearCart();
-        document.getElementById("spinner").classList.remove("show");
-        window.location.href = SUCCESS_URL + "?method=cod&name=" + encodeURIComponent(name);
+        hideSpinner();
+        window.location.href = STORE_URL + "/success.html?method=cod&name=" + encodeURIComponent(name);
       });
     return;
   }
 
-  // ── ONLINE PAYMENT — GET request, no CORS issue ──
-  document.getElementById("spinner").classList.add("show");
-  var txnid       = "MNL" + Date.now();
-  var amount      = grand.toFixed(2);
-  var productinfo = "Minella Jewels Order";
-  var udf1        = JSON.stringify(cartArr).substring(0, 200);
-  var udf2        = pin;
+  // ── ONLINE PAYMENT ──
+  // Send order data to Apps Script → get back all PayU form fields → submit form
+  showSpinner("Setting up secure payment\u2026");
 
   var payload = {
-    action:      "generateHash",
-    txnid:       txnid,
-    amount:      amount,
-    productinfo: productinfo,
-    firstname:   name,
-    email:       email,
-    udf1:        udf1,
-    udf2:        udf2,
-    udf3:        "",
-    udf4:        "",
-    udf5:        "",
-    orderData: {
-      name:name, phone:phone, email:email,
-      address:fullAddress, items:itemsSummary,
-      subtotal:sub, shipping:ship,
-      codCharge:0, grandTotal:grand,
-      paymentMethod:selectedPay,
-      cartData:JSON.stringify(cartArr)
-    }
+    name, phone, email,
+    address:       fullAddress,
+    items:         itemsSummary,
+    subtotal:      sub,
+    shipping:      ship,
+    grandTotal:    grand,
+    pincode:       pin,
+    paymentMethod: selectedPay,
+    cartData:      cartArr   // pass as array, not stringified — server will handle
   };
 
-  fetch(SCRIPT_URL + "?action=generateHash&payload=" + encodeURIComponent(JSON.stringify(payload)))
-    .then(function(r){ return r.json(); })
-    .then(function(res){
-      if (!res.ok || !res.hash) throw new Error(res.error || "Hash generation failed");
+  fetch(SCRIPT_URL + "?action=initiatePayment&payload=" + encodeURIComponent(JSON.stringify(payload)))
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      if (!res.ok || !res.formFields) throw new Error(res.error || "Payment setup failed");
+
+      // Cart cleared before redirect so a back-button doesn't re-submit
       clearCart();
-      document.getElementById("pu_key").value         = res.key;
-      document.getElementById("pu_txnid").value       = txnid;
-      document.getElementById("pu_amount").value      = amount;
-      document.getElementById("pu_productinfo").value = productinfo;
-      document.getElementById("pu_firstname").value   = name;
-      document.getElementById("pu_email").value       = email;
-      document.getElementById("pu_phone").value       = phone;
-      document.getElementById("pu_surl").value        = SUCCESS_URL;
-      document.getElementById("pu_furl").value        = FAIL_URL;
-      document.getElementById("pu_hash").value        = res.hash;
-      document.getElementById("pu_udf1").value        = udf1;
-      document.getElementById("pu_udf2").value        = udf2;
+
+      // Populate every form field from the server response — no PayU logic here
+      var f = res.formFields;
+      document.getElementById("payuForm").action = res.payuUrl;
+      document.getElementById("pu_key").value         = f.key;
+      document.getElementById("pu_txnid").value       = f.txnid;
+      document.getElementById("pu_amount").value      = f.amount;
+      document.getElementById("pu_productinfo").value = f.productinfo;
+      document.getElementById("pu_firstname").value   = f.firstname;
+      document.getElementById("pu_email").value       = f.email;
+      document.getElementById("pu_phone").value       = f.phone;
+      document.getElementById("pu_surl").value        = f.surl;
+      document.getElementById("pu_furl").value        = f.furl;
+      document.getElementById("pu_hash").value        = f.hash;
+      document.getElementById("pu_udf1").value        = f.udf1;
+      document.getElementById("pu_udf2").value        = f.udf2;
+      document.getElementById("pu_udf3").value        = f.udf3 || "";
+      document.getElementById("pu_udf4").value        = f.udf4 || "";
+      document.getElementById("pu_udf5").value        = f.udf5 || "";
+
       document.getElementById("payuForm").submit();
     })
-    .catch(function(err){
-      document.getElementById("spinner").classList.remove("show");
+    .catch(function(err) {
+      hideSpinner();
       showErr("Payment setup failed. Please try again. (" + err.message + ")");
     });
 }
@@ -818,17 +786,20 @@ function placeOrder() {
 // =====================================================
 // UTILITIES
 // =====================================================
+function showSpinner(msg) { document.getElementById("spinnerText").textContent = msg || "Processing\u2026"; document.getElementById("spinner").classList.add("show"); }
+function hideSpinner()   { document.getElementById("spinner").classList.remove("show"); }
 function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
 function unesc(s) { var d=document.createElement("div"); d.innerHTML=s; return d.textContent; }
 function showErr(msg) { document.getElementById("errMsg").textContent=msg; document.getElementById("errBanner").classList.add("show"); document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"}); }
 function showToast(msg) { var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2400); }
 </script>
-  <footer style="text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
+
+<footer style="text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
   <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:10px">
     <a href="/about" style="color:var(--muted);text-decoration:none">About Us</a>
     <a href="/contact" style="color:var(--muted);text-decoration:none">Contact</a>
     <a href="/track" style="color:var(--muted);text-decoration:none">Track Order</a>
-    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping & Returns</a>
+    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping &amp; Returns</a>
   </div>
   © 2025 Minella Jewels · Made with ♥ in Coimbatore
 </footer>
