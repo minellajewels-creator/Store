@@ -726,7 +726,7 @@ function placeOrder() {
     // POST with JSON body — no query-string size limit
     fetch(SCRIPT_URL, {
       method:  "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body:    JSON.stringify(codPayload)
     })
       .catch(function() {})
@@ -758,7 +758,7 @@ function placeOrder() {
   // POST — avoids GET query-string length limit (~2KB) which causes silent JSON truncation
   fetch(SCRIPT_URL, {
     method:  "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
     body:    JSON.stringify(payload)
   })
     .then(function(r) { return r.json(); })
