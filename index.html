@@ -212,6 +212,174 @@ input,select{font-family:'Outfit',sans-serif}
 .topbar-nav a{font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.8px;text-transform:uppercase;transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
 .topbar-nav a:hover{color:var(--plum);border-bottom-color:var(--gold)}
 @media(max-width:600px){.topbar-nav{display:none}}
+  /* ─────────────────────────────────────────────────────────────
+   MINELLA JEWELS — STYLE PATCHES
+   Drop these inside your existing <style> block (or append)
+   ───────────────────────────────────────────────────────────── */
+
+/* ── 1. STOCK BADGE: "few in stock" (vague, no numbers) ─────── */
+/* Replace your old .stock-badge.limited rule with this */
+.stock-badge.limited {
+  background: linear-gradient(135deg, #2a1e08 0%, #3a2a0a 100%);
+  color: var(--gold2);
+  /* subtle breathing pulse — CSS only, zero JS cost */
+  animation: stockPulse 2.8s ease-in-out infinite;
+}
+@keyframes stockPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,168,75,0); }
+  50%       { opacity: 0.85; box-shadow: 0 0 0 4px rgba(212,168,75,0.18); }
+}
+
+/* ── 2. HERO AMBIENT PARTICLES (CSS only, no JS) ────────────── */
+/* These are pure CSS pseudo-element "floating dust" particles  */
+/* They layer over the hero without any JS — zero perf cost     */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 18% 22%, rgba(184,144,58,0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px   at 72% 15%, rgba(184,144,58,0.4)  0%, transparent 100%),
+    radial-gradient(2px 2px   at 45% 60%, rgba(74,25,66,0.3)    0%, transparent 100%),
+    radial-gradient(1px 1px   at 85% 70%, rgba(184,144,58,0.45) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 30% 80%, rgba(74,25,66,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px   at 60% 40%, rgba(184,144,58,0.35) 0%, transparent 100%);
+  animation: floatDust 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes floatDust {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0.6; }
+  33%  { transform: translateY(-8px) translateX(4px); opacity: 1; }
+  66%  { transform: translateY(4px) translateX(-6px); opacity: 0.7; }
+  100% { transform: translateY(-12px) translateX(2px); opacity: 0.9; }
+}
+
+/* ── 3. HERO TEXT: silky reveal on page load ────────────────── */
+.hero-tag {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.1s;
+}
+.hero h1 {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.25s;
+}
+.hero-sub {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.4s;
+}
+.hero-cta {
+  animation: fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  animation-delay: 0.55s;
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 4. TOPBAR LOGO: shimmer sweep on load ──────────────────── */
+.topbar-logo span {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.topbar-logo span::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(184,144,58,0.35), transparent);
+  animation: logoShimmer 3.5s ease-in-out 0.8s 1 forwards;
+}
+@keyframes logoShimmer {
+  0%   { left: -100%; opacity: 1; }
+  100% { left: 180%;  opacity: 0; }
+}
+
+/* ── 5. PRODUCT CARDS: staggered entrance (IntersectionObserver) */
+/* JS below handles .card-visible toggling — CSS does the work  */
+.product-card {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+              transform 0.5s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.3s,
+              /* keep your existing hover transform: */
+              /* (merge with existing .product-card transition) */
+              ;
+}
+.product-card.card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Keep your existing nth-child offsets — they still apply after visible */
+
+/* ── 6. CAT-BAR PILL: magnetic active indicator ─────────────── */
+.cat-btn {
+  position: relative;
+  overflow: hidden;
+}
+.cat-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.18) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+.cat-btn:hover::after,
+.cat-btn.active::after {
+  opacity: 1;
+}
+
+/* ── 7. CART FAB: heartbeat when badge > 0 ───────────────────── */
+.cart-fab.has-items {
+  animation: cartBeat 1.8s ease-in-out 0.3s 3;
+}
+@keyframes cartBeat {
+  0%, 100% { transform: scale(1); }
+  20%       { transform: scale(1.18); }
+  40%       { transform: scale(0.96); }
+  60%       { transform: scale(1.10); }
+}
+
+/* ── 8. ADD TO BAG button: ripple on click ───────────────────── */
+.btn-add, .btn-pview-add {
+  position: relative;
+  overflow: hidden;
+}
+.btn-add::before, .btn-pview-add::before {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  width: 0; height: 0;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+.btn-add:active::before, .btn-pview-add:active::before {
+  width: 200px; height: 200px;
+  opacity: 1;
+  transition: 0s;
+}
+
+/* ── 9. GOLD CURSOR TRAIL (optional — pure CSS can't do this;  ──
+        handled by tiny JS snippet in the <script> block below)  */
+
+/* ── 10. SCROLL PROGRESS BAR (top of page, gold) ────────────── */
+.scroll-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
