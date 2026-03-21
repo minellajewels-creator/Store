@@ -718,11 +718,17 @@ function placeOrder() {
   if (selectedPay === "cod") {
     showSpinner("Placing your order\u2026");
     var codPayload = {
+      action: "placeOrder",
       name, phone, email, address: fullAddress, items: itemsSummary,
       subtotal: sub, shipping: ship, codCharge: cod, grandTotal: grand,
       cartData: JSON.stringify(cartArr)
     };
-    fetch(SCRIPT_URL + "?action=placeOrder&payload=" + encodeURIComponent(JSON.stringify(codPayload)))
+    // POST with JSON body — no query-string size limit
+    fetch(SCRIPT_URL, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify(codPayload)
+    })
       .catch(function() {})
       .finally(function() {
         clearCart();
@@ -733,10 +739,11 @@ function placeOrder() {
   }
 
   // ── ONLINE PAYMENT ──
-  // Send order data to Apps Script → get back all PayU form fields → submit form
+  // POST order data to Apps Script → server builds hash + all PayU fields → browser submits form
   showSpinner("Setting up secure payment\u2026");
 
   var payload = {
+    action:        "initiatePayment",
     name, phone, email,
     address:       fullAddress,
     items:         itemsSummary,
@@ -745,10 +752,15 @@ function placeOrder() {
     grandTotal:    grand,
     pincode:       pin,
     paymentMethod: selectedPay,
-    cartData:      cartArr   // pass as array, not stringified — server will handle
+    cartData:      cartArr
   };
 
-  fetch(SCRIPT_URL + "?action=initiatePayment&payload=" + encodeURIComponent(JSON.stringify(payload)))
+  // POST — avoids GET query-string length limit (~2KB) which causes silent JSON truncation
+  fetch(SCRIPT_URL, {
+    method:  "POST",
+    headers: { "Content-Type": "application/json" },
+    body:    JSON.stringify(payload)
+  })
     .then(function(r) { return r.json(); })
     .then(function(res) {
       if (!res.ok || !res.formFields) throw new Error(res.error || "Payment setup failed");
