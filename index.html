@@ -32,8 +32,11 @@ input,select{font-family:'Outfit',sans-serif}
 ::-webkit-scrollbar-thumb{background:var(--plum2);border-radius:4px}
 .topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
 .topbar-logo img{height:36px;width:auto;object-fit:contain}
-.topbar-logo span{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px}
- .orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;letter-spacing:0.5px;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.topbar-logo span{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px;position:relative;overflow:hidden;display:inline-block}
+/* ── LOGO SHIMMER on load ── */
+.topbar-logo span::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(184,144,58,0.35),transparent);animation:logoShimmer 3.5s ease-in-out 0.8s 1 forwards}
+@keyframes logoShimmer{0%{left:-100%;opacity:1}100%{left:180%;opacity:0}}
+.orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;letter-spacing:0.5px;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
 .orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
 .orders-fab svg{width:14px;height:14px;flex-shrink:0}
 @media(max-width:600px){.orders-fab span{display:none}.orders-fab{width:36px;padding:0;border-radius:50%}}
@@ -41,28 +44,48 @@ input,select{font-family:'Outfit',sans-serif}
 .cart-fab:hover{transform:scale(1.08);box-shadow:0 6px 22px rgba(74,25,66,0.40)}
 .cart-fab svg{width:20px;height:20px}
 .cart-badge{position:absolute;top:-4px;right:-4px;background:var(--gold2);color:var(--plum);font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+/* ── CART HEARTBEAT when items added ── */
+.cart-fab.has-items{animation:cartBeat 1.8s ease-in-out 0.3s 3}
+@keyframes cartBeat{0%,100%{transform:scale(1)}20%{transform:scale(1.18)}40%{transform:scale(0.96)}60%{transform:scale(1.10)}}
+/* ── HERO ── */
 .hero{padding-top:calc(60px + var(--safe-top));min-height:52vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-left:24px;padding-right:24px;padding-bottom:40px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 80%,rgba(184,144,58,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(74,25,66,0.06) 0%,transparent 60%);pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px}
-.hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(38px,9vw,80px);font-weight:400;line-height:1.05;color:var(--plum);margin-bottom:14px}
+/* ── FLOATING DUST PARTICLES (CSS only) ── */
+.hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 18% 22%,rgba(184,144,58,0.55) 0%,transparent 100%),radial-gradient(1px 1px at 72% 15%,rgba(184,144,58,0.4) 0%,transparent 100%),radial-gradient(2px 2px at 45% 60%,rgba(74,25,66,0.3) 0%,transparent 100%),radial-gradient(1px 1px at 85% 70%,rgba(184,144,58,0.45) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 30% 80%,rgba(74,25,66,0.25) 0%,transparent 100%),radial-gradient(1px 1px at 60% 40%,rgba(184,144,58,0.35) 0%,transparent 100%);animation:floatDust 12s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+@keyframes floatDust{0%{transform:translateY(0) translateX(0);opacity:0.6}33%{transform:translateY(-8px) translateX(4px);opacity:1}66%{transform:translateY(4px) translateX(-6px);opacity:0.7}100%{transform:translateY(-12px) translateX(2px);opacity:0.9}}
+/* ── HERO TEXT STAGGERED REVEAL ── */
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px;animation:fadeSlideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;animation-delay:0.1s}
+.hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(38px,9vw,80px);font-weight:400;line-height:1.05;color:var(--plum);margin-bottom:14px;animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;animation-delay:0.25s}
 .hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{font-size:clamp(14px,3vw,17px);color:var(--muted);font-weight:300;margin-bottom:32px;max-width:380px}
-.hero-cta{background:var(--plum);color:white;border:none;padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;letter-spacing:1px;box-shadow:0 6px 24px rgba(74,25,66,0.28);transition:.25s}
+.hero-sub{font-size:clamp(14px,3vw,17px);color:var(--muted);font-weight:300;margin-bottom:32px;max-width:380px;animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;animation-delay:0.4s}
+.hero-cta{background:var(--plum);color:white;border:none;padding:13px 36px;border-radius:40px;font-size:14px;font-weight:500;letter-spacing:1px;box-shadow:0 6px 24px rgba(74,25,66,0.28);transition:.25s;animation:fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;animation-delay:0.55s}
 .hero-cta:hover{background:var(--plum2);transform:translateY(-2px)}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+/* ── CATEGORY BAR ── */
 .cat-bar{position:sticky;top:calc(60px + var(--safe-top));z-index:400;background:rgba(250,246,240,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:6px;padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .cat-bar::-webkit-scrollbar{display:none}
-.cat-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:7px 20px;border-radius:30px;font-size:13px;font-weight:500;white-space:nowrap;transition:.2s;flex-shrink:0}
+.cat-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:7px 20px;border-radius:30px;font-size:13px;font-weight:500;white-space:nowrap;transition:.2s;flex-shrink:0;position:relative;overflow:hidden}
 .cat-btn.active,.cat-btn:hover{background:var(--plum);color:white;border-color:var(--plum)}
+/* cat-btn inner glow */
+.cat-btn::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,255,255,0.18) 0%,transparent 70%);opacity:0;transition:opacity .3s;border-radius:inherit}
+.cat-btn:hover::after,.cat-btn.active::after{opacity:1}
+/* ── GRID ── */
 .grid-wrap{padding:32px 16px 80px;max-width:1200px;margin:0 auto}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;align-items:start}
 .product-card:nth-child(3n+2){margin-top:28px}
 .product-card:nth-child(5n+4){margin-top:14px}
 .product-card:nth-child(7n+3){margin-top:42px}
-.product-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;position:relative}
+/* ── CARD ENTRANCE ANIMATION ── */
+.product-card{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);position:relative;opacity:0;transform:translateY(18px);transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1),transform 0.5s cubic-bezier(0.22,1,0.36,1),box-shadow .3s}
+.product-card.card-visible{opacity:1;transform:translateY(0)}
 .product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.product-card.card-visible:hover{transform:translateY(-5px)}
+/* ── STOCK BADGE ── */
 .stock-badge{position:absolute;top:10px;left:10px;z-index:10;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;padding:4px 10px;border-radius:20px}
 .stock-badge.out{background:#2a1010;color:#ff9999}
-.stock-badge.limited{background:#2a1e08;color:var(--gold2)}
+/* "Few in stock" — vague, pulsing, no exact number shown */
+.stock-badge.limited{background:linear-gradient(135deg,#2a1e08 0%,#3a2a0a 100%);color:var(--gold2);animation:stockPulse 2.8s ease-in-out infinite}
+@keyframes stockPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(212,168,75,0)}50%{opacity:0.85;box-shadow:0 0 0 4px rgba(212,168,75,0.18)}}
 .img-wrap{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--cream2)}
 .img-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--cream2) 25%,var(--cream3) 50%,var(--cream2) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
@@ -73,12 +96,16 @@ input,select{font-family:'Outfit',sans-serif}
 .card-title{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:400;color:var(--ink);margin-bottom:4px;line-height:1.4}
 .card-price{font-size:15px;font-weight:600;color:var(--plum);margin-bottom:12px}
 .card-actions{display:flex;gap:8px}
-.btn-add,.btn-view{flex:1;border:none;padding:9px 10px;border-radius:30px;font-size:12px;font-weight:500;letter-spacing:0.3px;transition:.2s}
+/* ── BUTTON RIPPLE ── */
+.btn-add,.btn-view{flex:1;border:none;padding:9px 10px;border-radius:30px;font-size:12px;font-weight:500;letter-spacing:0.3px;transition:.2s;position:relative;overflow:hidden}
 .btn-add{background:var(--plum);color:white}
 .btn-add:hover:not(:disabled){background:var(--plum2)}
 .btn-add:disabled{background:var(--muted);cursor:not-allowed;opacity:0.6}
 .btn-view{background:transparent;color:var(--plum);border:1px solid var(--plum)}
 .btn-view:hover{background:var(--cream2)}
+.btn-add::before{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:0;height:0;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);transition:width .5s ease,height .5s ease,opacity .5s ease;opacity:0}
+.btn-add:active::before{width:200px;height:200px;opacity:1;transition:0s}
+/* ── OVERLAYS & DRAWERS (unchanged) ── */
 .overlay{position:fixed;inset:0;background:rgba(28,16,24,0.5);z-index:600;opacity:0;pointer-events:none;transition:opacity .3s}
 .overlay.open{opacity:1;pointer-events:all}
 .cart-drawer{position:fixed;top:0;right:0;width:min(380px,100vw);height:100%;height:100dvh;background:var(--white);z-index:700;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(28,16,24,0.15)}
@@ -127,9 +154,11 @@ input,select{font-family:'Outfit',sans-serif}
 .pview-price{font-size:22px;font-weight:600;color:var(--plum);margin-bottom:16px}
 .pview-stock{font-size:12px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px}
 .pview-stock.out{color:var(--error)}.pview-stock.limited{color:var(--gold)}.pview-stock.ok{color:var(--ok)}
-.btn-pview-add{width:100%;background:var(--plum);color:white;border:none;padding:14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;transition:.2s}
+.btn-pview-add{width:100%;background:var(--plum);color:white;border:none;padding:14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;transition:.2s;position:relative;overflow:hidden}
 .btn-pview-add:hover:not(:disabled){background:var(--plum2)}
 .btn-pview-add:disabled{background:var(--muted);cursor:not-allowed}
+.btn-pview-add::before{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.3);width:0;height:0;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);transition:width .5s ease,height .5s ease,opacity .5s ease;opacity:0}
+.btn-pview-add:active::before{width:300px;height:300px;opacity:1;transition:0s}
 .co-modal{position:fixed;inset:0;z-index:800;display:none;align-items:flex-end;justify-content:center}
 .co-modal.open{display:flex}
 @media(min-width:640px){.co-modal{align-items:center;padding:20px}}
@@ -212,177 +241,14 @@ input,select{font-family:'Outfit',sans-serif}
 .topbar-nav a{font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.8px;text-transform:uppercase;transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
 .topbar-nav a:hover{color:var(--plum);border-bottom-color:var(--gold)}
 @media(max-width:600px){.topbar-nav{display:none}}
-  /* ─────────────────────────────────────────────────────────────
-   MINELLA JEWELS — STYLE PATCHES
-   Drop these inside your existing <style> block (or append)
-   ───────────────────────────────────────────────────────────── */
-
-/* ── 1. STOCK BADGE: "few in stock" (vague, no numbers) ─────── */
-/* Replace your old .stock-badge.limited rule with this */
-.stock-badge.limited {
-  background: linear-gradient(135deg, #2a1e08 0%, #3a2a0a 100%);
-  color: var(--gold2);
-  /* subtle breathing pulse — CSS only, zero JS cost */
-  animation: stockPulse 2.8s ease-in-out infinite;
-}
-@keyframes stockPulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,168,75,0); }
-  50%       { opacity: 0.85; box-shadow: 0 0 0 4px rgba(212,168,75,0.18); }
-}
-
-/* ── 2. HERO AMBIENT PARTICLES (CSS only, no JS) ────────────── */
-/* These are pure CSS pseudo-element "floating dust" particles  */
-/* They layer over the hero without any JS — zero perf cost     */
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(1.5px 1.5px at 18% 22%, rgba(184,144,58,0.55) 0%, transparent 100%),
-    radial-gradient(1px 1px   at 72% 15%, rgba(184,144,58,0.4)  0%, transparent 100%),
-    radial-gradient(2px 2px   at 45% 60%, rgba(74,25,66,0.3)    0%, transparent 100%),
-    radial-gradient(1px 1px   at 85% 70%, rgba(184,144,58,0.45) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 30% 80%, rgba(74,25,66,0.25) 0%, transparent 100%),
-    radial-gradient(1px 1px   at 60% 40%, rgba(184,144,58,0.35) 0%, transparent 100%);
-  animation: floatDust 12s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-@keyframes floatDust {
-  0%   { transform: translateY(0px) translateX(0px); opacity: 0.6; }
-  33%  { transform: translateY(-8px) translateX(4px); opacity: 1; }
-  66%  { transform: translateY(4px) translateX(-6px); opacity: 0.7; }
-  100% { transform: translateY(-12px) translateX(2px); opacity: 0.9; }
-}
-
-/* ── 3. HERO TEXT: silky reveal on page load ────────────────── */
-.hero-tag {
-  animation: fadeSlideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
-  animation-delay: 0.1s;
-}
-.hero h1 {
-  animation: fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
-  animation-delay: 0.25s;
-}
-.hero-sub {
-  animation: fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
-  animation-delay: 0.4s;
-}
-.hero-cta {
-  animation: fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
-  animation-delay: 0.55s;
-}
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── 4. TOPBAR LOGO: shimmer sweep on load ──────────────────── */
-.topbar-logo span {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-.topbar-logo span::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(184,144,58,0.35), transparent);
-  animation: logoShimmer 3.5s ease-in-out 0.8s 1 forwards;
-}
-@keyframes logoShimmer {
-  0%   { left: -100%; opacity: 1; }
-  100% { left: 180%;  opacity: 0; }
-}
-
-/* ── 5. PRODUCT CARDS: staggered entrance (IntersectionObserver) */
-/* JS below handles .card-visible toggling — CSS does the work  */
-.product-card {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
-              transform 0.5s cubic-bezier(0.22,1,0.36,1),
-              box-shadow 0.3s,
-              /* keep your existing hover transform: */
-              /* (merge with existing .product-card transition) */
-              ;
-}
-.product-card.card-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Keep your existing nth-child offsets — they still apply after visible */
-
-/* ── 6. CAT-BAR PILL: magnetic active indicator ─────────────── */
-.cat-btn {
-  position: relative;
-  overflow: hidden;
-}
-.cat-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.18) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  border-radius: inherit;
-}
-.cat-btn:hover::after,
-.cat-btn.active::after {
-  opacity: 1;
-}
-
-/* ── 7. CART FAB: heartbeat when badge > 0 ───────────────────── */
-.cart-fab.has-items {
-  animation: cartBeat 1.8s ease-in-out 0.3s 3;
-}
-@keyframes cartBeat {
-  0%, 100% { transform: scale(1); }
-  20%       { transform: scale(1.18); }
-  40%       { transform: scale(0.96); }
-  60%       { transform: scale(1.10); }
-}
-
-/* ── 8. ADD TO BAG button: ripple on click ───────────────────── */
-.btn-add, .btn-pview-add {
-  position: relative;
-  overflow: hidden;
-}
-.btn-add::before, .btn-pview-add::before {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
-  width: 0; height: 0;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
-  opacity: 0;
-}
-.btn-add:active::before, .btn-pview-add:active::before {
-  width: 200px; height: 200px;
-  opacity: 1;
-  transition: 0s;
-}
-
-/* ── 9. GOLD CURSOR TRAIL (optional — pure CSS can't do this;  ──
-        handled by tiny JS snippet in the <script> block below)  */
-
-/* ── 10. SCROLL PROGRESS BAR (top of page, gold) ────────────── */
-.scroll-bar {
-  position: fixed;
-  top: 0; left: 0;
-  height: 2px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
-  z-index: 9999;
-  transition: width 0.1s linear;
-  pointer-events: none;
-}
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-bar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 100%);z-index:9999;pointer-events:none;transition:width 0.1s linear}
 </style>
 </head>
 <body>
+<!-- Gold scroll progress bar -->
+<div class="scroll-bar" id="scrollBar"></div>
+
 <div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text" id="spinnerText">Processing&#8230;</div></div>
 <nav class="topbar">
   <div class="topbar-logo" id="topbarLogo"><span>Minella Jewels</span></div>
@@ -496,11 +362,6 @@ input,select{font-family:'Outfit',sans-serif}
   </div>
 </div>
 
-<!--
-  PayU form — fields populated entirely from server response.
-  Browser sends order data → Apps Script generates hash + all fields → browser submits this form.
-  No PayU keys, no hash logic, no salt anywhere in this file.
--->
 <form id="payuForm" method="POST">
   <input type="hidden" name="key"         id="pu_key">
   <input type="hidden" name="txnid"       id="pu_txnid">
@@ -523,10 +384,22 @@ input,select{font-family:'Outfit',sans-serif}
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="chatbot-wrap"><div class="elfsight-app-75dfa8d4-87e1-476c-80e8-b28d2c2f2e35"></div></div>
 
+<footer style="text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:10px">
+    <a href="/about" style="color:var(--muted);text-decoration:none">About Us</a>
+    <a href="/contact" style="color:var(--muted);text-decoration:none">Contact</a>
+    <a href="/track" style="color:var(--muted);text-decoration:none">Track Order</a>
+    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping Policy</a>
+    <a href="/return-policy" style="color:var(--muted);text-decoration:none">Return Policy</a>
+    <a href="/privacy-policy" style="color:var(--muted);text-decoration:none">Privacy Policy</a>
+    <a href="/terms" style="color:var(--muted);text-decoration:none">Terms &amp; Conditions</a>
+  </div>
+  © 2025 Minella Jewels · Made with ♥ in Coimbatore
+</footer>
+
 <script>
 // =====================================================
-// CONFIG — NO PayU keys, NO salt, NO hash logic here.
-// All payment security lives in Code.gs only.
+// CONFIG
 // =====================================================
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcWsMJFT2QTsP9chLWcn39PCjqYnxEuehJWalv2i6aRJM6duhHu1DGxnxErFHtathO/exec";
 const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
@@ -535,6 +408,60 @@ const STORE_URL  = "https://minella.in";
 const CART_KEY   = "minella_cart_v1";
 
 let allProducts = [], cart = {}, selectedPay = null, shippingCost = null, currentStep = 1;
+
+// =====================================================
+// ANIMATIONS INIT
+// =====================================================
+
+// ── Scroll progress bar ──
+(function() {
+  var bar = document.getElementById("scrollBar");
+  window.addEventListener("scroll", function() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = max > 0 ? (window.scrollY / max * 100) + "%" : "0%";
+  }, { passive: true });
+})();
+
+// ── Gold cursor sparkles (throttled, ultra-lightweight) ──
+(function() {
+  var last = 0;
+  document.addEventListener("mousemove", function(e) {
+    var now = Date.now();
+    if (now - last < 120) return;
+    last = now;
+    var s = document.createElement("span");
+    s.style.cssText = "position:fixed;pointer-events:none;z-index:9997;left:" + e.clientX + "px;top:" + e.clientY + "px;width:5px;height:5px;border-radius:50%;background:rgba(184,144,58,0.7);transform:translate(-50%,-50%) scale(1);transition:transform 0.6s ease,opacity 0.6s ease;opacity:1;";
+    document.body.appendChild(s);
+    requestAnimationFrame(function() {
+      s.style.transform = "translate(-50%,-50%) scale(0) translateY(-14px)";
+      s.style.opacity = "0";
+    });
+    setTimeout(function() { s.remove(); }, 650);
+  }, { passive: true });
+})();
+
+// ── Card entrance via IntersectionObserver ──
+function initCardAnimations() {
+  var cards = document.querySelectorAll(".product-card");
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e, i) {
+      if (e.isIntersecting) {
+        setTimeout(function() { e.target.classList.add("card-visible"); }, i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  cards.forEach(function(c) { io.observe(c); });
+}
+
+// ── Cart FAB heartbeat ──
+function pulseCartFab() {
+  var fab = document.getElementById("cartFabBtn");
+  if (!fab) return;
+  fab.classList.remove("has-items");
+  void fab.offsetWidth;
+  fab.classList.add("has-items");
+}
 
 // =====================================================
 // CART
@@ -576,7 +503,7 @@ function getProductCategory(p) {
   if (cat) return cat;
   var t = ((p.title || p.Title || "")).trim().toLowerCase();
   if (/earring|ear\s*ring|stud|hoop|jhumk/i.test(t))  return "earring";
-  if (/necklace|pendant|chain|/i.test(t))   return "necklace";
+  if (/necklace|pendant|chain/i.test(t))               return "necklace";
   if (/bracelet|bangle/i.test(t))                      return "bracelet";
   if (/anklet|payal/i.test(t))                         return "anklet";
   if (/\bring\b/i.test(t))                             return "ring";
@@ -614,8 +541,9 @@ function renderGrid(data) {
     var price  = parseFloat(p.price || p.Price) || 0;
     var stock  = parseInt(p.stocks || p.Stocks || p.stock) || 0;
     var status = stockStatus(stock), isOut = status === "out";
-    var badge  = status === "out" ? '<div class="stock-badge out">Out of Stock</div>'
-                : status === "limited" ? '<div class="stock-badge limited">Only ' + stock + ' left</div>' : "";
+    // ── "Few in stock" — no exact number shown ──
+    var badge  = status === "out"     ? '<div class="stock-badge out">Out of Stock</div>'
+               : status === "limited" ? '<div class="stock-badge limited">Few in stock</div>' : "";
     var card = document.createElement("div"); card.className = "product-card";
     card.innerHTML = badge
       + '<div class="img-wrap"><img src="' + esc(imgUrl) + '" alt="' + esc(title) + '" loading="lazy"'
@@ -628,6 +556,8 @@ function renderGrid(data) {
     frag.appendChild(card);
   });
   grid.innerHTML = ""; grid.appendChild(frag);
+  // trigger card entrance animations after render
+  initCardAnimations();
 }
 
 document.getElementById("productGrid").addEventListener("click", function(e) {
@@ -653,6 +583,7 @@ function addToCart(title, price, stock) {
   if (qty >= stock) { showToast("No more stock available"); return; }
   if (cur) cur.qty++; else cart[title] = { price, qty: 1, stock };
   saveCart(); updateCartUI(); showToast("Added to bag \u2713");
+  pulseCartFab(); // ── heartbeat on add ──
 }
 function changeQty(title, delta) { if (!cart[title]) return; cart[title].qty += delta; if (cart[title].qty <= 0) delete cart[title]; saveCart(); updateCartUI(); }
 function removeFromCart(title) { delete cart[title]; saveCart(); updateCartUI(); }
@@ -697,9 +628,10 @@ function openPview(p) {
   document.getElementById("pviewTitle").textContent = title;
   document.getElementById("pviewPrice").textContent = "\u20b9" + price.toLocaleString("en-IN");
   var stockEl = document.getElementById("pviewStock");
-  if (status==="out") { stockEl.textContent="Out of Stock"; stockEl.className="pview-stock out"; }
-  else if (status==="limited") { stockEl.textContent="Only "+stock+" left!"; stockEl.className="pview-stock limited"; }
-  else { stockEl.textContent="In Stock"; stockEl.className="pview-stock ok"; }
+  // ── "Few in stock" in modal too ──
+  if (status==="out")         { stockEl.textContent="Out of Stock";   stockEl.className="pview-stock out"; }
+  else if (status==="limited"){ stockEl.textContent="Few in stock";   stockEl.className="pview-stock limited"; }
+  else                        { stockEl.textContent="In Stock";       stockEl.className="pview-stock ok"; }
   var oldBtn = document.getElementById("pviewAddBtn"), newBtn = oldBtn.cloneNode(true);
   oldBtn.parentNode.replaceChild(newBtn, oldBtn);
   newBtn.disabled = (status==="out"); newBtn.textContent = (status==="out") ? "Out of Stock" : "Add to Bag";
@@ -787,7 +719,7 @@ function validateDelivery() {
 });
 
 // =====================================================
-// SHIPPING — origin: 641025 (Coimbatore)
+// SHIPPING
 // =====================================================
 var ZONE_RATES = {
   A:{base:35.40, extra:34.22, name:"Zone A — Local (Coimbatore)"},
@@ -882,7 +814,6 @@ function placeOrder() {
   var fullAddress  = addr + (city ? ", " + city : "") + (state ? ", " + state : "") + " - " + pin;
   var cartArr      = Object.keys(cart).map(t => ({ title: t, qty: cart[t].qty, price: cart[t].price }));
 
-  // ── COD ──
   if (selectedPay === "cod") {
     showSpinner("Placing your order\u2026");
     var codPayload = {
@@ -891,7 +822,6 @@ function placeOrder() {
       subtotal: sub, shipping: ship, codCharge: cod, grandTotal: grand,
       cartData: JSON.stringify(cartArr)
     };
-    // POST with JSON body — no query-string size limit
     fetch(SCRIPT_URL, {
       method:  "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -906,8 +836,6 @@ function placeOrder() {
     return;
   }
 
-  // ── ONLINE PAYMENT ──
-  // POST order data to Apps Script → server builds hash + all PayU fields → browser submits form
   showSpinner("Setting up secure payment\u2026");
 
   var payload = {
@@ -923,7 +851,6 @@ function placeOrder() {
     cartData:      cartArr
   };
 
-  // POST — avoids GET query-string length limit (~2KB) which causes silent JSON truncation
   fetch(SCRIPT_URL, {
     method:  "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -932,11 +859,7 @@ function placeOrder() {
     .then(function(r) { return r.json(); })
     .then(function(res) {
       if (!res.ok || !res.formFields) throw new Error(res.error || "Payment setup failed");
-
-      // Cart cleared before redirect so a back-button doesn't re-submit
       clearCart();
-
-      // Populate every form field from the server response — no PayU logic here
       var f = res.formFields;
       document.getElementById("payuForm").action = res.payuUrl;
       document.getElementById("pu_key").value         = f.key;
@@ -954,7 +877,6 @@ function placeOrder() {
       document.getElementById("pu_udf3").value        = f.udf3 || "";
       document.getElementById("pu_udf4").value        = f.udf4 || "";
       document.getElementById("pu_udf5").value        = f.udf5 || "";
-
       document.getElementById("payuForm").submit();
     })
     .catch(function(err) {
@@ -973,15 +895,5 @@ function unesc(s) { var d=document.createElement("div"); d.innerHTML=s; return d
 function showErr(msg) { document.getElementById("errMsg").textContent=msg; document.getElementById("errBanner").classList.add("show"); document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"}); }
 function showToast(msg) { var t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2400); }
 </script>
-
-<footer style="text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
-  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:10px">
-    <a href="/about" style="color:var(--muted);text-decoration:none">About Us</a>
-    <a href="/contact" style="color:var(--muted);text-decoration:none">Contact</a>
-    <a href="/track" style="color:var(--muted);text-decoration:none">Track Order</a>
-    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping &amp; Returns</a>
-  </div>
-  © 2025 Minella Jewels · Made with ♥ in Coimbatore
-</footer>
 </body>
 </html>
