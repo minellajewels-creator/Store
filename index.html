@@ -363,7 +363,7 @@ input,select{font-family:'Outfit',sans-serif}
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
 const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
 const SHEET_URL  = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1";
-const STORE_URL  = "https://store.minella.in";
+const STORE_URL  = "https://minella.in";
 const CART_KEY   = "minella_cart_v1";
 
 let allProducts = [], cart = {}, selectedPay = null, shippingCost = null, currentStep = 1;
@@ -408,7 +408,7 @@ function getProductCategory(p) {
   if (cat) return cat;
   var t = ((p.title || p.Title || "")).trim().toLowerCase();
   if (/earring|ear\s*ring|stud|hoop|jhumk/i.test(t))  return "earring";
-  if (/necklace|pendant|chain|heartstring/i.test(t))   return "necklace";
+  if (/necklace|pendant|chain|/i.test(t))   return "necklace";
   if (/bracelet|bangle/i.test(t))                      return "bracelet";
   if (/anklet|payal/i.test(t))                         return "anklet";
   if (/\bring\b/i.test(t))                             return "ring";
