@@ -13,4 +13,4 @@ Disallow: /track
 Disallow: /api/
 Disallow: /*.json$
 
-Sitemap: https://minellajewels.com/sitemap.xml
+Sitemap: https://minella.in/sitemap.xml
