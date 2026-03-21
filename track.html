@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Track Order — Minella Jewels</title>
-<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -13,498 +14,656 @@
   --ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;
   --gold:#b8903a;--gold2:#d4a84b;
   --cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;
-  --muted:#8a7878;--white:#ffffff;--border:#ddd4c8;
+  --muted:#8a7878;--white:#ffffff;
+  --error:#b83232;--ok:#2e7d4f;--border:#ddd4c8;
   --shadow:0 4px 24px rgba(28,16,24,0.10);
   --shadow-lg:0 12px 48px rgba(28,16,24,0.16);
-  --r:14px;--r-sm:8px;--ok:#2e7d4f;--error:#b83232;
-  --safe-top:env(safe-area-inset-top,0px);
-  --safe-bottom:env(safe-area-inset-bottom,0px)
+  --r:14px;--r-sm:8px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-top:env(safe-area-inset-top,0px)
 }
-body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;padding-top:var(--safe-top)}
-.topbar-logo{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px;text-decoration:none}
-.topbar-back{color:var(--plum);text-decoration:none;font-size:13px;font-weight:500}
-.topbar-back:hover{color:var(--plum2)}
-.page{padding-top:calc(60px + var(--safe-top));padding-bottom:calc(60px + var(--safe-bottom));max-width:600px;margin:0 auto;padding-left:20px;padding-right:20px}
-.hero-sec{text-align:center;padding:40px 0 28px}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:16px}
-.hero-sec h1{font-family:'Libre Baskerville',serif;font-size:clamp(24px,6vw,38px);font-weight:400;color:var(--plum);margin-bottom:8px}
-.hero-sec p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.7}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100vh}
+img{display:block;max-width:100%}
+button{font-family:'Outfit',sans-serif;cursor:pointer}
+input{font-family:'Outfit',sans-serif}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--cream2)}
+::-webkit-scrollbar-thumb{background:var(--plum2);border-radius:4px}
+
+/* ── TOPBAR ── */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
+.topbar-logo{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.topbar-logo img{height:36px;width:auto;object-fit:contain}
+.topbar-nav{display:flex;gap:28px;position:absolute;left:50%;transform:translateX(-50%)}
+.topbar-nav a{font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.8px;text-transform:uppercase;transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
+.topbar-nav a:hover,.topbar-nav a.active{color:var(--plum);border-bottom-color:var(--gold)}
+.topbar-right a{display:flex;align-items:center;gap:6px;background:var(--plum);color:white;border:none;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;letter-spacing:0.5px;text-decoration:none;transition:.2s}
+.topbar-right a:hover{background:var(--plum2)}
+@media(max-width:600px){.topbar-nav{display:none}}
+
+/* ── PAGE LAYOUT ── */
+.page{padding-top:calc(60px + var(--safe-top));min-height:100vh}
+
+/* ── HERO STRIP ── */
+.track-hero{background:var(--plum);padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden}
+.track-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 50%,rgba(184,144,58,0.15) 0%,transparent 70%),radial-gradient(ellipse 50% 80% at 10% 30%,rgba(255,255,255,0.04) 0%,transparent 60%);pointer-events:none}
+.track-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.2);border:1px solid rgba(184,144,58,0.35);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);font-weight:500;margin-bottom:16px}
+.track-hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,6vw,48px);font-weight:400;color:white;margin-bottom:10px;line-height:1.1}
+.track-hero h1 em{font-style:italic;color:var(--gold2)}
+.track-hero p{color:rgba(255,255,255,0.65);font-size:15px;font-weight:300;max-width:360px;margin:0 auto}
+
+/* ── SEARCH CARD ── */
+.search-wrap{max-width:600px;margin:-28px auto 0;padding:0 16px;position:relative;z-index:10}
+.search-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow-lg);overflow:hidden}
 
 /* ── TABS ── */
-.tabs{display:flex;background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px}
-.tab-btn{flex:1;background:transparent;border:none;padding:14px 10px;font-size:13px;font-weight:500;font-family:'Outfit',sans-serif;color:var(--muted);cursor:pointer;transition:.2s;border-bottom:3px solid transparent;display:flex;align-items:center;justify-content:center;gap:6px}
-.tab-btn.active{color:var(--plum);border-bottom-color:var(--plum);background:var(--cream2)}
-.tab-btn:hover:not(.active){color:var(--plum);background:var(--cream)}
-.tab-content{display:none}
-.tab-content.active{display:block}
+.tabs{display:flex;border-bottom:1px solid var(--border)}
+.tab-btn{flex:1;padding:16px 10px;background:none;border:none;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0.5px;transition:.2s;border-bottom:2px solid transparent;margin-bottom:-1px;position:relative}
+.tab-btn.active{color:var(--plum);border-bottom-color:var(--plum)}
+.tab-btn:hover:not(.active){color:var(--ink)}
 
-/* ── CARDS ── */
-.card{background:var(--white);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);margin-bottom:14px}
-.form-g{margin-bottom:14px}
-.form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
-.form-input{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:.2s;font-family:'Outfit',sans-serif;-webkit-appearance:none}
+/* ── TAB PANELS ── */
+.tab-panel{display:none;padding:24px}
+.tab-panel.active{display:block}
+
+.form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+.form-row{display:flex;gap:10px}
+.form-input{flex:1;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:.2s;-webkit-appearance:none;width:100%}
 .form-input:focus{border-color:var(--plum);background:white;box-shadow:0 0 0 3px rgba(74,25,66,0.07)}
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.btn-primary{background:var(--plum);color:white;border:none;padding:13px 10px;border-radius:var(--r-sm);font-size:13px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-primary:hover{background:var(--plum2)}
-.btn-primary.full{grid-column:1/-1}
-.btn-secondary{background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:13px 10px;border-radius:var(--r-sm);font-size:13px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:.2s;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-secondary:hover{background:var(--cream3);border-color:var(--plum)}
-.info-box{background:var(--cream2);border-radius:var(--r-sm);padding:13px 16px;margin-top:14px;font-size:13px;color:var(--muted);line-height:1.8;border-left:3px solid var(--gold)}
-.info-box strong{color:var(--ink)}
+.form-input.err{border-color:var(--error)}
+.btn-search{background:var(--plum);color:white;border:none;padding:12px 22px;border-radius:var(--r-sm);font-size:14px;font-weight:500;white-space:nowrap;transition:.2s;flex-shrink:0}
+.btn-search:hover{background:var(--plum2)}
+.field-hint{font-size:11px;color:var(--muted);margin-top:6px}
+.err-msg{font-size:12px;color:var(--error);margin-top:6px;display:none}
+.err-msg.show{display:block}
+
+/* ── OR DIVIDER ── */
+.or-row{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.or-row::before,.or-row::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── RESULTS AREA ── */
+.results-wrap{max-width:600px;margin:32px auto 60px;padding:0 16px}
+
+/* ── SINGLE ORDER CARD ── */
+.order-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.order-card-head{background:var(--plum);padding:20px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.order-card-id{font-family:'Libre Baskerville',serif;font-size:18px;color:white;font-weight:400;letter-spacing:0.5px}
+.order-card-date{font-size:12px;color:rgba(255,255,255,0.6);margin-top:3px}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.status-pill.placed   {background:rgba(46,125,79,0.2);color:#6ed9a0}
+.status-pill.processing{background:rgba(184,144,58,0.2);color:var(--gold2)}
+.status-pill.dispatched{background:rgba(100,149,237,0.2);color:#a0c4ff}
+.status-pill.out       {background:rgba(100,200,180,0.2);color:#80ffdc}
+.status-pill.delivered {background:rgba(46,125,79,0.35);color:#6ed9a0}
+.status-pill.cancelled {background:rgba(184,50,50,0.25);color:#ff9999}
+.status-pill.default   {background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75)}
+
+.order-card-body{padding:20px 22px}
+.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--cream2);gap:12px;font-size:14px}
+.info-row:last-child{border-bottom:none}
+.info-label{color:var(--muted);font-size:12px;font-weight:500;flex-shrink:0;padding-top:1px}
+.info-val{text-align:right;color:var(--ink);line-height:1.5;word-break:break-word;max-width:70%}
+.info-val.price{font-weight:700;color:var(--plum);font-size:15px}
+
+/* ── PROGRESS STEPPER ── */
+.progress-wrap{background:var(--cream2);padding:20px 22px;border-top:1px solid var(--border)}
+.progress-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:16px}
+.progress-steps{display:flex;align-items:flex-start;gap:0}
+.prog-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.prog-step:not(:last-child)::after{content:'';position:absolute;top:14px;left:calc(50% + 14px);right:calc(-50% + 14px);height:2px;background:var(--border);transition:.4s}
+.prog-step.done:not(:last-child)::after,.prog-step.active:not(:last-child)::after{background:var(--ok)}
+.prog-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);transition:.3s;z-index:1;flex-shrink:0}
+.prog-step.done .prog-dot{background:var(--ok);border-color:var(--ok);color:white}
+.prog-step.active .prog-dot{background:var(--plum);border-color:var(--plum);color:white;box-shadow:0 0 0 4px rgba(74,25,66,0.15)}
+.prog-lbl{font-size:10px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.3;letter-spacing:0.3px}
+.prog-step.active .prog-lbl{color:var(--plum);font-weight:600}
+.prog-step.done .prog-lbl{color:var(--ok)}
+
+/* ── TRACKING BOX ── */
+.tracking-box{background:var(--cream2);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:16px 18px;margin:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tracking-box-left .tracking-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:4px}
+.tracking-box-left .tracking-num{font-family:'Libre Baskerville',serif;font-size:17px;color:var(--ink);letter-spacing:0.5px}
+.btn-track-delhivery{display:inline-flex;align-items:center;gap:6px;background:var(--plum);color:white;text-decoration:none;padding:9px 16px;border-radius:var(--r-sm);font-size:12px;font-weight:500;transition:.2s;white-space:nowrap;flex-shrink:0}
+.btn-track-delhivery:hover{background:var(--plum2)}
+.btn-track-delhivery svg{width:13px;height:13px}
+
+/* ── MULTI-ORDER LIST (My Orders tab result) ── */
+.orders-list{display:flex;flex-direction:column;gap:14px}
+.mini-order-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .35s ease;cursor:pointer;transition:.2s}
+.mini-order-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.mini-order-head{background:var(--plum);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mini-order-id{font-family:'Libre Baskerville',serif;font-size:15px;color:white;font-weight:400}
+.mini-order-date{font-size:11px;color:rgba(255,255,255,0.6)}
+.mini-order-body{padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mini-order-items{font-size:13px;color:var(--ink);line-height:1.4;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini-order-total{font-size:15px;font-weight:700;color:var(--plum);white-space:nowrap}
+.mini-status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap}
+
+/* Pill colours re-used (light bg for white cards) */
+.pill-placed   {background:#e8f7ee;color:#2e7d4f}
+.pill-processing{background:#fef8ec;color:#b8903a}
+.pill-dispatched{background:#eef3ff;color:#4a6cba}
+.pill-out      {background:#edfaf5;color:#1d8a6e}
+.pill-delivered {background:#e2f4ea;color:#2e7d4f}
+.pill-cancelled {background:#fdf0f0;color:#b83232}
+.pill-default   {background:var(--cream2);color:var(--muted)}
+
+/* ── EXPANDED ORDER (click mini card) ── */
+.expanded-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--plum);font-size:13px;font-weight:500;padding:0;margin-bottom:16px;cursor:pointer;transition:.2s}
+.expanded-back:hover{color:var(--plum2)}
+.expanded-back svg{width:16px;height:16px}
+
+/* ── EMPTY / LOADING / ERROR STATES ── */
+.state-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:48px 28px;text-align:center}
+.state-icon{font-size:48px;margin-bottom:14px;display:block}
+.state-title{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--ink);margin-bottom:8px}
+.state-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:340px;margin:0 auto 20px}
+.btn-try-again{background:var(--plum);color:white;border:none;padding:11px 24px;border-radius:var(--r-sm);font-size:13px;font-weight:500;transition:.2s}
+.btn-try-again:hover{background:var(--plum2)}
 
 /* ── SPINNER ── */
-.spinner-wrap{display:none;text-align:center;padding:28px;color:var(--muted);font-size:13px}
-.spinner-wrap.show{display:block}
-.spin{display:inline-block;width:26px;height:26px;border:3px solid var(--cream3);border-top-color:var(--plum);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px}
+.spinner-wrap{text-align:center;padding:60px 0}
+.spinner{display:inline-block;width:36px;height:36px;border:3px solid var(--cream3);border-top-color:var(--plum);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.spinner-lbl{font-size:13px;color:var(--muted);margin-top:12px}
 
-/* ── ERROR ── */
-.err-box{display:none;background:#fff0f0;border:1px solid #f5c6c2;border-radius:var(--r-sm);padding:12px 16px;font-size:13px;color:var(--error);margin-bottom:14px}
-.err-box.show{display:block}
+/* ── FOOTER ── */
+footer{text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border)}
+footer a{color:var(--muted);text-decoration:none;margin:0 12px}
+footer a:hover{color:var(--plum)}
 
-/* ── STATUS CARD ── */
-.status-card{display:none;background:var(--white);border-radius:var(--r);box-shadow:var(--shadow-lg);margin-bottom:14px;overflow:hidden;animation:fadeUp .4s ease}
-.status-card.show{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.status-header{padding:18px 22px;display:flex;align-items:center;gap:12px}
-.status-icon{font-size:32px;flex-shrink:0}
-.status-order-id{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.7);margin-bottom:2px}
-.status-title{font-family:'Libre Baskerville',serif;font-size:18px;color:white;font-weight:400}
-.status-date{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
-.status-body{padding:18px 22px}
-.status-message{font-size:14px;color:var(--ink);line-height:1.7;margin-bottom:16px;font-style:italic;font-family:'Libre Baskerville',serif}
-.order-details{background:var(--cream2);border-radius:var(--r-sm);padding:13px 15px;margin-bottom:14px}
-.odr{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;border-bottom:1px solid var(--cream3)}
-.odr:last-child{border-bottom:none}
-.odr-label{color:var(--muted)}
-.odr-val{color:var(--ink);font-weight:500;text-align:right;max-width:60%;word-break:break-word}
-.tracking-row{background:var(--cream2);border-radius:var(--r-sm);padding:13px 15px;margin-bottom:14px;display:none}
-.tracking-row.show{display:block}
-.tracking-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:5px}
-.tracking-num{font-size:16px;font-weight:600;color:var(--plum);margin-bottom:8px;word-break:break-all}
-
-/* ── PROGRESS ── */
-.progress-wrap{margin-bottom:4px}
-.progress-title{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:14px}
-.progress-steps{display:flex;align-items:flex-start;justify-content:space-between;position:relative;padding:0 8px}
-.progress-steps::before{content:'';position:absolute;top:15px;left:8px;right:8px;height:2px;background:var(--cream3);z-index:0}
-.progress-fill{position:absolute;top:15px;left:8px;height:2px;background:var(--plum);z-index:1;transition:width .6s ease}
-.progress-step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;position:relative;z-index:2}
-.ps-dot{width:30px;height:30px;border-radius:50%;background:var(--cream3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;transition:.3s;flex-shrink:0}
-.ps-dot.done{background:var(--plum);border-color:var(--plum);color:white}
-.ps-dot.active{background:var(--gold);border-color:var(--gold);color:white;box-shadow:0 0 0 4px rgba(184,144,58,0.18)}
-.ps-label{font-size:9px;color:var(--muted);text-align:center;line-height:1.3;max-width:52px}
-.ps-label.done{color:var(--ink);font-weight:500}
-.ps-label.active{color:var(--gold);font-weight:600}
-
-/* ── MY ORDERS LIST ── */
-.orders-list{display:flex;flex-direction:column;gap:12px}
-.order-card{background:var(--white);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);border-left:4px solid var(--plum);cursor:pointer;transition:.2s}
-.order-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.order-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.order-card-id{font-size:13px;font-weight:600;color:var(--plum)}
-.order-card-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px}
-.status-placed{background:#e8f5e9;color:#2e7d4f}
-.status-processing{background:#fff3e0;color:#e65100}
-.status-dispatched{background:#e3f2fd;color:#1565c0}
-.status-out{background:#f3e5f5;color:#6a1b9a}
-.status-delivered{background:#e8f5e9;color:#1b5e20}
-.status-cancelled{background:#ffebee;color:#b71c1c}
-.status-awaiting{background:#f5f5f5;color:#616161}
-.order-card-items{font-size:13px;color:var(--muted);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.order-card-footer{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
-.order-card-total{font-weight:600;color:var(--ink)}
-
-/* ── WHATSAPP ── */
-.wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:white;text-decoration:none;padding:13px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:.2s}
-.wa-btn:hover{background:#20c45e}
+/* ── MOBILE ── */
+@media(max-width:500px){
+  .tracking-box{flex-direction:column;align-items:flex-start}
+  .form-row{flex-direction:column}
+  .btn-search{width:100%}
+}
 </style>
 </head>
 <body>
+
 <nav class="topbar">
-  <a href="/" class="topbar-logo">Minella Jewels</a>
-  <a href="/" class="topbar-back">&#8592; Store</a>
+  <a href="/" class="topbar-logo" id="topbarLogo">Minella Jewels</a>
+  <div class="topbar-nav">
+    <a href="/">Shop</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/track" class="active">Track</a>
+  </div>
+  <div class="topbar-right">
+    <a href="/">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Shop
+    </a>
+  </div>
 </nav>
 
 <div class="page">
-  <div class="hero-sec">
-    <div class="hero-tag">&#10022; Orders</div>
-    <h1>Track & My Orders</h1>
-    <p>Check your order status or view all your past orders.</p>
+
+  <!-- Hero -->
+  <div class="track-hero">
+    <div class="track-hero-tag">&#9741; Order Tracking</div>
+    <h1>Where's my <em>order?</em></h1>
+    <p>Track a single order, or look up all orders placed with your phone or email.</p>
   </div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('track')" id="tabTrack">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      Track Order
-    </button>
-    <button class="tab-btn" onclick="switchTab('myorders')" id="tabMyorders">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      My Orders
-    </button>
-  </div>
+  <!-- Search Card -->
+  <div class="search-wrap">
+    <div class="search-card">
 
-  <!-- ── TAB 1: TRACK ORDER ── -->
-  <div class="tab-content active" id="tabContent_track">
-    <div class="card">
-      <div class="form-g">
-        <label class="form-label">Order ID</label>
-        <input class="form-input" id="t_orderid" placeholder="e.g. MNL-20250320-1234" onkeydown="if(event.key==='Enter')checkStatus()">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="single">Track an Order</button>
+        <button class="tab-btn" data-tab="myorders">My Orders</button>
       </div>
-      <div class="form-g" style="margin-bottom:0">
-        <label class="form-label">OR Mobile Number used at checkout</label>
-        <input class="form-input" id="t_phone" placeholder="10-digit number" type="tel" maxlength="10" inputmode="numeric" onkeydown="if(event.key==='Enter')checkStatus()">
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary" onclick="checkStatus()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          Check Status
-        </button>
-        <a id="delhiveryBtn" href="https://www.delhivery.com/track/" target="_blank" class="btn-secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          Delhivery
-        </a>
-      </div>
-      <div class="info-box">
-        <strong>Two ways to track</strong><br>
-        <strong>Check Status</strong> — see your order stage from us<br>
-        <strong>Delhivery</strong> — real-time courier location once dispatched
-      </div>
-    </div>
 
-    <div class="spinner-wrap" id="trackSpinner"><span class="spin"></span>Fetching your order...</div>
-    <div class="err-box" id="trackErr"></div>
-
-    <!-- STATUS RESULT -->
-    <div class="status-card" id="statusCard">
-      <div class="status-header" id="statusHeader">
-        <div class="status-icon" id="statusIcon"></div>
-        <div>
-          <div class="status-order-id" id="statusOrderId"></div>
-          <div class="status-title" id="statusTitle"></div>
-          <div class="status-date" id="statusDate"></div>
-        </div>
-      </div>
-      <div class="status-body">
-        <div class="status-message" id="statusMessage"></div>
-        <div class="progress-wrap">
-          <div class="progress-title">Order Journey</div>
-          <div class="progress-steps" id="progressSteps">
-            <div class="progress-fill" id="progressFill"></div>
-            <div class="progress-step"><div class="ps-dot" id="dot0">🛍️</div><div class="ps-label" id="lbl0">Order Placed</div></div>
-            <div class="progress-step"><div class="ps-dot" id="dot1">⚙️</div><div class="ps-label" id="lbl1">Processing</div></div>
-            <div class="progress-step"><div class="ps-dot" id="dot2">📦</div><div class="ps-label" id="lbl2">Dispatched</div></div>
-            <div class="progress-step"><div class="ps-dot" id="dot3">🚚</div><div class="ps-label" id="lbl3">Out for Delivery</div></div>
-            <div class="progress-step"><div class="ps-dot" id="dot4">🎉</div><div class="ps-label" id="lbl4">Delivered</div></div>
+      <!-- Single Order Tab -->
+      <div class="tab-panel active" id="tab-single">
+        <div style="margin-bottom:16px">
+          <label class="form-label">Order ID</label>
+          <div class="form-row">
+            <input class="form-input" id="inp_orderid" placeholder="e.g. MNL-20250621-4892" autocomplete="off" spellcheck="false">
+            <button class="btn-search" id="btn_track_id">Track</button>
           </div>
+          <div class="err-msg" id="err_orderid">Please enter a valid Order ID</div>
         </div>
-        <div style="height:20px"></div>
-        <div class="order-details" id="orderDetails"></div>
-        <div class="tracking-row" id="trackingRow">
-          <div class="tracking-label">Delhivery Tracking Number</div>
-          <div class="tracking-num" id="trackingNum"></div>
-          <a id="trackDelhiveryBtn" href="#" target="_blank" class="btn-secondary" style="justify-content:center;text-decoration:none">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            Track Live on Delhivery
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── TAB 2: MY ORDERS ── -->
-  <div class="tab-content" id="tabContent_myorders">
-    <div class="card">
-      <div class="form-g" style="margin-bottom:0">
-        <label class="form-label">Email or Mobile Number</label>
-        <input class="form-input" id="mo_lookup" placeholder="Email address or 10-digit mobile" onkeydown="if(event.key==='Enter')loadMyOrders()">
-      </div>
-      <div class="btn-row" style="margin-top:14px">
-        <button class="btn-primary full" onclick="loadMyOrders()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          View My Orders
-        </button>
-      </div>
-      <div class="info-box">
-        Enter the <strong>email address</strong> or <strong>mobile number</strong> you used when placing your order.
-      </div>
-    </div>
+        <div class="or-row">or</div>
 
-    <div class="spinner-wrap" id="moSpinner"><span class="spin"></span>Loading your orders...</div>
-    <div class="err-box" id="moErr"></div>
-    <div class="orders-list" id="ordersList"></div>
-
-    <!-- Order detail expand view -->
-    <div class="status-card" id="moDetailCard" style="margin-top:4px">
-      <div class="status-header" id="moDetailHeader">
-        <div class="status-icon" id="moDetailIcon"></div>
         <div>
-          <div class="status-order-id" id="moDetailOrderId"></div>
-          <div class="status-title" id="moDetailTitle"></div>
-          <div class="status-date" id="moDetailDate"></div>
-        </div>
-      </div>
-      <div class="status-body">
-        <div class="status-message" id="moDetailMessage"></div>
-        <div class="progress-wrap">
-          <div class="progress-title">Order Journey</div>
-          <div class="progress-steps" id="moProgressSteps">
-            <div class="progress-fill" id="moProgressFill"></div>
-            <div class="progress-step"><div class="ps-dot" id="modot0">🛍️</div><div class="ps-label" id="molbl0">Order Placed</div></div>
-            <div class="progress-step"><div class="ps-dot" id="modot1">⚙️</div><div class="ps-label" id="molbl1">Processing</div></div>
-            <div class="progress-step"><div class="ps-dot" id="modot2">📦</div><div class="ps-label" id="molbl2">Dispatched</div></div>
-            <div class="progress-step"><div class="ps-dot" id="modot3">🚚</div><div class="ps-label" id="molbl3">Out for Delivery</div></div>
-            <div class="progress-step"><div class="ps-dot" id="modot4">🎉</div><div class="ps-label" id="molbl4">Delivered</div></div>
+          <label class="form-label">Mobile Number</label>
+          <div class="form-row">
+            <input class="form-input" id="inp_phone_single" placeholder="10-digit mobile number" maxlength="10" type="tel" inputmode="numeric" autocomplete="tel">
+            <button class="btn-search" id="btn_track_phone">Track</button>
           </div>
+          <div class="field-hint">Shows your most recent order</div>
+          <div class="err-msg" id="err_phone_single">Please enter a valid 10-digit number</div>
         </div>
-        <div style="height:20px"></div>
-        <div class="order-details" id="moDetailDetails"></div>
-        <div class="tracking-row" id="moTrackingRow">
-          <div class="tracking-label">Delhivery Tracking Number</div>
-          <div class="tracking-num" id="moTrackingNum"></div>
-          <a id="moTrackDelhiveryBtn" href="#" target="_blank" class="btn-secondary" style="justify-content:center;text-decoration:none">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            Track Live on Delhivery
-          </a>
-        </div>
-        <button onclick="document.getElementById('moDetailCard').classList.remove('show')" style="width:100%;background:var(--cream2);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;margin-top:8px;font-family:'Outfit',sans-serif">Close</button>
       </div>
+
+      <!-- My Orders Tab -->
+      <div class="tab-panel" id="tab-myorders">
+        <div style="margin-bottom:16px">
+          <label class="form-label">Email Address</label>
+          <div class="form-row">
+            <input class="form-input" id="inp_email_orders" placeholder="yourname@email.com" type="email" autocomplete="email">
+            <button class="btn-search" id="btn_orders_email">Find Orders</button>
+          </div>
+          <div class="err-msg" id="err_email_orders">Please enter a valid email address</div>
+        </div>
+
+        <div class="or-row">or</div>
+
+        <div>
+          <label class="form-label">Mobile Number</label>
+          <div class="form-row">
+            <input class="form-input" id="inp_phone_orders" placeholder="10-digit mobile number" maxlength="10" type="tel" inputmode="numeric" autocomplete="tel">
+            <button class="btn-search" id="btn_orders_phone">Find Orders</button>
+          </div>
+          <div class="err-msg" id="err_phone_orders">Please enter a valid 10-digit number</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- WHATSAPP HELP -->
-  <div class="card" style="margin-top:4px">
-    <p style="font-size:14px;color:var(--ink);margin-bottom:12px">Need help with your order? 💜</p>
-    <a href="https://wa.me/919080014835" target="_blank" class="wa-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp Us — 9080014835
-    </a>
+  <!-- Results -->
+  <div class="results-wrap" id="resultsWrap"></div>
+
+</div><!-- /page -->
+
+<footer>
+  <div style="margin-bottom:10px">
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact</a>
+    <a href="/">Shop</a>
+    <a href="/shipping-policy">Shipping &amp; Returns</a>
   </div>
-</div>
+  © 2025 Minella Jewels · Made with ♥ in Coimbatore
+</footer>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+// =====================================================
+// CONFIG
+// =====================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
 
-var STATUS_CONFIG = {
-  "Order Placed":     { emoji:"✅", color:"#4a1942", step:0, msg:"Yay! Your order is confirmed and we're already doing a happy dance! 🎉 We'll start packing it with lots of love." },
-  "Processing":       { emoji:"⚙️", color:"#6b2d61", step:1, msg:"Your beautiful jewellery is being carefully packed just for you. Good things take a little time! ✨" },
-  "Dispatched":       { emoji:"📦", color:"#b8903a", step:2, msg:"It's on its way! Your order has been handed over to Delhivery and is heading straight to you. 🚀" },
-  "Out for Delivery": { emoji:"🚚", color:"#2e7d4f", step:3, msg:"Almost there! Your delivery is just around the corner. Stay home — something sparkly is coming! 💎" },
-  "Delivered":        { emoji:"🎉", color:"#2e7d4f", step:4, msg:"It's here! We hope you absolutely love your new jewellery. You deserve every sparkle. Thank you! 💜" },
-  "Cancelled":        { emoji:"❌", color:"#b83232", step:-1, msg:"This order has been cancelled. If you have any questions, please WhatsApp us and we'll sort it out." }
-};
+// =====================================================
+// TAB SWITCHING
+// =====================================================
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    this.classList.add("active");
+    document.getElementById("tab-" + this.dataset.tab).classList.add("active");
+    clearResults();
+  });
+});
 
-// ── TAB SWITCH ──
-function switchTab(tab) {
-  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
-  document.querySelectorAll(".tab-content").forEach(function(c) { c.classList.remove("active"); });
-  document.getElementById("tab" + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add("active");
-  document.getElementById("tabContent_" + tab).classList.add("active");
+// =====================================================
+// LOGO — load from sheet if available
+// =====================================================
+(function loadLogo() {
+  try {
+    fetch("https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1")
+      .then(r => r.json()).then(data => {
+        var logoP = data.find(p => p.logo_link && p.logo_link.trim());
+        if (!logoP) return;
+        var id = extractDriveId(logoP.logo_link.trim());
+        if (!id) return;
+        var img = new Image();
+        img.onload = function() {
+          var el = document.getElementById("topbarLogo");
+          el.textContent = "";
+          img.style.cssText = "height:36px;width:auto;object-fit:contain";
+          el.appendChild(img);
+        };
+        img.alt = "Minella Jewels";
+        img.src = "https://lh3.googleusercontent.com/d/" + id + "=w200";
+      });
+  } catch(e) {}
+})();
+function extractDriveId(url) {
+  if (!url) return null;
+  var m = url.match(/\/file\/d\/([^\/\?&]+)/) || url.match(/[?&]id=([^&]+)/) || url.match(/\/d\/([^\/]+)/);
+  return m ? m[1] : null;
 }
 
 // =====================================================
-// TAB 1 — TRACK ORDER
+// ENTER KEY SUPPORT
 // =====================================================
-function checkStatus() {
-  var orderId = document.getElementById("t_orderid").value.trim();
-  var phone   = document.getElementById("t_phone").value.trim();
+function onEnter(inputId, btnId) {
+  document.getElementById(inputId).addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById(btnId).click();
+  });
+}
+onEnter("inp_orderid",       "btn_track_id");
+onEnter("inp_phone_single",  "btn_track_phone");
+onEnter("inp_email_orders",  "btn_orders_email");
+onEnter("inp_phone_orders",  "btn_orders_phone");
 
-  if (!orderId && !phone) { showTrackErr("Please enter your Order ID or mobile number."); return; }
+// =====================================================
+// BUTTON HANDLERS
+// =====================================================
+document.getElementById("btn_track_id").addEventListener("click", function() {
+  var val = document.getElementById("inp_orderid").value.trim();
+  clearErr("err_orderid");
+  if (!val) { showErr("err_orderid", "Please enter your Order ID"); return; }
+  trackSingle({ orderId: val.toUpperCase() });
+});
 
-  document.getElementById("statusCard").classList.remove("show");
-  document.getElementById("trackErr").classList.remove("show");
-  document.getElementById("trackSpinner").classList.add("show");
+document.getElementById("btn_track_phone").addEventListener("click", function() {
+  var val = document.getElementById("inp_phone_single").value.trim();
+  clearErr("err_phone_single");
+  if (!/^\d{10}$/.test(val)) { showErr("err_phone_single", "Please enter a valid 10-digit number"); return; }
+  trackSingle({ phone: val });
+});
 
-  var url = SCRIPT_URL + "?action=getOrderStatus"
-    + "&orderId=" + encodeURIComponent(orderId)
-    + "&phone="   + encodeURIComponent(phone);
+document.getElementById("btn_orders_email").addEventListener("click", function() {
+  var val = document.getElementById("inp_email_orders").value.trim();
+  clearErr("err_email_orders");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) { showErr("err_email_orders", "Please enter a valid email address"); return; }
+  fetchAllOrders({ email: val });
+});
 
-  fetch(url)
+document.getElementById("btn_orders_phone").addEventListener("click", function() {
+  var val = document.getElementById("inp_phone_orders").value.trim();
+  clearErr("err_phone_orders");
+  if (!/^\d{10}$/.test(val)) { showErr("err_phone_orders", "Please enter a valid 10-digit number"); return; }
+  fetchAllOrders({ phone: val });
+});
+
+// =====================================================
+// API CALLS
+// =====================================================
+function trackSingle(params) {
+  showLoading("Fetching your order\u2026");
+  var qs = "action=getOrderStatus";
+  if (params.orderId) qs += "&orderId=" + encodeURIComponent(params.orderId);
+  if (params.phone)   qs += "&phone="   + encodeURIComponent(params.phone);
+
+  fetch(SCRIPT_URL + "?" + qs)
     .then(function(r) { return r.json(); })
     .then(function(res) {
-      document.getElementById("trackSpinner").classList.remove("show");
-      if (!res.ok) { showTrackErr(res.error || "Order not found."); }
-      else { showStatus(res); }
+      if (res.ok) renderSingleOrder(res);
+      else        renderError(res.error || "No order found.");
     })
-    .catch(function() {
-      document.getElementById("trackSpinner").classList.remove("show");
-      showTrackErr("Could not connect. Please try again.");
-    });
+    .catch(function() { renderError("Could not connect. Please check your internet and try again."); });
 }
 
-function showTrackErr(msg) {
-  var el = document.getElementById("trackErr");
-  el.textContent = "⚠️ " + msg;
-  el.classList.add("show");
-}
+function fetchAllOrders(params) {
+  showLoading("Looking up your orders\u2026");
+  var qs = "action=getOrdersByEmailOrPhone";
+  if (params.email) qs += "&email=" + encodeURIComponent(params.email);
+  if (params.phone) qs += "&phone=" + encodeURIComponent(params.phone);
 
-function showStatus(data) {
-  var status = data.status || "Order Placed";
-  var cfg    = STATUS_CONFIG[status] || STATUS_CONFIG["Order Placed"];
-
-  document.getElementById("statusHeader").style.background = cfg.color;
-  document.getElementById("statusIcon").textContent        = cfg.emoji;
-  document.getElementById("statusOrderId").textContent     = data.orderId || "";
-  document.getElementById("statusTitle").textContent       = status;
-  document.getElementById("statusDate").textContent        = data.date ? "Placed on " + data.date : "";
-  document.getElementById("statusMessage").textContent     = cfg.msg;
-
-  var html = "";
-  if (data.items)   html += orow("Items",   data.items);
-  if (data.total)   html += orow("Total",   "₹" + data.total);
-  if (data.payment) html += orow("Payment", data.payment);
-  document.getElementById("orderDetails").innerHTML = html;
-
-  if (data.tracking) {
-    document.getElementById("trackingNum").textContent   = data.tracking;
-    document.getElementById("trackDelhiveryBtn").href    = "https://www.delhivery.com/track/package/" + data.tracking;
-    document.getElementById("delhiveryBtn").href         = "https://www.delhivery.com/track/package/" + data.tracking;
-    document.getElementById("trackingRow").classList.add("show");
-  } else {
-    document.getElementById("trackingRow").classList.remove("show");
-  }
-
-  updateProgress("dot", "lbl", "progressFill", cfg.step, status);
-  document.getElementById("statusCard").classList.add("show");
-  document.getElementById("statusCard").scrollIntoView({ behavior:"smooth", block:"start" });
-}
-
-// =====================================================
-// TAB 2 — MY ORDERS (email OR phone)
-// =====================================================
-function loadMyOrders() {
-  var raw   = document.getElementById("mo_lookup").value.trim();
-  var email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw) ? raw : "";
-  var phone = /^\d{10}$/.test(raw) ? raw : "";
-
-  if (!email && !phone) {
-    showMoErr("Please enter a valid email address or 10-digit mobile number.");
-    return;
-  }
-
-  document.getElementById("ordersList").innerHTML = "";
-  document.getElementById("moDetailCard").classList.remove("show");
-  document.getElementById("moErr").classList.remove("show");
-  document.getElementById("moSpinner").classList.add("show");
-
-  var url = SCRIPT_URL + "?action=getOrdersByEmailOrPhone"
-    + "&email=" + encodeURIComponent(email)
-    + "&phone=" + encodeURIComponent(phone);
-
-  fetch(url)
+  fetch(SCRIPT_URL + "?" + qs)
     .then(function(r) { return r.json(); })
     .then(function(res) {
-      document.getElementById("moSpinner").classList.remove("show");
-      if (!res.ok) { showMoErr(res.error || "No orders found."); }
-      else { renderOrdersList(res.orders); }
+      if (res.ok) renderOrdersList(res.orders);
+      else        renderError(res.error || "No orders found.");
     })
-    .catch(function() {
-      document.getElementById("moSpinner").classList.remove("show");
-      showMoErr("Could not connect. Please try again.");
-    });
+    .catch(function() { renderError("Could not connect. Please check your internet and try again."); });
 }
 
-function showMoErr(msg) {
-  var el = document.getElementById("moErr");
-  el.textContent = "⚠️ " + msg;
-  el.classList.add("show");
+// =====================================================
+// RENDER — SINGLE ORDER
+// =====================================================
+function renderSingleOrder(o) {
+  var steps     = getProgressSteps(o.status);
+  var tracking  = (o.tracking || "").trim();
+  var trackingHtml = tracking
+    ? '<div class="tracking-box"><div class="tracking-box-left"><div class="tracking-label">Tracking Number</div><div class="tracking-num">' + esc(tracking) + '</div></div>'
+      + '<a href="https://www.delhivery.com/track/package/' + encodeURIComponent(tracking) + '" target="_blank" rel="noopener" class="btn-track-delhivery">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+      + 'Track on Delhivery</a></div>'
+    : "";
+
+  setResults(
+    '<div class="order-card">'
+    + '<div class="order-card-head">'
+    +   '<div><div class="order-card-id">' + esc(o.orderId) + '</div>'
+    +   '<div class="order-card-date">' + esc(o.date || "") + '</div></div>'
+    +   statusPill(o.status)
+    + '</div>'
+    + trackingHtml
+    + '<div class="order-card-body">'
+    + infoRow("Customer", o.name)
+    + infoRow("Items", o.items)
+    + infoRow("Payment", o.payment)
+    + infoRowPrice("Grand Total", o.total)
+    + '</div>'
+    + renderProgress(steps)
+    + '</div>'
+  );
 }
 
+// =====================================================
+// RENDER — ORDER LIST (My Orders)
+// =====================================================
+var _allOrders = [];
 function renderOrdersList(orders) {
-  var list = document.getElementById("ordersList");
-  list.innerHTML = "";
+  _allOrders = orders;
+  if (!orders.length) { renderError("No orders found."); return; }
 
-  orders.forEach(function(o) {
-    var statusClass = getStatusClass(o.status);
-    var div         = document.createElement("div");
-    div.className   = "order-card";
-    div.innerHTML   =
-      "<div class='order-card-header'>" +
-        "<div class='order-card-id'>" + (o.orderId || "") + "</div>" +
-        "<span class='order-card-status " + statusClass + "'>" + (o.status || "") + "</span>" +
-      "</div>" +
-      "<div class='order-card-items'>" + (o.items || "") + "</div>" +
-      "<div class='order-card-footer'>" +
-        "<span>" + (o.date || "") + "</span>" +
-        "<span class='order-card-total'>₹" + (o.total || "") + "</span>" +
-      "</div>";
-    div.addEventListener("click", function() { showOrderDetail(o); });
-    list.appendChild(div);
+  var html = '<div class="orders-list">';
+  orders.forEach(function(o, i) {
+    html +=
+      '<div class="mini-order-card" data-idx="' + i + '">'
+      + '<div class="mini-order-head">'
+      +   '<div><div class="mini-order-id">' + esc(o.orderId) + '</div>'
+      +   '<div class="mini-order-date">' + esc(o.date || "") + '</div></div>'
+      +   miniStatusPill(o.status)
+      + '</div>'
+      + '<div class="mini-order-body">'
+      +   '<div class="mini-order-items">' + esc(o.items) + '</div>'
+      +   '<div class="mini-order-total">&#8377;' + esc(String(o.total)) + '</div>'
+      + '</div>'
+      + '</div>';
+  });
+  html += '</div>';
+  setResults(html);
+
+  // Click to expand
+  document.querySelectorAll(".mini-order-card").forEach(function(card) {
+    card.addEventListener("click", function() {
+      var idx = parseInt(this.dataset.idx);
+      expandOrder(_allOrders[idx]);
+    });
   });
 }
 
-function showOrderDetail(o) {
-  var status = o.status || "Order Placed";
-  var cfg    = STATUS_CONFIG[status] || STATUS_CONFIG["Order Placed"];
+function expandOrder(o) {
+  var steps    = getProgressSteps(o.status);
+  var tracking = (o.tracking || "").trim();
+  var trackingHtml = tracking
+    ? '<div class="tracking-box"><div class="tracking-box-left"><div class="tracking-label">Tracking Number</div><div class="tracking-num">' + esc(tracking) + '</div></div>'
+      + '<a href="https://www.delhivery.com/track/package/' + encodeURIComponent(tracking) + '" target="_blank" rel="noopener" class="btn-track-delhivery">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+      + 'Track on Delhivery</a></div>'
+    : "";
 
-  document.getElementById("moDetailHeader").style.background = cfg.color;
-  document.getElementById("moDetailIcon").textContent        = cfg.emoji;
-  document.getElementById("moDetailOrderId").textContent     = o.orderId || "";
-  document.getElementById("moDetailTitle").textContent       = status;
-  document.getElementById("moDetailDate").textContent        = o.date ? "Placed on " + o.date : "";
-  document.getElementById("moDetailMessage").textContent     = cfg.msg;
+  setResults(
+    '<button class="expanded-back" id="backToList">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
+    + 'All Orders'
+    + '</button>'
+    + '<div class="order-card">'
+    + '<div class="order-card-head">'
+    +   '<div><div class="order-card-id">' + esc(o.orderId) + '</div>'
+    +   '<div class="order-card-date">' + esc(o.date || "") + '</div></div>'
+    +   statusPill(o.status)
+    + '</div>'
+    + trackingHtml
+    + '<div class="order-card-body">'
+    + infoRow("Items", o.items)
+    + infoRow("Payment", o.payment)
+    + infoRowPrice("Grand Total", o.total)
+    + '</div>'
+    + renderProgress(steps)
+    + '</div>'
+  );
 
-  var html = "";
-  if (o.items)   html += orow("Items",   o.items);
-  if (o.total)   html += orow("Total",   "₹" + o.total);
-  if (o.payment) html += orow("Payment", o.payment);
-  document.getElementById("moDetailDetails").innerHTML = html;
+  document.getElementById("backToList").addEventListener("click", function() {
+    renderOrdersList(_allOrders);
+  });
+}
 
-  if (o.tracking) {
-    document.getElementById("moTrackingNum").textContent    = o.tracking;
-    document.getElementById("moTrackDelhiveryBtn").href     = "https://www.delhivery.com/track/package/" + o.tracking;
-    document.getElementById("moTrackingRow").classList.add("show");
-  } else {
-    document.getElementById("moTrackingRow").classList.remove("show");
+// =====================================================
+// PROGRESS STEPPER
+// =====================================================
+var STATUS_STEPS = [
+  { key: "placed",    label: "Order\nPlaced",       icon: "✓"  },
+  { key: "processing",label: "Processing",           icon: "⚙"  },
+  { key: "dispatched",label: "Dispatched",           icon: "📦" },
+  { key: "out",       label: "Out for\nDelivery",   icon: "🚚" },
+  { key: "delivered", label: "Delivered",            icon: "🎉" }
+];
+
+var STATUS_MAP = {
+  "Order Placed":     "placed",
+  "Processing":       "processing",
+  "Dispatched":       "dispatched",
+  "Out for Delivery": "out",
+  "Delivered":        "delivered",
+  "Cancelled":        "cancelled"
+};
+
+function getProgressSteps(statusLabel) {
+  var key = STATUS_MAP[statusLabel] || "placed";
+  if (key === "cancelled") {
+    // show all grey except mark first step as cancelled-style
+    return STATUS_STEPS.map(function(s, i) { return { ...s, state: i === 0 ? "active" : "none" }; });
   }
-
-  updateProgress("modot", "molbl", "moProgressFill", cfg.step, status);
-  document.getElementById("moDetailCard").classList.add("show");
-  document.getElementById("moDetailCard").scrollIntoView({ behavior:"smooth", block:"start" });
+  var activeIdx = STATUS_STEPS.findIndex(function(s) { return s.key === key; });
+  return STATUS_STEPS.map(function(s, i) {
+    return { ...s, state: i < activeIdx ? "done" : i === activeIdx ? "active" : "none" };
+  });
 }
 
-function getStatusClass(status) {
-  var map = {
-    "Order Placed":    "status-placed",
-    "Processing":      "status-processing",
-    "Dispatched":      "status-dispatched",
-    "Out for Delivery":"status-out",
-    "Delivered":       "status-delivered",
-    "Cancelled":       "status-cancelled",
-    "Awaiting Payment":"status-awaiting"
-  };
-  return map[status] || "status-placed";
+function renderProgress(steps) {
+  var html = '<div class="progress-wrap"><div class="progress-title">Order Progress</div><div class="progress-steps">';
+  steps.forEach(function(s) {
+    html += '<div class="prog-step ' + s.state + '">'
+      + '<div class="prog-dot">' + (s.state === "done" ? "✓" : s.icon) + '</div>'
+      + '<div class="prog-lbl">' + s.label.replace("\n", "<br>") + '</div>'
+      + '</div>';
+  });
+  html += '</div></div>';
+  return html;
 }
 
-// ── SHARED HELPERS ──
-function orow(label, val) {
-  return '<div class="odr"><span class="odr-label">' + label + '</span><span class="odr-val">' + val + '</span></div>';
+// =====================================================
+// STATUS PILLS
+// =====================================================
+var STATUS_CLASS = {
+  "Order Placed":     "placed",
+  "Processing":       "processing",
+  "Dispatched":       "dispatched",
+  "Out for Delivery": "out",
+  "Delivered":        "delivered",
+  "Cancelled":        "cancelled"
+};
+var STATUS_EMOJI = {
+  "Order Placed":     "✅",
+  "Processing":       "⚙️",
+  "Dispatched":       "📦",
+  "Out for Delivery": "🚚",
+  "Delivered":        "🎉",
+  "Cancelled":        "❌"
+};
+function statusPill(s) {
+  var cls   = STATUS_CLASS[s] || "default";
+  var emoji = STATUS_EMOJI[s] || "📋";
+  return '<div class="status-pill ' + cls + '">' + emoji + ' ' + esc(s) + '</div>';
+}
+function miniStatusPill(s) {
+  var cls   = "pill-" + (STATUS_CLASS[s] || "default");
+  var emoji = STATUS_EMOJI[s] || "📋";
+  return '<div class="mini-status-pill ' + cls + '">' + emoji + ' ' + esc(s) + '</div>';
 }
 
-function updateProgress(dotPrefix, lblPrefix, fillId, activeStep, status) {
-  var isCancelled = status === "Cancelled";
-  for (var i = 0; i < 5; i++) {
-    var dot = document.getElementById(dotPrefix + i);
-    var lbl = document.getElementById(lblPrefix + i);
-    if (!dot || !lbl) continue;
-    dot.classList.remove("done", "active");
-    lbl.classList.remove("done", "active");
-    dot.style.background   = "";
-    dot.style.borderColor  = "";
-    if (isCancelled) {
-      dot.style.background  = "#f5c6c2";
-      dot.style.borderColor = "#b83232";
-      continue;
-    }
-    if (i < activeStep)       { dot.classList.add("done"); lbl.classList.add("done"); dot.textContent = "✓"; }
-    else if (i === activeStep){ dot.classList.add("active"); lbl.classList.add("active"); }
+// =====================================================
+// INFO ROW HELPERS
+// =====================================================
+function infoRow(label, val) {
+  return '<div class="info-row"><span class="info-label">' + esc(label) + '</span><span class="info-val">' + esc(val || "—") + '</span></div>';
+}
+function infoRowPrice(label, val) {
+  return '<div class="info-row"><span class="info-label">' + esc(label) + '</span><span class="info-val price">&#8377;' + esc(String(val || "—")) + '</span></div>';
+}
+
+// =====================================================
+// STATE MANAGEMENT
+// =====================================================
+function showLoading(msg) {
+  setResults(
+    '<div class="spinner-wrap"><div class="spinner"></div><div class="spinner-lbl">' + esc(msg || "Loading\u2026") + '</div></div>'
+  );
+}
+
+function renderError(msg) {
+  setResults(
+    '<div class="state-card">'
+    + '<span class="state-icon">🔍</span>'
+    + '<div class="state-title">Nothing found</div>'
+    + '<div class="state-sub">' + esc(msg) + '</div>'
+    + '<button class="btn-try-again" id="tryAgainBtn">Try Again</button>'
+    + '</div>'
+  );
+  document.getElementById("tryAgainBtn").addEventListener("click", clearResults);
+}
+
+function clearResults() {
+  document.getElementById("resultsWrap").innerHTML = "";
+}
+function setResults(html) {
+  var el = document.getElementById("resultsWrap");
+  el.innerHTML = html;
+  // Smooth scroll to results on mobile
+  setTimeout(function() {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 80);
+}
+function showErr(id, msg) { var el = document.getElementById(id); el.textContent = msg; el.classList.add("show"); }
+function clearErr(id) { document.getElementById(id).classList.remove("show"); }
+function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
+
+// =====================================================
+// AUTO-FILL from URL params (e.g. from success page redirect)
+// success.html redirects: /track?orderId=MNL-xxx or /track?phone=9876543210
+// =====================================================
+(function autoFillFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  var orderId = params.get("orderId") || params.get("txnid");
+  var phone   = params.get("phone");
+  var email   = params.get("email");
+
+  if (orderId) {
+    document.getElementById("inp_orderid").value = orderId.toUpperCase();
+    // Small delay so page finishes rendering
+    setTimeout(function() {
+      document.getElementById("btn_track_id").click();
+    }, 400);
+  } else if (phone) {
+    document.getElementById("inp_phone_single").value = phone;
+    setTimeout(function() {
+      document.getElementById("btn_track_phone").click();
+    }, 400);
+  } else if (email) {
+    // Switch to My Orders tab
+    document.querySelector('[data-tab="myorders"]').click();
+    document.getElementById("inp_email_orders").value = email;
+    setTimeout(function() {
+      document.getElementById("btn_orders_email").click();
+    }, 400);
   }
-  var pct = isCancelled ? 0 : (activeStep / 4) * 100;
-  document.getElementById(fillId).style.width = pct + "%";
-}
+})();
 </script>
 </body>
 </html>
