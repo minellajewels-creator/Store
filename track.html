@@ -5,7 +5,7 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Track Order — Minella Jewels</title>
+<title>Track Your Order — Minella Jewels</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -17,8 +17,8 @@
   --muted:#8a7878;--white:#ffffff;
   --error:#b83232;--ok:#2e7d4f;--border:#ddd4c8;
   --shadow:0 4px 24px rgba(28,16,24,0.10);
-  --shadow-lg:0 12px 48px rgba(28,16,24,0.16);
-  --r:14px;--r-sm:8px;
+  --shadow-lg:0 12px 48px rgba(28,16,24,0.18);
+  --r:16px;--r-sm:10px;
   --safe-bottom:env(safe-area-inset-bottom,0px);
   --safe-top:env(safe-area-inset-top,0px)
 }
@@ -30,161 +30,145 @@ input{font-family:'Outfit',sans-serif}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--cream2)}
 ::-webkit-scrollbar-thumb{background:var(--plum2);border-radius:4px}
-
-/* ── TOPBAR ── */
+/* SCROLL BAR */
+.scroll-bar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:9999;pointer-events:none;transition:width .1s linear}
+/* TOPBAR */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
 .topbar-logo{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px;text-decoration:none;display:flex;align-items:center;gap:10px}
 .topbar-logo img{height:36px;width:auto;object-fit:contain}
 .topbar-nav{display:flex;gap:28px;position:absolute;left:50%;transform:translateX(-50%)}
 .topbar-nav a{font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.8px;text-transform:uppercase;transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
 .topbar-nav a:hover,.topbar-nav a.active{color:var(--plum);border-bottom-color:var(--gold)}
-.topbar-right a{display:flex;align-items:center;gap:6px;background:var(--plum);color:white;border:none;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;letter-spacing:0.5px;text-decoration:none;transition:.2s}
+.topbar-right a{display:flex;align-items:center;gap:6px;background:var(--plum);color:white;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;letter-spacing:0.5px;text-decoration:none;transition:.2s}
 .topbar-right a:hover{background:var(--plum2)}
 @media(max-width:600px){.topbar-nav{display:none}}
-
-/* ── PAGE LAYOUT ── */
-.page{padding-top:calc(60px + var(--safe-top));min-height:100vh}
-
-/* ── HERO STRIP ── */
-.track-hero{background:var(--plum);padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden}
-.track-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 80% 50%,rgba(184,144,58,0.15) 0%,transparent 70%),radial-gradient(ellipse 50% 80% at 10% 30%,rgba(255,255,255,0.04) 0%,transparent 60%);pointer-events:none}
-.track-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.2);border:1px solid rgba(184,144,58,0.35);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);font-weight:500;margin-bottom:16px}
-.track-hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,6vw,48px);font-weight:400;color:white;margin-bottom:10px;line-height:1.1}
-.track-hero h1 em{font-style:italic;color:var(--gold2)}
-.track-hero p{color:rgba(255,255,255,0.65);font-size:15px;font-weight:300;max-width:360px;margin:0 auto}
-
-/* ── SEARCH CARD ── */
-.search-wrap{max-width:600px;margin:-28px auto 0;padding:0 16px;position:relative;z-index:10}
+/* HERO */
+.hero{padding-top:calc(60px + var(--safe-top));background:var(--plum);min-height:46vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-left:24px;padding-right:24px;padding-bottom:72px;position:relative;overflow:hidden}
+.hero-rings{position:absolute;width:340px;height:340px;top:50%;left:50%;transform:translate(-50%,-46%);pointer-events:none;z-index:0}
+.ring{position:absolute;border-radius:50%;border:1.5px solid rgba(184,144,58,0.18);top:50%;left:50%;transform:translate(-50%,-50%)}
+.ring:nth-child(1){width:130px;height:130px;animation:ringPulse 3s ease-in-out infinite}
+.ring:nth-child(2){width:210px;height:210px;animation:ringPulse 3s ease-in-out .6s infinite}
+.ring:nth-child(3){width:300px;height:300px;animation:ringPulse 3s ease-in-out 1.2s infinite}
+@keyframes ringPulse{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:.65;transform:translate(-50%,-50%) scale(1.04)}}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 15% 25%,rgba(184,144,58,.5) 0%,transparent 100%),radial-gradient(1px 1px at 80% 18%,rgba(184,144,58,.35) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 28% 82%,rgba(184,144,58,.25) 0%,transparent 100%);animation:floatDots 10s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+@keyframes floatDots{0%{transform:translateY(0)}100%{transform:translateY(-10px) translateX(4px)}}
+.hero-content{position:relative;z-index:1}
+/* DELIVERY ICON */
+.delivery-icon-wrap{position:relative;margin:0 auto 22px;width:100px;height:100px}
+.delivery-icon-bg{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,rgba(184,144,58,.22),rgba(184,144,58,.07));border:1.5px solid rgba(184,144,58,.35);display:flex;align-items:center;justify-content:center;animation:iconFloat 4s ease-in-out infinite}
+@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.icon-spark{position:absolute;border-radius:50%;background:var(--gold2);animation:sparkFloat 2.5s ease-in-out infinite}
+.icon-spark:nth-child(2){width:6px;height:6px;top:-3px;right:12px;animation-delay:.4s}
+.icon-spark:nth-child(3){width:4px;height:4px;bottom:6px;left:-4px;animation-delay:.8s}
+.icon-spark:nth-child(4){width:5px;height:5px;top:16px;left:-8px;animation-delay:1.2s}
+.icon-spark:nth-child(5){width:4px;height:4px;bottom:0;right:6px;animation-delay:1.7s}
+@keyframes sparkFloat{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,.18);border:1px solid rgba(184,144,58,.3);border-radius:20px;padding:4px 14px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);font-weight:500;margin-bottom:14px;animation:fadeUp .6s ease both;animation-delay:.1s}
+.hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(26px,6vw,46px);font-weight:400;color:white;margin-bottom:8px;line-height:1.1;animation:fadeUp .7s ease both;animation-delay:.2s}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero-sub{color:rgba(255,255,255,.6);font-size:14px;font-weight:300;max-width:340px;margin:0 auto;animation:fadeUp .7s ease both;animation-delay:.35s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+/* SEARCH CARD */
+.search-float{max-width:560px;margin:-44px auto 0;padding:0 16px;position:relative;z-index:10;animation:fadeUp .7s ease both;animation-delay:.45s}
 .search-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow-lg);overflow:hidden}
-
-/* ── TABS ── */
-.tabs{display:flex;border-bottom:1px solid var(--border)}
-.tab-btn{flex:1;padding:16px 10px;background:none;border:none;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0.5px;transition:.2s;border-bottom:2px solid transparent;margin-bottom:-1px;position:relative}
-.tab-btn.active{color:var(--plum);border-bottom-color:var(--plum)}
-.tab-btn:hover:not(.active){color:var(--ink)}
-
-/* ── TAB PANELS ── */
-.tab-panel{display:none;padding:24px}
-.tab-panel.active{display:block}
-
-.form-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
-.form-row{display:flex;gap:10px}
-.form-input{flex:1;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:.2s;-webkit-appearance:none;width:100%}
-.form-input:focus{border-color:var(--plum);background:white;box-shadow:0 0 0 3px rgba(74,25,66,0.07)}
-.form-input.err{border-color:var(--error)}
-.btn-search{background:var(--plum);color:white;border:none;padding:12px 22px;border-radius:var(--r-sm);font-size:14px;font-weight:500;white-space:nowrap;transition:.2s;flex-shrink:0}
-.btn-search:hover{background:var(--plum2)}
-.field-hint{font-size:11px;color:var(--muted);margin-top:6px}
-.err-msg{font-size:12px;color:var(--error);margin-top:6px;display:none}
+.search-card-head{background:linear-gradient(135deg,#f9f3e8,#faf6f0);padding:22px 24px 0;border-bottom:1px solid var(--cream3)}
+.search-card-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--gold);margin-bottom:6px}
+.search-card-title{font-family:'Libre Baskerville',serif;font-size:18px;color:var(--plum);margin-bottom:16px}
+.search-input-row{display:flex;gap:10px;padding-bottom:22px}
+.search-input{flex:1;border:2px solid var(--border);border-radius:var(--r-sm);padding:13px 16px;font-size:14px;color:var(--ink);background:var(--white);outline:none;transition:.25s;-webkit-appearance:none;font-family:'Outfit',sans-serif}
+.search-input:focus{border-color:var(--plum);box-shadow:0 0 0 4px rgba(74,25,66,.07)}
+.search-input.err{border-color:var(--error)}
+.search-input::placeholder{color:#c4b5a8}
+.btn-search{background:var(--plum);color:white;border:none;padding:13px 22px;border-radius:var(--r-sm);font-size:14px;font-weight:500;white-space:nowrap;transition:.25s;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-search:hover{background:var(--plum2);transform:translateY(-1px)}
+.btn-search:active{transform:translateY(0)}
+.btn-search svg{width:16px;height:16px}
+.search-hint{font-size:12px;color:var(--muted);padding:14px 24px;display:flex;align-items:center;gap:8px;background:var(--cream2)}
+.search-hint svg{width:14px;height:14px;flex-shrink:0;color:var(--gold)}
+.err-msg{font-size:12px;color:var(--error);padding:8px 24px 12px;display:none}
 .err-msg.show{display:block}
-
-/* ── OR DIVIDER ── */
-.or-row{display:flex;align-items:center;gap:10px;margin:14px 0;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.or-row::before,.or-row::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* ── RESULTS AREA ── */
-.results-wrap{max-width:600px;margin:32px auto 60px;padding:0 16px}
-
-/* ── SINGLE ORDER CARD ── */
-.order-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .35s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-.order-card-head{background:var(--plum);padding:20px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.order-card-id{font-family:'Libre Baskerville',serif;font-size:18px;color:white;font-weight:400;letter-spacing:0.5px}
-.order-card-date{font-size:12px;color:rgba(255,255,255,0.6);margin-top:3px}
-.status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:2px}
-.status-pill.placed   {background:rgba(46,125,79,0.2);color:#6ed9a0}
-.status-pill.processing{background:rgba(184,144,58,0.2);color:var(--gold2)}
-.status-pill.dispatched{background:rgba(100,149,237,0.2);color:#a0c4ff}
-.status-pill.out       {background:rgba(100,200,180,0.2);color:#80ffdc}
-.status-pill.delivered {background:rgba(46,125,79,0.35);color:#6ed9a0}
-.status-pill.cancelled {background:rgba(184,50,50,0.25);color:#ff9999}
-.status-pill.default   {background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75)}
-
-.order-card-body{padding:20px 22px}
-.info-row{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--cream2);gap:12px;font-size:14px}
-.info-row:last-child{border-bottom:none}
-.info-label{color:var(--muted);font-size:12px;font-weight:500;flex-shrink:0;padding-top:1px}
-.info-val{text-align:right;color:var(--ink);line-height:1.5;word-break:break-word;max-width:70%}
-.info-val.price{font-weight:700;color:var(--plum);font-size:15px}
-
-/* ── PROGRESS STEPPER ── */
-.progress-wrap{background:var(--cream2);padding:20px 22px;border-top:1px solid var(--border)}
-.progress-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:16px}
-.progress-steps{display:flex;align-items:flex-start;gap:0}
-.prog-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.prog-step:not(:last-child)::after{content:'';position:absolute;top:14px;left:calc(50% + 14px);right:calc(-50% + 14px);height:2px;background:var(--border);transition:.4s}
-.prog-step.done:not(:last-child)::after,.prog-step.active:not(:last-child)::after{background:var(--ok)}
-.prog-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);transition:.3s;z-index:1;flex-shrink:0}
-.prog-step.done .prog-dot{background:var(--ok);border-color:var(--ok);color:white}
-.prog-step.active .prog-dot{background:var(--plum);border-color:var(--plum);color:white;box-shadow:0 0 0 4px rgba(74,25,66,0.15)}
-.prog-lbl{font-size:10px;color:var(--muted);text-align:center;margin-top:6px;line-height:1.3;letter-spacing:0.3px}
-.prog-step.active .prog-lbl{color:var(--plum);font-weight:600}
-.prog-step.done .prog-lbl{color:var(--ok)}
-
-/* ── TRACKING BOX ── */
-.tracking-box{background:var(--cream2);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:16px 18px;margin:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.tracking-box-left .tracking-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin-bottom:4px}
-.tracking-box-left .tracking-num{font-family:'Libre Baskerville',serif;font-size:17px;color:var(--ink);letter-spacing:0.5px}
-.btn-track-delhivery{display:inline-flex;align-items:center;gap:6px;background:var(--plum);color:white;text-decoration:none;padding:9px 16px;border-radius:var(--r-sm);font-size:12px;font-weight:500;transition:.2s;white-space:nowrap;flex-shrink:0}
-.btn-track-delhivery:hover{background:var(--plum2)}
-.btn-track-delhivery svg{width:13px;height:13px}
-
-/* ── MULTI-ORDER LIST (My Orders tab result) ── */
-.orders-list{display:flex;flex-direction:column;gap:14px}
-.mini-order-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;animation:fadeUp .35s ease;cursor:pointer;transition:.2s}
-.mini-order-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
-.mini-order-head{background:var(--plum);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.mini-order-id{font-family:'Libre Baskerville',serif;font-size:15px;color:white;font-weight:400}
-.mini-order-date{font-size:11px;color:rgba(255,255,255,0.6)}
-.mini-order-body{padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.mini-order-items{font-size:13px;color:var(--ink);line-height:1.4;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mini-order-total{font-size:15px;font-weight:700;color:var(--plum);white-space:nowrap}
-.mini-status-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap}
-
-/* Pill colours re-used (light bg for white cards) */
-.pill-placed   {background:#e8f7ee;color:#2e7d4f}
-.pill-processing{background:#fef8ec;color:#b8903a}
-.pill-dispatched{background:#eef3ff;color:#4a6cba}
-.pill-out      {background:#edfaf5;color:#1d8a6e}
-.pill-delivered {background:#e2f4ea;color:#2e7d4f}
-.pill-cancelled {background:#fdf0f0;color:#b83232}
-.pill-default   {background:var(--cream2);color:var(--muted)}
-
-/* ── EXPANDED ORDER (click mini card) ── */
-.expanded-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--plum);font-size:13px;font-weight:500;padding:0;margin-bottom:16px;cursor:pointer;transition:.2s}
-.expanded-back:hover{color:var(--plum2)}
-.expanded-back svg{width:16px;height:16px}
-
-/* ── EMPTY / LOADING / ERROR STATES ── */
-.state-card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:48px 28px;text-align:center}
-.state-icon{font-size:48px;margin-bottom:14px;display:block}
-.state-title{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--ink);margin-bottom:8px}
-.state-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:340px;margin:0 auto 20px}
-.btn-try-again{background:var(--plum);color:white;border:none;padding:11px 24px;border-radius:var(--r-sm);font-size:13px;font-weight:500;transition:.2s}
-.btn-try-again:hover{background:var(--plum2)}
-
-/* ── SPINNER ── */
-.spinner-wrap{text-align:center;padding:60px 0}
-.spinner{display:inline-block;width:36px;height:36px;border:3px solid var(--cream3);border-top-color:var(--plum);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.spinner-lbl{font-size:13px;color:var(--muted);margin-top:12px}
-
-/* ── FOOTER ── */
+/* RESULTS */
+.results-wrap{max-width:560px;margin:32px auto 80px;padding:0 16px}
+.order-result{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow-lg);overflow:hidden;animation:fadeUp .4s ease both}
+/* STATUS BANNERS */
+.status-banner{padding:24px 24px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.status-banner.placed   {background:linear-gradient(135deg,#1a3a28,#243d2e)}
+.status-banner.processing{background:linear-gradient(135deg,#3a2d10,#4a3814)}
+.status-banner.dispatched{background:linear-gradient(135deg,#162140,#1e2e58)}
+.status-banner.out      {background:linear-gradient(135deg,#0e2d28,#143830)}
+.status-banner.delivered{background:linear-gradient(135deg,#163320,#0d2a1c)}
+.status-banner.cancelled{background:linear-gradient(135deg,#3a1010,#2a0e0e)}
+.status-banner.unknown  {background:var(--plum)}
+.order-id-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px}
+.order-id-val{font-family:'Libre Baskerville',serif;font-size:20px;color:white;letter-spacing:.5px;margin-bottom:2px}
+.order-date{font-size:12px;color:rgba(255,255,255,.45)}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:30px;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:4px}
+.status-pill.placed   {background:rgba(46,125,79,.25);color:#7fe8a8;border:1px solid rgba(46,125,79,.3)}
+.status-pill.processing{background:rgba(184,144,58,.25);color:#f0c96a;border:1px solid rgba(184,144,58,.3)}
+.status-pill.dispatched{background:rgba(100,149,237,.25);color:#9fc3ff;border:1px solid rgba(100,149,237,.3)}
+.status-pill.out      {background:rgba(46,200,160,.2);color:#60e8c4;border:1px solid rgba(46,200,160,.25)}
+.status-pill.delivered{background:rgba(46,125,79,.35);color:#7fe8a8;border:1px solid rgba(46,125,79,.4)}
+.status-pill.cancelled{background:rgba(184,50,50,.25);color:#ff9999;border:1px solid rgba(184,50,50,.3)}
+.status-pill.unknown  {background:rgba(255,255,255,.12);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.15)}
+/* FUNNY MESSAGE */
+.funny-msg{padding:18px 22px;background:linear-gradient(135deg,#fffbf2,#fef8e8);border-left:3px solid var(--gold);display:flex;align-items:flex-start;gap:12px}
+.funny-msg-emoji{font-size:22px;flex-shrink:0;margin-top:-2px}
+.funny-msg-text{font-size:13px;color:var(--ink);line-height:1.65;font-style:italic}
+/* PROGRESS STEPPER */
+.progress-section{padding:22px 22px 20px;border-top:1px solid var(--cream2)}
+.progress-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:22px}
+.steps-row{display:flex;align-items:flex-start;position:relative}
+.steps-row::before{content:'';position:absolute;top:17px;left:18px;right:18px;height:2px;background:var(--cream3);z-index:0}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.step-fill{position:absolute;top:17px;left:calc(-50% + 18px);right:calc(50% + 18px);height:2px;background:var(--ok);z-index:0;transition:.5s}
+.step:first-child .step-fill{display:none}
+.step-dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:15px;transition:.4s;flex-shrink:0;position:relative}
+.step.done .step-dot{background:var(--ok);border-color:var(--ok);color:white;font-size:13px}
+.step.active .step-dot{background:var(--plum);border-color:var(--plum);color:white;box-shadow:0 0 0 6px rgba(74,25,66,.12);animation:activePulse 2s ease-in-out infinite}
+@keyframes activePulse{0%,100%{box-shadow:0 0 0 6px rgba(74,25,66,.12)}50%{box-shadow:0 0 0 10px rgba(74,25,66,.05)}}
+.step-label{font-size:9px;color:var(--muted);text-align:center;margin-top:7px;line-height:1.35;letter-spacing:.3px;max-width:52px}
+.step.active .step-label{color:var(--plum);font-weight:600}
+.step.done .step-label{color:var(--ok)}
+/* TRACKING BOX */
+.tracking-box{background:linear-gradient(135deg,var(--plum),var(--plum2));padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.05)}
+.tracking-label-sm{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.5);margin-bottom:4px}
+.tracking-num-val{font-family:'Libre Baskerville',serif;font-size:16px;color:white;letter-spacing:.5px}
+.btn-delhivery{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:white;text-decoration:none;padding:9px 15px;border-radius:var(--r-sm);font-size:12px;font-weight:500;transition:.2s;white-space:nowrap;flex-shrink:0;border:1px solid rgba(255,255,255,.2)}
+.btn-delhivery:hover{background:rgba(255,255,255,.25)}
+.btn-delhivery svg{width:12px;height:12px}
+/* ORDER DETAILS */
+.order-details{padding:0 22px}
+.detail-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--cream2);gap:14px}
+.detail-row:last-child{border-bottom:none;padding-bottom:20px}
+.detail-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);flex-shrink:0;padding-top:1px}
+.detail-val{text-align:right;font-size:14px;color:var(--ink);line-height:1.5;word-break:break-word;max-width:65%}
+.detail-val.price{font-weight:700;color:var(--plum);font-size:16px}
+/* LOADING */
+.loading-wrap{text-align:center;padding:60px 20px;background:var(--white);border-radius:var(--r);box-shadow:var(--shadow)}
+.loading-truck{font-size:44px;display:block;animation:truckRide 1.2s ease-in-out infinite}
+@keyframes truckRide{0%,100%{transform:translateX(0)}33%{transform:translateX(8px)}66%{transform:translateX(-5px)}}
+.loading-text{font-size:14px;color:var(--muted);margin-top:14px;font-style:italic}
+/* ERROR */
+.error-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:44px 28px;text-align:center}
+.error-icon{font-size:44px;margin-bottom:14px}
+.error-title{font-family:'Libre Baskerville',serif;font-size:20px;color:var(--ink);margin-bottom:8px}
+.error-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:300px;margin:0 auto 20px}
+.btn-retry{background:var(--plum);color:white;border:none;padding:11px 26px;border-radius:var(--r-sm);font-size:13px;font-weight:500;transition:.2s}
+.btn-retry:hover{background:var(--plum2)}
 footer{text-align:center;padding:32px 20px;font-size:13px;color:var(--muted);border-top:1px solid var(--border)}
 footer a{color:var(--muted);text-decoration:none;margin:0 12px}
 footer a:hover{color:var(--plum)}
-
-/* ── MOBILE ── */
-@media(max-width:500px){
+@media(max-width:480px){
+  .search-input-row{flex-direction:column}
+  .btn-search{width:100%;justify-content:center}
+  .status-banner{flex-direction:column;gap:10px}
   .tracking-box{flex-direction:column;align-items:flex-start}
-  .form-row{flex-direction:column}
-  .btn-search{width:100%}
+  .step-label{font-size:8px;max-width:44px}
 }
 </style>
 </head>
 <body>
-
+<div class="scroll-bar" id="scrollBar"></div>
 <nav class="topbar">
   <a href="/" class="topbar-logo" id="topbarLogo">Minella Jewels</a>
   <div class="topbar-nav">
@@ -200,468 +184,226 @@ footer a:hover{color:var(--plum)}
     </a>
   </div>
 </nav>
-
-<div class="page">
-
-  <!-- Hero -->
-  <div class="track-hero">
-    <div class="track-hero-tag">&#9741; Order Tracking</div>
-    <h1>Where's my <em>order?</em></h1>
-    <p>Track a single order, or look up all orders placed with your phone or email.</p>
+<div class="hero">
+  <div class="hero-rings"><div class="ring"></div><div class="ring"></div><div class="ring"></div></div>
+  <div class="hero-content">
+    <div class="delivery-icon-wrap">
+      <div class="delivery-icon-bg">
+        <svg width="56" height="44" viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="11" width="34" height="21" rx="3" fill="rgba(184,144,58,0.22)" stroke="#d4a84b" stroke-width="1.5"/>
+          <rect x="3" y="13" width="30" height="17" rx="2" fill="rgba(184,144,58,0.1)"/>
+          <path d="M35 19 L35 32 L52 32 L52 24 L45 14 L35 14 Z" fill="rgba(184,144,58,0.22)" stroke="#d4a84b" stroke-width="1.5"/>
+          <path d="M37 15.5 L44.5 15.5 L49.5 23 L37 23 Z" fill="rgba(184,144,58,0.38)" stroke="#d4a84b" stroke-width="1"/>
+          <circle cx="11" cy="32" r="5.5" fill="#3a1235" stroke="#d4a84b" stroke-width="1.5"/>
+          <circle cx="11" cy="32" r="2" fill="#d4a84b"/>
+          <circle cx="43" cy="32" r="5.5" fill="#3a1235" stroke="#d4a84b" stroke-width="1.5"/>
+          <circle cx="43" cy="32" r="2" fill="#d4a84b"/>
+          <line x1="4" y1="18" x2="11" y2="18" stroke="#d4a84b" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
+          <line x1="2" y1="21.5" x2="10" y2="21.5" stroke="#d4a84b" stroke-width="1" stroke-linecap="round" opacity="0.38"/>
+          <line x1="4" y1="25" x2="11" y2="25" stroke="#d4a84b" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
+        </svg>
+      </div>
+      <div class="icon-spark"></div><div class="icon-spark"></div><div class="icon-spark"></div><div class="icon-spark"></div>
+    </div>
+    <div class="hero-tag">&#10022; Live Order Tracking</div>
+    <h1>Track your <em>sparkle</em></h1>
+    <p class="hero-sub">Enter your Order ID to see exactly where your jewellery is right now.</p>
   </div>
-
-  <!-- Search Card -->
-  <div class="search-wrap">
-    <div class="search-card">
-
-      <!-- Tabs -->
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="single">Track an Order</button>
-        <button class="tab-btn" data-tab="myorders">My Orders</button>
+</div>
+<div class="search-float">
+  <div class="search-card">
+    <div class="search-card-head">
+      <div class="search-card-label">Order Lookup</div>
+      <div class="search-card-title">Where's my order?</div>
+      <div class="search-input-row">
+        <input class="search-input" id="inp_orderid" placeholder="e.g. MNL-20250621-4892" autocomplete="off" spellcheck="false">
+        <button class="btn-search" id="btn_track">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Track
+        </button>
       </div>
-
-      <!-- Single Order Tab -->
-      <div class="tab-panel active" id="tab-single">
-        <div style="margin-bottom:16px">
-          <label class="form-label">Order ID</label>
-          <div class="form-row">
-            <input class="form-input" id="inp_orderid" placeholder="e.g. MNL-20250621-4892" autocomplete="off" spellcheck="false">
-            <button class="btn-search" id="btn_track_id">Track</button>
-          </div>
-          <div class="err-msg" id="err_orderid">Please enter a valid Order ID</div>
-        </div>
-
-        <div class="or-row">or</div>
-
-        <div>
-          <label class="form-label">Mobile Number</label>
-          <div class="form-row">
-            <input class="form-input" id="inp_phone_single" placeholder="10-digit mobile number" maxlength="10" type="tel" inputmode="numeric" autocomplete="tel">
-            <button class="btn-search" id="btn_track_phone">Track</button>
-          </div>
-          <div class="field-hint">Shows your most recent order</div>
-          <div class="err-msg" id="err_phone_single">Please enter a valid 10-digit number</div>
-        </div>
-      </div>
-
-      <!-- My Orders Tab -->
-      <div class="tab-panel" id="tab-myorders">
-        <div style="margin-bottom:16px">
-          <label class="form-label">Email Address</label>
-          <div class="form-row">
-            <input class="form-input" id="inp_email_orders" placeholder="yourname@email.com" type="email" autocomplete="email">
-            <button class="btn-search" id="btn_orders_email">Find Orders</button>
-          </div>
-          <div class="err-msg" id="err_email_orders">Please enter a valid email address</div>
-        </div>
-
-        <div class="or-row">or</div>
-
-        <div>
-          <label class="form-label">Mobile Number</label>
-          <div class="form-row">
-            <input class="form-input" id="inp_phone_orders" placeholder="10-digit mobile number" maxlength="10" type="tel" inputmode="numeric" autocomplete="tel">
-            <button class="btn-search" id="btn_orders_phone">Find Orders</button>
-          </div>
-          <div class="err-msg" id="err_phone_orders">Please enter a valid 10-digit number</div>
-        </div>
-      </div>
-
+    </div>
+    <div class="err-msg" id="err_orderid">Please enter a valid Order ID (e.g. MNL-20250621-4892)</div>
+    <div class="search-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Your Order ID was sent to you via SMS &amp; email right after placing the order.
     </div>
   </div>
-
-  <!-- Results -->
-  <div class="results-wrap" id="resultsWrap"></div>
-
-</div><!-- /page -->
-
+</div>
+<div class="results-wrap" id="resultsWrap"></div>
 <footer>
   <div style="margin-bottom:10px">
-    <a href="/about">About Us</a>
-    <a href="/contact">Contact</a>
     <a href="/">Shop</a>
-    <a href="/shipping-policy">Shipping &amp; Returns</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/return-policy">Returns</a>
+    <a href="/shipping-policy">Shipping</a>
   </div>
-  © 2025 Minella Jewels · Made with ♥ in Coimbatore
+  &copy; 2025 Minella Jewels &middot; Made with &hearts; in Coimbatore
 </footer>
-
 <script>
-// =====================================================
-// CONFIG
-// =====================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
-const SHEET_ID   = "1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
-
-// =====================================================
-// TAB SWITCHING
-// =====================================================
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", function() {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-    this.classList.add("active");
-    document.getElementById("tab-" + this.dataset.tab).classList.add("active");
-    clearResults();
-  });
-});
-
-// =====================================================
-// LOGO — load from sheet if available
-// =====================================================
-(function loadLogo() {
-  try {
-    fetch("https://opensheet.elk.sh/" + SHEET_ID + "/Sheet1")
-      .then(r => r.json()).then(data => {
-        var logoP = data.find(p => p.logo_link && p.logo_link.trim());
-        if (!logoP) return;
-        var id = extractDriveId(logoP.logo_link.trim());
-        if (!id) return;
-        var img = new Image();
-        img.onload = function() {
-          var el = document.getElementById("topbarLogo");
-          el.textContent = "";
-          img.style.cssText = "height:36px;width:auto;object-fit:contain";
-          el.appendChild(img);
-        };
-        img.alt = "Minella Jewels";
-        img.src = "https://lh3.googleusercontent.com/d/" + id + "=w200";
-      });
-  } catch(e) {}
+(function(){
+  var bar=document.getElementById("scrollBar");
+  window.addEventListener("scroll",function(){
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=max>0?(window.scrollY/max*100)+"%":"0%";
+  },{passive:true});
 })();
-function extractDriveId(url) {
-  if (!url) return null;
-  var m = url.match(/\/file\/d\/([^\/\?&]+)/) || url.match(/[?&]id=([^&]+)/) || url.match(/\/d\/([^\/]+)/);
-  return m ? m[1] : null;
-}
 
-// =====================================================
-// ENTER KEY SUPPORT
-// =====================================================
-function onEnter(inputId, btnId) {
-  document.getElementById(inputId).addEventListener("keydown", function(e) {
-    if (e.key === "Enter") document.getElementById(btnId).click();
-  });
-}
-onEnter("inp_orderid",       "btn_track_id");
-onEnter("inp_phone_single",  "btn_track_phone");
-onEnter("inp_email_orders",  "btn_orders_email");
-onEnter("inp_phone_orders",  "btn_orders_phone");
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbyrg63YNzigHFoLREpeSLiHgPjzCKJDs9apRNBHNCA1e7CLh9cM-fdXEx5MMbdvbYds/exec";
+const SHEET_ID="1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk";
 
-// =====================================================
-// BUTTON HANDLERS
-// =====================================================
-document.getElementById("btn_track_id").addEventListener("click", function() {
-  var val = document.getElementById("inp_orderid").value.trim();
-  clearErr("err_orderid");
-  if (!val) { showErr("err_orderid", "Please enter your Order ID"); return; }
-  trackSingle({ orderId: val.toUpperCase() });
-});
-
-document.getElementById("btn_track_phone").addEventListener("click", function() {
-  var val = document.getElementById("inp_phone_single").value.trim();
-  clearErr("err_phone_single");
-  if (!/^\d{10}$/.test(val)) { showErr("err_phone_single", "Please enter a valid 10-digit number"); return; }
-  trackSingle({ phone: val });
-});
-
-document.getElementById("btn_orders_email").addEventListener("click", function() {
-  var val = document.getElementById("inp_email_orders").value.trim();
-  clearErr("err_email_orders");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) { showErr("err_email_orders", "Please enter a valid email address"); return; }
-  fetchAllOrders({ email: val });
-});
-
-document.getElementById("btn_orders_phone").addEventListener("click", function() {
-  var val = document.getElementById("inp_phone_orders").value.trim();
-  clearErr("err_phone_orders");
-  if (!/^\d{10}$/.test(val)) { showErr("err_phone_orders", "Please enter a valid 10-digit number"); return; }
-  fetchAllOrders({ phone: val });
-});
-
-// =====================================================
-// API CALLS
-// =====================================================
-function trackSingle(params) {
-  showLoading("Fetching your order\u2026");
-  var qs = "action=getOrderStatus";
-  if (params.orderId) qs += "&orderId=" + encodeURIComponent(params.orderId);
-  if (params.phone)   qs += "&phone="   + encodeURIComponent(params.phone);
-
-  fetch(SCRIPT_URL + "?" + qs)
-    .then(function(r) { return r.json(); })
-    .then(function(res) {
-      if (res.ok) renderSingleOrder(res);
-      else        renderError(res.error || "No order found.");
-    })
-    .catch(function() { renderError("Could not connect. Please check your internet and try again."); });
-}
-
-function fetchAllOrders(params) {
-  showLoading("Looking up your orders\u2026");
-  var qs = "action=getOrdersByEmailOrPhone";
-  if (params.email) qs += "&email=" + encodeURIComponent(params.email);
-  if (params.phone) qs += "&phone=" + encodeURIComponent(params.phone);
-
-  fetch(SCRIPT_URL + "?" + qs)
-    .then(function(r) { return r.json(); })
-    .then(function(res) {
-      if (res.ok) renderOrdersList(res.orders);
-      else        renderError(res.error || "No orders found.");
-    })
-    .catch(function() { renderError("Could not connect. Please check your internet and try again."); });
-}
-
-// =====================================================
-// RENDER — SINGLE ORDER
-// =====================================================
-function renderSingleOrder(o) {
-  var steps     = getProgressSteps(o.status);
-  var tracking  = (o.tracking || "").trim();
-  var trackingHtml = tracking
-    ? '<div class="tracking-box"><div class="tracking-box-left"><div class="tracking-label">Tracking Number</div><div class="tracking-num">' + esc(tracking) + '</div></div>'
-      + '<a href="https://www.delhivery.com/track/package/' + encodeURIComponent(tracking) + '" target="_blank" rel="noopener" class="btn-track-delhivery">'
-      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
-      + 'Track on Delhivery</a></div>'
-    : "";
-
-  setResults(
-    '<div class="order-card">'
-    + '<div class="order-card-head">'
-    +   '<div><div class="order-card-id">' + esc(o.orderId) + '</div>'
-    +   '<div class="order-card-date">' + esc(o.date || "") + '</div></div>'
-    +   statusPill(o.status)
-    + '</div>'
-    + trackingHtml
-    + '<div class="order-card-body">'
-    + infoRow("Customer", o.name)
-    + infoRow("Items", o.items)
-    + infoRow("Payment", o.payment)
-    + infoRowPrice("Grand Total", o.total)
-    + '</div>'
-    + renderProgress(steps)
-    + '</div>'
-  );
-}
-
-// =====================================================
-// RENDER — ORDER LIST (My Orders)
-// =====================================================
-var _allOrders = [];
-function renderOrdersList(orders) {
-  _allOrders = orders;
-  if (!orders.length) { renderError("No orders found."); return; }
-
-  var html = '<div class="orders-list">';
-  orders.forEach(function(o, i) {
-    html +=
-      '<div class="mini-order-card" data-idx="' + i + '">'
-      + '<div class="mini-order-head">'
-      +   '<div><div class="mini-order-id">' + esc(o.orderId) + '</div>'
-      +   '<div class="mini-order-date">' + esc(o.date || "") + '</div></div>'
-      +   miniStatusPill(o.status)
-      + '</div>'
-      + '<div class="mini-order-body">'
-      +   '<div class="mini-order-items">' + esc(o.items) + '</div>'
-      +   '<div class="mini-order-total">&#8377;' + esc(String(o.total)) + '</div>'
-      + '</div>'
-      + '</div>';
-  });
-  html += '</div>';
-  setResults(html);
-
-  // Click to expand
-  document.querySelectorAll(".mini-order-card").forEach(function(card) {
-    card.addEventListener("click", function() {
-      var idx = parseInt(this.dataset.idx);
-      expandOrder(_allOrders[idx]);
-    });
-  });
-}
-
-function expandOrder(o) {
-  var steps    = getProgressSteps(o.status);
-  var tracking = (o.tracking || "").trim();
-  var trackingHtml = tracking
-    ? '<div class="tracking-box"><div class="tracking-box-left"><div class="tracking-label">Tracking Number</div><div class="tracking-num">' + esc(tracking) + '</div></div>'
-      + '<a href="https://www.delhivery.com/track/package/' + encodeURIComponent(tracking) + '" target="_blank" rel="noopener" class="btn-track-delhivery">'
-      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
-      + 'Track on Delhivery</a></div>'
-    : "";
-
-  setResults(
-    '<button class="expanded-back" id="backToList">'
-    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
-    + 'All Orders'
-    + '</button>'
-    + '<div class="order-card">'
-    + '<div class="order-card-head">'
-    +   '<div><div class="order-card-id">' + esc(o.orderId) + '</div>'
-    +   '<div class="order-card-date">' + esc(o.date || "") + '</div></div>'
-    +   statusPill(o.status)
-    + '</div>'
-    + trackingHtml
-    + '<div class="order-card-body">'
-    + infoRow("Items", o.items)
-    + infoRow("Payment", o.payment)
-    + infoRowPrice("Grand Total", o.total)
-    + '</div>'
-    + renderProgress(steps)
-    + '</div>'
-  );
-
-  document.getElementById("backToList").addEventListener("click", function() {
-    renderOrdersList(_allOrders);
-  });
-}
-
-// =====================================================
-// PROGRESS STEPPER
-// =====================================================
-var STATUS_STEPS = [
-  { key: "placed",    label: "Order\nPlaced",       icon: "✓"  },
-  { key: "processing",label: "Processing",           icon: "⚙"  },
-  { key: "dispatched",label: "Dispatched",           icon: "📦" },
-  { key: "out",       label: "Out for\nDelivery",   icon: "🚚" },
-  { key: "delivered", label: "Delivered",            icon: "🎉" }
-];
-
-var STATUS_MAP = {
-  "Order Placed":     "placed",
-  "Processing":       "processing",
-  "Dispatched":       "dispatched",
-  "Out for Delivery": "out",
-  "Delivered":        "delivered",
-  "Cancelled":        "cancelled"
-};
-
-function getProgressSteps(statusLabel) {
-  var key = STATUS_MAP[statusLabel] || "placed";
-  if (key === "cancelled") {
-    // show all grey except mark first step as cancelled-style
-    return STATUS_STEPS.map(function(s, i) { return { ...s, state: i === 0 ? "active" : "none" }; });
+var FUNNY = {
+  "Order Placed":{
+    emoji:"&#127881;",
+    msg:"Your order is officially in the universe! We're doing a tiny happy dance on your behalf. Give us a moment to make the magic happen."
+  },
+  "Processing":{
+    emoji:"&#9881;&#65039;",
+    msg:"Our jewellery elves are hand-picking your piece and wrapping it with the love of a thousand grandmothers. Absolutely worth the wait, promise."
+  },
+  "Dispatched":{
+    emoji:"&#128230;",
+    msg:"Your parcel is OUT there in the wild! It's on a little adventure — crossing cities, dodging traffic, living its best life before landing in your hands."
+  },
+  "Out for Delivery":{
+    emoji:"&#128666;",
+    msg:"The delivery person is literally on their way RIGHT NOW. Drop everything. Go stand near your door. Your sparkle is about 2 dramatic heartbeats away."
+  },
+  "Delivered":{
+    emoji:"&#10024;",
+    msg:"IT'S THERE! Your jewellery has arrived and honestly, it's been waiting its whole life to meet you. Go wear it somewhere fancy — or just around the house, no judgment."
+  },
+  "Cancelled":{
+    emoji:"&#128148;",
+    msg:"Aww, this one didn't work out. But like all great love stories, there's always a next chapter. Head back to the shop — your perfect piece is still waiting for you."
   }
-  var activeIdx = STATUS_STEPS.findIndex(function(s) { return s.key === key; });
-  return STATUS_STEPS.map(function(s, i) {
-    return { ...s, state: i < activeIdx ? "done" : i === activeIdx ? "active" : "none" };
-  });
-}
-
-function renderProgress(steps) {
-  var html = '<div class="progress-wrap"><div class="progress-title">Order Progress</div><div class="progress-steps">';
-  steps.forEach(function(s) {
-    html += '<div class="prog-step ' + s.state + '">'
-      + '<div class="prog-dot">' + (s.state === "done" ? "✓" : s.icon) + '</div>'
-      + '<div class="prog-lbl">' + s.label.replace("\n", "<br>") + '</div>'
-      + '</div>';
-  });
-  html += '</div></div>';
-  return html;
-}
-
-// =====================================================
-// STATUS PILLS
-// =====================================================
-var STATUS_CLASS = {
-  "Order Placed":     "placed",
-  "Processing":       "processing",
-  "Dispatched":       "dispatched",
-  "Out for Delivery": "out",
-  "Delivered":        "delivered",
-  "Cancelled":        "cancelled"
 };
-var STATUS_EMOJI = {
-  "Order Placed":     "✅",
-  "Processing":       "⚙️",
-  "Dispatched":       "📦",
-  "Out for Delivery": "🚚",
-  "Delivered":        "🎉",
-  "Cancelled":        "❌"
-};
-function statusPill(s) {
-  var cls   = STATUS_CLASS[s] || "default";
-  var emoji = STATUS_EMOJI[s] || "📋";
-  return '<div class="status-pill ' + cls + '">' + emoji + ' ' + esc(s) + '</div>';
-}
-function miniStatusPill(s) {
-  var cls   = "pill-" + (STATUS_CLASS[s] || "default");
-  var emoji = STATUS_EMOJI[s] || "📋";
-  return '<div class="mini-status-pill ' + cls + '">' + emoji + ' ' + esc(s) + '</div>';
+
+var SC={"Order Placed":"placed","Processing":"processing","Dispatched":"dispatched","Out for Delivery":"out","Delivered":"delivered","Cancelled":"cancelled"};
+var SE={"Order Placed":"&#9989;","Processing":"&#9881;&#65039;","Dispatched":"&#128230;","Out for Delivery":"&#128666;","Delivered":"&#127881;","Cancelled":"&#10060;"};
+var STEPS=[
+  {key:"placed",   label:"Order\nPlaced",    icon:"&#128717;&#65039;"},
+  {key:"processing",label:"Processing",       icon:"&#9881;&#65039;"},
+  {key:"dispatched",label:"Dispatched",       icon:"&#128230;"},
+  {key:"out",      label:"Out for\nDelivery", icon:"&#128666;"},
+  {key:"delivered",label:"Delivered",         icon:"&#127881;"}
+];
+var SMAP={"Order Placed":"placed","Processing":"processing","Dispatched":"dispatched","Out for Delivery":"out","Delivered":"delivered"};
+
+(function(){
+  try{
+    fetch("https://opensheet.elk.sh/"+SHEET_ID+"/Sheet1")
+      .then(r=>r.json()).then(data=>{
+        var lp=data.find(p=>p.logo_link&&p.logo_link.trim());
+        if(!lp) return;
+        var m=lp.logo_link.match(/\/file\/d\/([^\/\?&]+)/)||lp.logo_link.match(/[?&]id=([^&]+)/)||lp.logo_link.match(/\/d\/([^\/]+)/);
+        if(!m) return;
+        var img=new Image();
+        img.onload=function(){var el=document.getElementById("topbarLogo");el.textContent="";img.style.cssText="height:36px;width:auto;object-fit:contain";el.appendChild(img);};
+        img.alt="Minella Jewels";
+        img.src="https://lh3.googleusercontent.com/d/"+m[1]+"=w200";
+      });
+  }catch(e){}
+})();
+
+document.getElementById("inp_orderid").addEventListener("keydown",function(e){
+  if(e.key==="Enter") document.getElementById("btn_track").click();
+});
+
+document.getElementById("btn_track").addEventListener("click",function(){
+  var val=document.getElementById("inp_orderid").value.trim();
+  document.getElementById("err_orderid").classList.remove("show");
+  if(!val){document.getElementById("err_orderid").classList.add("show");return;}
+  doTrack(val.toUpperCase());
+});
+
+function doTrack(id){
+  showLoading();
+  fetch(SCRIPT_URL+"?action=getOrderStatus&orderId="+encodeURIComponent(id))
+    .then(function(r){return r.json();})
+    .then(function(res){if(res.ok) renderOrder(res); else renderError(res.error||"No order found with that ID.");})
+    .catch(function(){renderError("Could not connect. Please check your internet and try again.");});
 }
 
-// =====================================================
-// INFO ROW HELPERS
-// =====================================================
-function infoRow(label, val) {
-  return '<div class="info-row"><span class="info-label">' + esc(label) + '</span><span class="info-val">' + esc(val || "—") + '</span></div>';
-}
-function infoRowPrice(label, val) {
-  return '<div class="info-row"><span class="info-label">' + esc(label) + '</span><span class="info-val price">&#8377;' + esc(String(val || "—")) + '</span></div>';
-}
-
-// =====================================================
-// STATE MANAGEMENT
-// =====================================================
-function showLoading(msg) {
+function renderOrder(o){
+  var sk=SC[o.status]||"unknown";
+  var se=SE[o.status]||"&#128203;";
+  var funny=FUNNY[o.status]||{emoji:"&#128203;",msg:"Your order is on its way!"};
+  var tracking=(o.tracking||"").trim();
+  var tHtml=tracking
+    ?'<div class="tracking-box"><div><div class="tracking-label-sm">Tracking Number</div><div class="tracking-num-val">'+esc(tracking)+'</div></div>'
+      +'<a href="https://www.delhivery.com/track/package/'+encodeURIComponent(tracking)+'" target="_blank" rel="noopener" class="btn-delhivery">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
+      +'Track Courier</a></div>'
+    :"";
   setResults(
-    '<div class="spinner-wrap"><div class="spinner"></div><div class="spinner-lbl">' + esc(msg || "Loading\u2026") + '</div></div>'
+    '<div class="order-result">'
+    +'<div class="status-banner '+sk+'">'
+    +'<div><div class="order-id-label">Order ID</div><div class="order-id-val">'+esc(o.orderId)+'</div><div class="order-date">'+esc(o.date||"")+'</div></div>'
+    +'<div class="status-pill '+sk+'">'+se+' '+esc(o.status)+'</div>'
+    +'</div>'
+    +'<div class="funny-msg"><span class="funny-msg-emoji">'+funny.emoji+'</span><span class="funny-msg-text">'+esc(funny.msg)+'</span></div>'
+    +renderSteps(o.status)
+    +tHtml
+    +'<div class="order-details">'
+    +dRow("Customer",o.name)
+    +dRow("Items",o.items)
+    +dRow("Payment",o.payment)
+    +dRowPrice("Grand Total",o.total)
+    +'</div></div>'
   );
 }
 
-function renderError(msg) {
-  setResults(
-    '<div class="state-card">'
-    + '<span class="state-icon">🔍</span>'
-    + '<div class="state-title">Nothing found</div>'
-    + '<div class="state-sub">' + esc(msg) + '</div>'
-    + '<button class="btn-try-again" id="tryAgainBtn">Try Again</button>'
-    + '</div>'
-  );
-  document.getElementById("tryAgainBtn").addEventListener("click", clearResults);
+function renderSteps(sl){
+  var ak=SMAP[sl]||"placed";
+  var ic=sl==="Cancelled";
+  var ai=STEPS.findIndex(function(s){return s.key===ak;});
+  if(ic) ai=-1;
+  var h='<div class="progress-section"><div class="progress-title">Order Journey</div><div class="steps-row">';
+  STEPS.forEach(function(step,i){
+    var st=ic?(i===0?"active":"none"):(i<ai?"done":i===ai?"active":"none");
+    var f=(i>0&&i<=ai&&!ic)?'style="background:var(--ok)"':"";
+    h+='<div class="step '+st+'">'
+      +(i>0?'<div class="step-fill" '+f+'></div>':"")
+      +'<div class="step-dot">'+(st==="done"?"&#10003;":step.icon)+'</div>'
+      +'<div class="step-label">'+step.label.replace("\n","<br>")+'</div>'
+      +'</div>';
+  });
+  h+="</div></div>";
+  return h;
 }
 
-function clearResults() {
-  document.getElementById("resultsWrap").innerHTML = "";
+function dRow(l,v){
+  return'<div class="detail-row"><span class="detail-label">'+esc(l)+'</span><span class="detail-val">'+esc(v||"\u2014")+"</span></div>";
 }
-function setResults(html) {
-  var el = document.getElementById("resultsWrap");
-  el.innerHTML = html;
-  // Smooth scroll to results on mobile
-  setTimeout(function() {
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 80);
+function dRowPrice(l,v){
+  return'<div class="detail-row"><span class="detail-label">'+esc(l)+'</span><span class="detail-val price">&#8377;'+esc(String(v||"\u2014"))+"</span></div>";
 }
-function showErr(id, msg) { var el = document.getElementById(id); el.textContent = msg; el.classList.add("show"); }
-function clearErr(id) { document.getElementById(id).classList.remove("show"); }
-function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
 
-// =====================================================
-// AUTO-FILL from URL params (e.g. from success page redirect)
-// success.html redirects: /track?orderId=MNL-xxx or /track?phone=9876543210
-// =====================================================
-(function autoFillFromUrl() {
-  var params = new URLSearchParams(window.location.search);
-  var orderId = params.get("orderId") || params.get("txnid");
-  var phone   = params.get("phone");
-  var email   = params.get("email");
+function showLoading(){
+  setResults('<div class="loading-wrap"><span class="loading-truck">&#128666;</span><div class="loading-text">Hunting down your order across the galaxy&hellip;</div></div>');
+}
+function renderError(msg){
+  setResults('<div class="error-wrap"><div class="error-icon">&#128269;</div><div class="error-title">Hmm, nothing found</div><div class="error-sub">'+esc(msg)+'<br><br>Double-check the Order ID from your confirmation SMS or email.</div><button class="btn-retry" id="btnRetry">Try Again</button></div>');
+  document.getElementById("btnRetry").addEventListener("click",function(){
+    document.getElementById("resultsWrap").innerHTML="";
+    document.getElementById("inp_orderid").focus();
+  });
+}
+function setResults(html){
+  var el=document.getElementById("resultsWrap");
+  el.innerHTML=html;
+  setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"});},80);
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 
-  if (orderId) {
-    document.getElementById("inp_orderid").value = orderId.toUpperCase();
-    // Small delay so page finishes rendering
-    setTimeout(function() {
-      document.getElementById("btn_track_id").click();
-    }, 400);
-  } else if (phone) {
-    document.getElementById("inp_phone_single").value = phone;
-    setTimeout(function() {
-      document.getElementById("btn_track_phone").click();
-    }, 400);
-  } else if (email) {
-    // Switch to My Orders tab
-    document.querySelector('[data-tab="myorders"]').click();
-    document.getElementById("inp_email_orders").value = email;
-    setTimeout(function() {
-      document.getElementById("btn_orders_email").click();
-    }, 400);
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var id=p.get("orderId")||p.get("txnid");
+  if(id){
+    document.getElementById("inp_orderid").value=id.toUpperCase();
+    setTimeout(function(){document.getElementById("btn_track").click();},400);
   }
 })();
 </script>
