@@ -634,6 +634,12 @@ function renderGrid(data){
   });
   initCardAnimations();
 }
+  document.getElementById("productGrid").addEventListener("click",function(e){
+  var btn=e.target.closest("button[data-pid]");if(!btn)return;
+  var pid=parseInt(btn.getAttribute("data-pid")),p=productStore.get(pid);if(!p)return;
+  if(btn.classList.contains("btn-add"))addToCart((p.title||p.Title||"").trim(),parseFloat(p.price||p.Price)||0,parseInt(p.stocks||p.Stocks||p.stock)||0);
+  else if(btn.classList.contains("btn-view"))openPview(p);
+});
 /* CART LOGIC */
 function addToCart(title,price,stock){var cur=cart[title],qty=cur?cur.qty:0;if(qty>=stock){showToast("No more stock available");return;}if(cur)cur.qty++;else cart[title]={price,qty:1,stock};saveCart();updateCartUI();showToast("Added to bag \u2713");pulseCartFab();}
 function changeQty(title,delta){if(!cart[title])return;cart[title].qty+=delta;if(cart[title].qty<=0)delete cart[title];saveCart();updateCartUI();}
