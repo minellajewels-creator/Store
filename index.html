@@ -604,7 +604,7 @@ function renderGrid(data){
     var status=stockStatus(stock),isOut=status==="out";
     var badge=status==="out"?'<div class="stock-badge out">Out of Stock</div>':status==="limited"?'<div class="stock-badge limited">Few in stock</div>':"";
     var card=document.createElement("div");card.className="product-card";
-    card.innerHTML=badge
+   card.innerHTML=badge
       +'<div class="cod-badge">COD</div>'
       +'<div class="img-wrap" data-pid="'+pid+'"><img src="'+esc(imgUrl)+'" alt="'+esc(title)+'" loading="lazy" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded');this.style.opacity='0.15'"></div>'
       +'<div class="card-body"><div class="card-title">'+esc(title)+'</div>'
