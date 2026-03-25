@@ -576,8 +576,26 @@ function buildBullets(detailsStr){if(!detailsStr||!detailsStr.trim())return"";va
 function buildQuote(quoteStr){if(!quoteStr||!quoteStr.trim())return"";return'<div class="pview-quote">'+esc(quoteStr.trim())+'</div>';}
 
 /* LOAD PRODUCTS */
-fetch(SHEET_URL).then(r=>r.json()).then(data=>{
-  allProducts=data;
+const bakedEl = document.getElementById('baked-products');
+const bakedData = bakedEl ? JSON.parse(bakedEl.textContent) : null;
+
+if (bakedData) {
+  allProducts = bakedData;
+  var logoP = bakedData.find(p => p.logo_link && p.logo_link.trim());
+  if (logoP) {
+    var el = document.getElementById("topbarLogo");
+    var img = new Image();
+    img.onload = () => { el.innerHTML = ""; img.style.cssText = "height:36px;width:auto;object-fit:contain"; el.appendChild(img); };
+    img.alt = "Minella Jewels"; img.src = driveUrl(logoP.logo_link.trim(), 200);
+  }
+ 
+  document.querySelectorAll('.product-card').forEach((card, i) => {
+    productStore.set(i + 1, bakedData[i]);
+  });
+  updateCartUI();
+} else {
+  fetch(SHEET_URL).then(r => r.json()).then(data => {
+    allProducts = data;
   var logoP=data.find(p=>p.logo_link&&p.logo_link.trim());
   if(logoP){var el=document.getElementById("topbarLogo");var img=new Image();img.onload=()=>{el.innerHTML="";img.style.cssText="height:36px;width:auto;object-fit:contain";el.appendChild(img);};img.alt="Minella Jewels";img.src=driveUrl(logoP.logo_link.trim(),200);}
   renderGrid(allProducts);updateCartUI();
