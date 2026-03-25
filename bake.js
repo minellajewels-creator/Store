@@ -4,9 +4,13 @@ const fs = require('fs');
 const SHEET_ID = '1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk';
 const SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
 
-function fetch(url) {
+function fetchUrl(url) {
   return new Promise((resolve, reject) => {
     https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, res => {
+      // Follow redirects
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        return fetchUrl(res.headers.location).then(resolve).catch(reject);
+      }
       let data = '';
       res.on('data', d => data += d);
       res.on('end', () => resolve(data));
@@ -38,11 +42,13 @@ function esc(s) {
 }
 
 (async () => {
-  const raw = await fetch(SHEET_URL);
+  console.log('Fetching sheet data...');
+  const raw = await fetchUrl(SHEET_URL);
   const products = JSON.parse(raw);
+  console.log(`Got ${products.length} products`);
 
-  // Build JSON-LD structured data for Google (for Merchant Center)
-  const jsonLd = products.map((p, i) => {
+  // ── 1. Build JSON-LD structured data block ──
+  const jsonLdProducts = products.map((p, i) => {
     const price = parseFloat(p.price || p.Price) || 0;
     const title = (p.title || p.Title || '').trim();
     const imgUrl = driveUrl(p['image link'] || p['Image Link'] || '', 600);
@@ -65,10 +71,12 @@ function esc(s) {
 
   const structuredData = JSON.stringify({
     "@context": "https://schema.org",
-    "@graph": jsonLd
+    "@graph": jsonLdProducts
   });
 
-  // Build pre-rendered product card HTML (for Googlebot to see prices)
+  const ldBlock = `<!-- BAKED-JSON-LD --><script type="application/ld+json">${structuredData}<\/script><!-- /BAKED-JSON-LD -->`;
+
+  // ── 2. Build pre-rendered product cards ──
   let cardsHtml = '';
   products.forEach((p, i) => {
     const title = (p.title || p.Title || '').trim();
@@ -84,55 +92,55 @@ function esc(s) {
         ? `<div class="stock-badge limited">Only ${stock} left</div>`
         : '';
 
-    cardsHtml += `<div class="product-card" id="product-${i + 1}">
-      ${badge}
-      <div class="img-wrap">
-        <img src="${esc(imgUrl)}" alt="${esc(title)}" loading="lazy"
-          onload="this.classList.add('loaded')"
-          onerror="this.classList.add('loaded');this.style.opacity='0.15'">
-      </div>
-      <div class="card-body">
-        <div class="card-title">${esc(title)}</div>
-        <div class="card-price">₹${price.toLocaleString('en-IN')}</div>
-        <div class="card-actions">
-          <button class="btn-add" data-pid="${i + 1}"${isOut ? ' disabled' : ''}>${isOut ? 'Out of Stock' : 'Add to Bag'}</button>
-          <button class="btn-view" data-pid="${i + 1}">View</button>
-        </div>
-      </div>
-    </div>`;
+    cardsHtml += `<div class="product-card" id="product-${i + 1}">${badge}<div class="img-wrap"><img src="${esc(imgUrl)}" alt="${esc(title)}" loading="lazy" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded');this.style.opacity='0.15'"></div><div class="card-body"><div class="card-title">${esc(title)}</div><div class="card-price">&#8377;${price.toLocaleString('en-IN')}</div><div class="card-actions"><button class="btn-add" data-pid="${i + 1}"${isOut ? ' disabled' : ''}>${isOut ? 'Out of Stock' : 'Add to Bag'}</button><button class="btn-view" data-pid="${i + 1}">View</button></div></div></div>`;
   });
 
-  // Embed product data as JSON for runtime JS (replaces the sheet fetch)
-  const productDataScript = `<script id="baked-products" type="application/json">${JSON.stringify(products)}</script>`;
+  // ── 3. Baked product data for JS runtime ──
+  const bakedDataBlock = `<!-- BAKED-DATA --><script id="baked-products" type="application/json">${JSON.stringify(products)}<\/script><!-- /BAKED-DATA -->`;
 
-  // Read current index.html
+  // ── 4. Read & patch index.html ──
   let html = fs.readFileSync('index.html', 'utf8');
+  const originalLength = html.length;
 
-  // 1. Replace/insert JSON-LD structured data in <head>
-  const ldTag = `<script type="application/ld+json">${structuredData}</script>`;
+  // JSON-LD: replace existing block or inject before </head>
   if (html.includes('<!-- BAKED-JSON-LD -->')) {
-    html = html.replace(/<!-- BAKED-JSON-LD -->[\s\S]*?<!-- \/BAKED-JSON-LD -->/, `<!-- BAKED-JSON-LD -->\n${ldTag}\n<!-- /BAKED-JSON-LD -->`);
+    html = html.replace(/<!-- BAKED-JSON-LD -->[\s\S]*?<!-- \/BAKED-JSON-LD -->/, ldBlock);
+    console.log('✓ Replaced existing JSON-LD block');
   } else {
-    html = html.replace('</head>', `<!-- BAKED-JSON-LD -->\n${ldTag}\n<!-- /BAKED-JSON-LD -->\n</head>`);
+    html = html.replace('</head>', ldBlock + '</head>');
+    console.log('✓ Injected JSON-LD block before </head>');
   }
 
-  // 2. Replace product grid content
-  if (html.includes('<!-- BAKED-GRID -->')) {
-    html = html.replace(/<!-- BAKED-GRID -->[\s\S]*?<!-- \/BAKED-GRID -->/, `<!-- BAKED-GRID -->\n${cardsHtml}\n<!-- /BAKED-GRID -->`);
+  // Product grid: replace existing baked grid or inject into #productGrid
+  const gridStart = '<!-- BAKED-GRID -->';
+  const gridEnd = '<!-- /BAKED-GRID -->';
+  const gridBlock = `${gridStart}${cardsHtml}${gridEnd}`;
+
+  if (html.includes(gridStart)) {
+    html = html.replace(/<!-- BAKED-GRID -->[\s\S]*?<!-- \/BAKED-GRID -->/, gridBlock);
+    console.log('✓ Replaced existing product grid');
   } else {
-    html = html.replace(
-      '<div class="grid" id="productGrid"><div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted)">Loading collection&#8230;</div></div>',
-      `<div class="grid" id="productGrid"><!-- BAKED-GRID -->\n${cardsHtml}\n<!-- /BAKED-GRID --></div>`
-    );
+    // Find the productGrid div and inject cards inside it
+    // Works regardless of whether it has the loading text or is empty
+    const gridDivPattern = /(<div[^>]+id="productGrid"[^>]*>)([\s\S]*?)(<\/div>)/;
+    if (gridDivPattern.test(html)) {
+      html = html.replace(gridDivPattern, `$1${gridBlock}$3`);
+      console.log('✓ Injected product grid into #productGrid');
+    } else {
+      console.error('❌ Could not find #productGrid div! Check index.html structure.');
+      process.exit(1);
+    }
   }
 
-  // 3. Inject baked product data for JS (so page doesn't need to fetch sheet)
+  // Baked data script: replace existing or inject before </body>
   if (html.includes('<!-- BAKED-DATA -->')) {
-    html = html.replace(/<!-- BAKED-DATA -->[\s\S]*?<!-- \/BAKED-DATA -->/, `<!-- BAKED-DATA -->\n${productDataScript}\n<!-- /BAKED-DATA -->`);
+    html = html.replace(/<!-- BAKED-DATA -->[\s\S]*?<!-- \/BAKED-DATA -->/, bakedDataBlock);
+    console.log('✓ Replaced existing baked data block');
   } else {
-    html = html.replace('</body>', `<!-- BAKED-DATA -->\n${productDataScript}\n<!-- /BAKED-DATA -->\n</body>`);
+    html = html.replace('</body>', bakedDataBlock + '</body>');
+    console.log('✓ Injected baked data block before </body>');
   }
 
   fs.writeFileSync('index.html', html);
-  console.log(`✅ Baked ${products.length} products into index.html`);
+  console.log(`✅ Done! index.html grew by ${html.length - originalLength} bytes with ${products.length} products baked in.`);
 })();
