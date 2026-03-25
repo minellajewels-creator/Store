@@ -4,6 +4,8 @@ Allow: /
 # Allow Google to crawl all product pages for Merchant Center
 User-agent: Googlebot
 Allow: /
+User-agent: Googlebot-Image
+Allow: /
 Allow: /products/
 Allow: /sitemap.xml
 
