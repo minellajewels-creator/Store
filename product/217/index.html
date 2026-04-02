@@ -16,7 +16,7 @@
 <meta property="og:type" content="product">
 <meta property="product:price:amount" content="229.00">
 <meta property="product:price:currency" content="INR">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Bow Necklace","description":"Anti-Tarnish. Water Resistant Jewellery","image":"https://lh3.googleusercontent.com/d/1BJrVP6kv43UJ4D4pXR_cdmYfX62UWv3t=w800","brand":{"@type":"Brand","name":"Minella"},"sku":"217","mpn":"217","offers":{"@type":"Offer","url":"https://minella.in/product/217","priceCurrency":"INR","price":"229.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"IN","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":7,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/FreeReturn"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"38","currency":"INR"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":1,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":2,"maxValue":5,"unitCode":"DAY"}},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"IN"}},"seller":{"@type":"Organization","name":"Minella Jewels","url":"https://minella.in"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Bow Necklace","description":"Anti-Tarnish. Water Resistant Jewellery","image":"https://lh3.googleusercontent.com/d/1BJrVP6kv43UJ4D4pXR_cdmYfX62UWv3t=w800","brand":{"@type":"Brand","name":"Minella"},"sku":"217","offers":{"@type":"Offer","url":"https://minella.in/product/217","priceCurrency":"INR","price":"229.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","seller":{"@type":"Organization","name":"Minella Jewels","url":"https://minella.in"}}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -173,21 +173,22 @@ body{padding-top:calc(60px + var(--safe-top))}
 .det-toggle.open svg{transform:rotate(180deg)}
 .det-body{display:none}
 .det-body.open{display:block}
+.orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
 </style>
 </head>
 <body>
-
 <div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text" id="spinnerText">Processing&#8230;</div></div>
 
 <nav style="position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)">
   <a href="/" style="text-decoration:none;display:flex;align-items:center"><img src="https://lh3.googleusercontent.com/d/1HCMx13bSUhmIxVPkpF-0qaCVL47TpXo7=w200" alt="Minella Jewels" style="height:36px;width:auto;object-fit:contain"></a>
   <div style="display:flex;align-items:center;gap:10px">
-    <a href="/track" style="display:flex;align-items:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;text-decoration:none;font-family:'Outfit',sans-serif">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+    <a href="/track" class="orders-fab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       <span>My Orders</span>
     </a>
-    <button id="cartFabBtn" style="position:relative;background:var(--plum);color:white;border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,25,66,0.30);cursor:pointer">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    <button id="cartFabBtn" style="position:relative;background:var(--plum);color:white;border:none;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,25,66,0.30);cursor:pointer;transition:transform .2s">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
       <span id="cartBadge" style="position:absolute;top:-4px;right:-4px;background:var(--gold2);color:var(--plum);font-size:10px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px">0</span>
     </button>
   </div>
@@ -203,26 +204,26 @@ body{padding-top:calc(60px + var(--safe-top))}
   </div>
   <div>
     <a href="/" class="back-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="19 12 5 12"/><polyline points="12 5 5 12 12 19"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 5 12"/><polyline points="12 5 5 12 12 19"/></svg>
       Back to Store
     </a>
     <h1 class="product-title">Bow Necklace</h1>
     <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:4px;margin-bottom:14px"><span style="font-size:28px;font-weight:700;color:var(--plum)">&#8377;229</span><span style="font-size:16px;color:var(--muted);text-decoration:line-through;margin-left:8px">&#8377;349</span><span style="font-size:13px;font-weight:700;color:var(--ok);background:rgba(46,125,79,0.1);border-radius:8px;padding:3px 9px;margin-left:6px">34% off</span></div>
     <div style="font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--gold);margin-bottom:12px">&#x26A0; Few in stock</div>
     <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(46,125,79,0.1);border:1px solid rgba(46,125,79,0.2);border-radius:20px;padding:5px 13px;font-size:11px;color:var(--ok);font-weight:500;margin-bottom:16px">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       Cash on Delivery available
     </div>
     <div class="trust-mini">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Anti-tarnish</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Fast delivery</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure pay</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Skin-friendly</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Anti-tarnish</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Fast delivery</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure pay</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Skin-friendly</span>
     </div>
     <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:18px">Anti-Tarnish. Water Resistant Jewellery</p>
     <button class="btn-main" id="addToBagBtn">Add to Bag</button>
     
-    <button class="det-toggle" id="detToggle">Product Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+    <button class="det-toggle" id="detToggle">Product Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
     <div class="det-body" id="detBody"><ul style="list-style:none;padding:0;margin:0 0 12px"><li style="font-size:13px;color:var(--ink);padding:5px 0 5px 20px;position:relative;line-height:1.5;border-bottom:1px solid var(--cream2)"><span style="position:absolute;left:0;color:var(--gold);font-size:9px;top:8px">&#10022;</span>Chic bow necklace</li><li style="font-size:13px;color:var(--ink);padding:5px 0 5px 20px;position:relative;line-height:1.5;border-bottom:1px solid var(--cream2)"><span style="position:absolute;left:0;color:var(--gold);font-size:9px;top:8px">&#10022;</span>anti-tarnish</li><li style="font-size:13px;color:var(--ink);padding:5px 0 5px 20px;position:relative;line-height:1.5;border-bottom:1px solid var(--cream2)"><span style="position:absolute;left:0;color:var(--gold);font-size:9px;top:8px">&#10022;</span>water-resistant</li><li style="font-size:13px;color:var(--ink);padding:5px 0 5px 20px;position:relative;line-height:1.5;border-bottom:1px solid var(--cream2)"><span style="position:absolute;left:0;color:var(--gold);font-size:9px;top:8px">&#10022;</span>and elegant everyday wear.</li></ul><div style="background:linear-gradient(135deg,#f9f3e8,#fef8ec);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 15px;font-size:13px;font-style:italic;color:var(--ink);line-height:1.6;margin-top:8px"><div style="font-size:22px;color:var(--gold);font-family:'Libre Baskerville',serif;line-height:1;margin-bottom:2px">&#8220;</div>Sweet meets stylish.<div style="font-size:22px;color:var(--gold);font-family:'Libre Baskerville',serif;line-height:1;text-align:right;margin-top:2px">&#8221;</div></div></div>
   </div>
 </div>
@@ -283,7 +284,10 @@ body{padding-top:calc(60px + var(--safe-top))}
         <div class="form-g"><label class="form-label">Mobile Number <span class="req">*</span></label><input class="form-input" id="f_phone" placeholder="10-digit mobile" maxlength="10" type="tel" autocomplete="tel" inputmode="numeric"><div class="field-err" id="e_phone">Enter a valid 10-digit number</div></div>
         <div class="form-g"><label class="form-label">Email <span class="req">*</span></label><input class="form-input" id="f_email" placeholder="yourname@email.com" type="email" autocomplete="email"><div class="field-err" id="e_email">Enter a valid email address</div></div>
         <div class="form-g"><label class="form-label">Address <span class="req">*</span></label><input class="form-input" id="f_addr" placeholder="House/Flat no., Street, Area" autocomplete="street-address"><div class="field-err" id="e_addr">Please enter your address</div></div>
-        <div class="form-row"><div class="form-g"><label class="form-label">City</label><input class="form-input" id="f_city" placeholder="City" autocomplete="address-level2"></div><div class="form-g"><label class="form-label">State</label><input class="form-input" id="f_state" placeholder="State" autocomplete="address-level1"></div></div>
+        <div class="form-row">
+          <div class="form-g"><label class="form-label">City</label><input class="form-input" id="f_city" placeholder="City" autocomplete="address-level2"></div>
+          <div class="form-g"><label class="form-label">State</label><input class="form-input" id="f_state" placeholder="State" autocomplete="address-level1"></div>
+        </div>
         <div class="form-g"><label class="form-label">Pincode <span class="req">*</span></label><input class="form-input" id="f_pin" placeholder="6-digit pincode" maxlength="6" type="tel" inputmode="numeric" autocomplete="postal-code"><div class="field-err" id="e_pin">Enter a valid 6-digit pincode</div></div>
         <div class="shipping-info" id="shippingBox"><div class="shipping-label">Estimated Shipping</div><div class="shipping-amount" id="shippingAmt"></div><div class="shipping-zone" id="shippingZone"></div></div>
       </div>
@@ -329,103 +333,309 @@ body{padding-top:calc(60px + var(--safe-top))}
 </form>
 
 <script>
+/* ── SHARED JS (cart + checkout + PayU) ── */
+
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycbxcWsMJFT2QTsP9chLWcn39PCjqYnxEuehJWalv2i6aRJM6duhHu1DGxnxErFHtathO/exec";
 const STORE_URL="https://minella.in";
 const CART_KEY="minella_cart_v1";
 let cart={},selectedPay=null,shippingCost=null,currentStep=1;
 
+/* ── SAVE / LOAD CART ── */
 function saveCart(){try{localStorage.setItem(CART_KEY,JSON.stringify(cart));}catch(e){}}
 function loadCart(){try{var r=localStorage.getItem(CART_KEY);if(r){var p=JSON.parse(r);if(p&&typeof p==="object")cart=p;}}catch(e){cart={};}}
 function clearCart(){cart={};saveCart();}
 loadCart();
 
-function extractDriveId(url){if(!url)return null;var m=url.match(//file/d/([^/?&]+)/)||url.match(/[?&]id=([^&]+)/)||url.match(//d/([^/]+)/);return m?m[1]:null;}
-function driveUrl(rawUrl,width){width=width||600;if(!rawUrl||!rawUrl.trim())return"";var id=extractDriveId(rawUrl.trim());if(id)return"https://lh3.googleusercontent.com/d/"+id+"=w"+width;return rawUrl.trim();}
-
-function cartSubtotal(){return Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);}
-function cartCount(){return Object.values(cart).reduce((s,i)=>s+i.qty,0);}
+/* ── UTILITIES ── */
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 function unesc(s){var d=document.createElement("div");d.innerHTML=s;return d.textContent;}
-function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
+function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2400);}
 function showSpinner(msg){document.getElementById("spinnerText").textContent=msg||"Processing…";document.getElementById("spinner").classList.add("show");}
 function hideSpinner(){document.getElementById("spinner").classList.remove("show");}
 function showErr(msg){document.getElementById("errMsg").textContent=msg;document.getElementById("errBanner").classList.add("show");document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});}
-function pulseCartFab(){var fab=document.getElementById("cartFabBtn");if(!fab)return;fab.style.transform="scale(1.15)";setTimeout(()=>fab.style.transform="",300);}
 
-function addToCart(title,price,stock){var cur=cart[title],qty=cur?cur.qty:0;if(qty>=stock){showToast("No more stock available");return;}if(cur)cur.qty++;else cart[title]={price,qty:1,stock};saveCart();updateCartUI();showToast("Added to bag ✓");pulseCartFab();}
+/* ── DRIVE HELPERS ── */
+function extractDriveId(url){if(!url)return null;var m=url.match(/\/file\/d\/([^\/\?&]+)/)||url.match(/[?&]id=([^&]+)/)||url.match(/\/d\/([^\/]+)/);return m?m[1]:null;}
+function driveUrl(rawUrl,width){width=width||600;if(!rawUrl||!rawUrl.trim())return"";var id=extractDriveId(rawUrl.trim());if(id)return"https://lh3.googleusercontent.com/d/"+id+"=w"+width;return rawUrl.trim();}
+function getAdditionalImgs(cell){if(!cell||!cell.trim())return[];return cell.replace(/^"|"$/g,"").split(",").map(function(u){return u.trim();}).filter(Boolean);}
+
+/* ── STOCK ── */
+function stockStatus(stock){var s=parseInt(stock)||0;return s<=0?"out":s<=3?"limited":"available";}
+
+/* ── CART LOGIC ── */
+function cartSubtotal(){return Object.values(cart).reduce(function(s,i){return s+i.price*i.qty;},0);}
+function cartCount(){return Object.values(cart).reduce(function(s,i){return s+i.qty;},0);}
+function addToCart(title,price,stock){
+  var cur=cart[title],qty=cur?cur.qty:0;
+  if(qty>=stock){showToast("No more stock available");return;}
+  if(cur)cur.qty++;else cart[title]={price:price,qty:1,stock:stock};
+  saveCart();updateCartUI();showToast("Added to bag ✓");pulseCartFab();
+}
 function changeQty(title,delta){if(!cart[title])return;cart[title].qty+=delta;if(cart[title].qty<=0)delete cart[title];saveCart();updateCartUI();}
 function removeFromCart(title){delete cart[title];saveCart();updateCartUI();}
+function pulseCartFab(){var fab=document.getElementById("cartFabBtn");if(!fab)return;fab.classList.remove("has-items");void fab.offsetWidth;fab.classList.add("has-items");}
 
 function updateCartUI(){
   var body=document.getElementById("cartBody"),foot=document.getElementById("cartFoot");
   var badge=document.getElementById("cartBadge"),count=cartCount();
   badge.textContent=count;
-  if(!count){body.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">&#128717;</div><p>Your bag is empty</p></div>';foot.style.display="none";return;}
+  if(!count){
+    body.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">&#128717;</div><p>Your bag is empty</p></div>';
+    foot.style.display="none";return;
+  }
   var html="";
-  Object.keys(cart).forEach(title=>{var item=cart[title];html+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(title)+'</div><div class="cart-item-sub">&#8377;'+item.price.toLocaleString("en-IN")+' × '+item.qty+' = &#8377;'+(item.price*item.qty).toLocaleString("en-IN")+'</div></div><div class="qty-row"><div class="qty-ctrl"><button data-action="dec" data-title="'+esc(title)+'">-</button><span class="qty-num">'+item.qty+'</span><button data-action="inc" data-title="'+esc(title)+'">+</button></div><button class="btn-remove" data-action="rem" data-title="'+esc(title)+'">×</button></div></div>';});
+  Object.keys(cart).forEach(function(title){
+    var item=cart[title];
+    html+='<div class="cart-item"><div class="cart-item-info"><div class="cart-item-name">'+esc(title)+'</div>'
+      +'<div class="cart-item-sub">&#8377;'+item.price.toLocaleString("en-IN")+' × '+item.qty+' = &#8377;'+(item.price*item.qty).toLocaleString("en-IN")+'</div></div>'
+      +'<div class="qty-row"><div class="qty-ctrl">'
+      +'<button data-action="dec" data-title="'+esc(title)+'">-</button>'
+      +'<span class="qty-num">'+item.qty+'</span>'
+      +'<button data-action="inc" data-title="'+esc(title)+'">+</button>'
+      +'</div><button class="btn-remove" data-action="rem" data-title="'+esc(title)+'">×</button></div></div>';
+  });
   body.innerHTML=html;
   document.getElementById("cartSubtotalEl").textContent="₹"+cartSubtotal().toLocaleString("en-IN");
   foot.style.display="block";
 }
-document.getElementById("cartBody").addEventListener("click",function(e){var btn=e.target.closest("button[data-action]");if(!btn)return;var action=btn.getAttribute("data-action"),title=unesc(btn.getAttribute("data-title"));if(action==="dec")changeQty(title,-1);else if(action==="inc")changeQty(title,1);else if(action==="rem")removeFromCart(title);});
+
+document.getElementById("cartBody").addEventListener("click",function(e){
+  var btn=e.target.closest("button[data-action]");if(!btn)return;
+  var action=btn.getAttribute("data-action"),title=unesc(btn.getAttribute("data-title"));
+  if(action==="dec")changeQty(title,-1);
+  else if(action==="inc")changeQty(title,1);
+  else if(action==="rem")removeFromCart(title);
+});
+
 function openCart(){document.getElementById("cartDrawer").classList.add("open");document.getElementById("overlay").classList.add("open");}
 function closeCart(){document.getElementById("cartDrawer").classList.remove("open");document.getElementById("overlay").classList.remove("open");}
 document.getElementById("cartFabBtn").addEventListener("click",openCart);
 document.getElementById("cartCloseBtn").addEventListener("click",closeCart);
-document.getElementById("overlay").addEventListener("click",function(e){if(document.getElementById("cartDrawer").classList.contains("open"))closeCart();});
+document.getElementById("overlay").addEventListener("click",function(){
+  if(document.getElementById("cartDrawer").classList.contains("open"))closeCart();
+});
 
+/* ── CHECKOUT ── */
 document.getElementById("checkoutBtn").addEventListener("click",openCheckout);
 document.getElementById("coCloseBtn").addEventListener("click",closeCheckout);
 document.getElementById("coOverlay").addEventListener("click",closeCheckout);
-document.getElementById("btnBack").addEventListener("click",()=>{if(currentStep>1)setStep(currentStep-1);});
+document.getElementById("btnBack").addEventListener("click",function(){if(currentStep>1)setStep(currentStep-1);});
 document.getElementById("btnNext").addEventListener("click",nextStep);
 
-function openCheckout(){if(!cartCount()){showToast("Add items to your bag first");return;}closeCart();selectedPay=null;shippingCost=null;currentStep=1;document.querySelectorAll(".pay-method-card,#codCard").forEach(c=>c.classList.remove("selected"));document.getElementById("shippingBox").classList.remove("show");document.getElementById("shippingDisplay").textContent="Calculated in next step";document.getElementById("codRow").style.display="none";document.getElementById("errBanner").classList.remove("show");document.getElementById("payErr").classList.remove("show");document.getElementById("confirmBox").style.display="none";document.getElementById("payNote").textContent="";renderOrderLines();setStep(1);document.getElementById("coModal").classList.add("open");document.getElementById("coOverlay").classList.add("open");}
-function closeCheckout(){document.getElementById("coModal").classList.remove("open");document.getElementById("coOverlay").classList.remove("open");}
-function renderOrderLines(){var html="";Object.keys(cart).forEach(title=>{var item=cart[title];html+='<div class="order-line"><span class="order-line-name">'+esc(title)+' × '+item.qty+'</span><span class="order-line-price">&#8377;'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';});document.getElementById("orderLines").innerHTML=html;updateGrandTotal();}
-function updateGrandTotal(){var sub=cartSubtotal(),ship=shippingCost||0,cod=0;if(selectedPay==="cod"){cod=Math.max(40,Math.round(sub*0.02));document.getElementById("codRow").style.display="flex";document.getElementById("codDisplay").textContent="₹"+cod.toLocaleString("en-IN");}else document.getElementById("codRow").style.display="none";var grand=sub+ship+cod;document.getElementById("grandTotal").textContent="₹"+grand.toLocaleString("en-IN");return grand;}
-function setStep(s){currentStep=s;for(var i=1;i<=3;i++){var st=document.getElementById("st"+i),sc=document.getElementById("sc"+i);st.classList.remove("active","done");if(i<s){st.classList.add("done");sc.textContent="✓";}else if(i===s){st.classList.add("active");sc.textContent=String(i);}else sc.textContent=String(i);if(i<3)document.getElementById("sl"+i).classList.toggle("done",i<s);document.getElementById("coSec"+i).classList.toggle("active",i===s);}document.getElementById("btnBack").style.display=(s>1)?"block":"none";var next=document.getElementById("btnNext");if(s===3){next.textContent="Place Order";next.className="btn-place";}else{next.textContent="Continue →";next.className="btn-next";}document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});document.getElementById("errBanner").classList.remove("show");}
-function nextStep(){if(currentStep===1)setStep(2);else if(currentStep===2){if(!validateDelivery())return;calcShipping();setStep(3);buildConfirm();}else if(currentStep===3)placeOrder();}
-function validateDelivery(){var ok=true;[{id:"f_name",err:"e_name",fn:v=>v.length>=2},{id:"f_phone",err:"e_phone",fn:v=>/^d{10}$/.test(v)},{id:"f_email",err:"e_email",fn:v=>/^[^s@]+@[^s@]+.[^s@]+$/.test(v)},{id:"f_addr",err:"e_addr",fn:v=>v.length>=5},{id:"f_pin",err:"e_pin",fn:v=>/^d{6}$/.test(v)}].forEach(c=>{var el=document.getElementById(c.id),er=document.getElementById(c.err),val=el.value.trim();if(!c.fn(val)){el.classList.add("err");er.classList.add("show");ok=false;}else{el.classList.remove("err");er.classList.remove("show");}});if(!ok)showErr("Please fill all mandatory fields correctly.");return ok;}
-["f_name","f_phone","f_email","f_addr","f_pin"].forEach(id=>{var el=document.getElementById(id);if(!el)return;el.addEventListener("input",()=>{el.classList.remove("err");var er=document.getElementById("e_"+id.split("_")[1]);if(er)er.classList.remove("show");});});
+function openCheckout(){
+  if(!cartCount()){showToast("Add items to your bag first");return;}
+  closeCart();selectedPay=null;shippingCost=null;currentStep=1;
+  document.querySelectorAll(".pay-method-card,#codCard").forEach(function(c){c.classList.remove("selected");});
+  document.getElementById("shippingBox").classList.remove("show");
+  document.getElementById("shippingDisplay").textContent="Calculated in next step";
+  document.getElementById("codRow").style.display="none";
+  document.getElementById("errBanner").classList.remove("show");
+  document.getElementById("payErr").classList.remove("show");
+  document.getElementById("confirmBox").style.display="none";
+  document.getElementById("payNote").textContent="";
+  renderOrderLines();setStep(1);
+  document.getElementById("coModal").classList.add("open");
+  document.getElementById("coOverlay").classList.add("open");
+}
+function closeCheckout(){
+  document.getElementById("coModal").classList.remove("open");
+  document.getElementById("coOverlay").classList.remove("open");
+}
+function renderOrderLines(){
+  var html="";
+  Object.keys(cart).forEach(function(title){
+    var item=cart[title];
+    html+='<div class="order-line"><span class="order-line-name">'+esc(title)+' × '+item.qty+'</span><span class="order-line-price">&#8377;'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';
+  });
+  document.getElementById("orderLines").innerHTML=html;
+  updateGrandTotal();
+}
+function updateGrandTotal(){
+  var sub=cartSubtotal(),ship=shippingCost||0,cod=0;
+  if(selectedPay==="cod"){cod=Math.max(40,Math.round(sub*0.02));document.getElementById("codRow").style.display="flex";document.getElementById("codDisplay").textContent="₹"+cod.toLocaleString("en-IN");}
+  else document.getElementById("codRow").style.display="none";
+  document.getElementById("grandTotal").textContent="₹"+(sub+ship+cod).toLocaleString("en-IN");
+  return sub+ship+cod;
+}
+function setStep(s){
+  currentStep=s;
+  for(var i=1;i<=3;i++){
+    var st=document.getElementById("st"+i),sc=document.getElementById("sc"+i);
+    st.classList.remove("active","done");
+    if(i<s){st.classList.add("done");sc.textContent="✓";}
+    else if(i===s){st.classList.add("active");sc.textContent=String(i);}
+    else sc.textContent=String(i);
+    if(i<3)document.getElementById("sl"+i).classList.toggle("done",i<s);
+    document.getElementById("coSec"+i).classList.toggle("active",i===s);
+  }
+  document.getElementById("btnBack").style.display=(s>1)?"block":"none";
+  var next=document.getElementById("btnNext");
+  if(s===3){next.textContent="Place Order";next.className="btn-place";}
+  else{next.textContent="Continue →";next.className="btn-next";}
+  document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});
+  document.getElementById("errBanner").classList.remove("show");
+}
+function nextStep(){
+  if(currentStep===1)setStep(2);
+  else if(currentStep===2){if(!validateDelivery())return;calcShipping();setStep(3);buildConfirm();}
+  else if(currentStep===3)placeOrder();
+}
+function validateDelivery(){
+  var ok=true;
+  [{id:"f_name",err:"e_name",fn:function(v){return v.length>=2;}},
+   {id:"f_phone",err:"e_phone",fn:function(v){return /^\d{10}$/.test(v);}},
+   {id:"f_email",err:"e_email",fn:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}},
+   {id:"f_addr",err:"e_addr",fn:function(v){return v.length>=5;}},
+   {id:"f_pin",err:"e_pin",fn:function(v){return /^\d{6}$/.test(v);}}
+  ].forEach(function(c){
+    var el=document.getElementById(c.id),er=document.getElementById(c.err),val=el.value.trim();
+    if(!c.fn(val)){el.classList.add("err");er.classList.add("show");ok=false;}
+    else{el.classList.remove("err");er.classList.remove("show");}
+  });
+  if(!ok)showErr("Please fill all mandatory fields correctly.");
+  return ok;
+}
+["f_name","f_phone","f_email","f_addr","f_pin"].forEach(function(id){
+  var el=document.getElementById(id);if(!el)return;
+  el.addEventListener("input",function(){
+    el.classList.remove("err");
+    var er=document.getElementById("e_"+id.split("_")[1]);if(er)er.classList.remove("show");
+  });
+});
+
+/* ── SHIPPING ── */
 var ZONE_RATES={A:{base:35.40,extra:34.22,name:"Zone A — Local (Coimbatore)"},B:{base:38.94,extra:37.76,name:"Zone B — Intra-state (Tamil Nadu)"},C:{base:51.92,extra:49.56,name:"Zone C — Metro"},D:{base:61.36,extra:57.82,name:"Zone D — Pan India"},E:{base:75.52,extra:71.98,name:"Zone E — Northeast / J&K"}};
 var FLAT_PREFIXES=["380","382","560","562","631","160","140","141","600","602","110","120","121","122","201","250","124","131","132","500","711","712","713","700","400","421","401","410","411","415","395","403","641","642","643","625","626","627","628"];
-function getPincodeZone(pin){if(!pin||pin.length!==6)return"D";var n=parseInt(pin),p2=pin.substring(0,2),p3=pin.substring(0,3);if(p2==="18"||p2==="19")return"E";if(p2==="73"&&n>=737000&&n<=737199)return"E";if(p2==="78"&&n>=781000)return"E";if(p2==="79"||p2==="97")return"E";if(n>=744100&&n<=744304)return"E";if(p3==="641"||p3==="642"||p3==="643"||p3==="638")return"A";if(n>=600000&&n<=643999)return"B";if(["110","400","600","700","500","560","380","411","160"].indexOf(p3)!==-1)return"C";return"D";}
-function calcShipping(){var pin=document.getElementById("f_pin").value.trim(),subtotal=cartSubtotal();if(subtotal>=999){shippingCost=0;document.getElementById("shippingAmt").textContent="₹0 — FREE!";document.getElementById("shippingZone").textContent="Free shipping on orders above ₹999 🎉";document.getElementById("shippingBox").classList.add("show");document.getElementById("shippingDisplay").textContent="FREE";updateGrandTotal();return;}var zone=getPincodeZone(pin),r=ZONE_RATES[zone]||ZONE_RATES["D"];var totalItems=Object.values(cart).reduce((s,i)=>s+i.qty,0);var weightG=Math.max(500,totalItems*50),slabs=Math.ceil(weightG/500),extraSlabs=Math.max(0,slabs-1);var baseShip=r.base+(extraSlabs*r.extra);if(FLAT_PREFIXES.some(pf=>pin.startsWith(pf))&&zone!=="A")baseShip+=2.50;var fuel=baseShip*0.05,total=Math.ceil(baseShip+fuel);shippingCost=total;document.getElementById("shippingAmt").textContent="₹"+total;document.getElementById("shippingZone").textContent=r.name+" · "+totalItems+" item(s) · ₹"+baseShip.toFixed(2)+" + 5% fuel = ₹"+total;document.getElementById("shippingBox").classList.add("show");document.getElementById("shippingDisplay").textContent="₹"+total;updateGrandTotal();}
-document.getElementById("payMethodsGrid").addEventListener("click",function(e){var card=e.target.closest(".pay-method-card");if(!card)return;selectPay(card.getAttribute("data-pay"));});
-document.getElementById("codCard").addEventListener("click",()=>selectPay("cod"));
-function selectPay(type){selectedPay=type;document.querySelectorAll(".pay-method-card,#codCard").forEach(c=>c.classList.remove("selected"));if(type==="cod")document.getElementById("codCard").classList.add("selected");else{var card=document.querySelector(".pay-method-card[data-pay='"+type+"']");if(card)card.classList.add("selected");}document.getElementById("payErr").classList.remove("show");var note=document.getElementById("payNote"),payLabels={upi:"UPI",card:"Credit/Debit Card",netbanking:"Net Banking",wallet:"Wallet",emi:"EMI"};if(type==="cod"){var sub=cartSubtotal(),cod=Math.max(40,Math.round(sub*0.02));note.textContent="COD charge of ₹"+cod+" (₹40 or 2% of order, whichever is higher) will be added.";}else note.textContent="You’ll be redirected to PayU’s secure page to pay via "+(payLabels[type]||"online")+".";updateGrandTotal();buildConfirm();}
-function buildConfirm(){var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod,html="";Object.keys(cart).forEach(title=>{var item=cart[title];html+='<div class="confirm-line"><span>'+esc(title)+' ×'+item.qty+'</span><span>₹'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';});html+='<div class="confirm-line"><span>Shipping</span><span>₹'+ship+'</span></div>';if(cod)html+='<div class="confirm-line"><span>COD Charge</span><span>₹'+cod+'</span></div>';document.getElementById("confirmLines").innerHTML=html;document.getElementById("confirmTotal").textContent="₹"+grand.toLocaleString("en-IN");document.getElementById("confirmBox").style.display="block";}
+function getPincodeZone(pin){
+  if(!pin||pin.length!==6)return"D";
+  var n=parseInt(pin),p2=pin.substring(0,2),p3=pin.substring(0,3);
+  if(p2==="18"||p2==="19")return"E";
+  if(p2==="73"&&n>=737000&&n<=737199)return"E";
+  if(p2==="78"&&n>=781000)return"E";
+  if(p2==="79"||p2==="97")return"E";
+  if(n>=744100&&n<=744304)return"E";
+  if(p3==="641"||p3==="642"||p3==="643"||p3==="638")return"A";
+  if(n>=600000&&n<=643999)return"B";
+  if(["110","400","600","700","500","560","380","411","160"].indexOf(p3)!==-1)return"C";
+  return"D";
+}
+function calcShipping(){
+  var pin=document.getElementById("f_pin").value.trim(),subtotal=cartSubtotal();
+  if(subtotal>=999){
+    shippingCost=0;
+    document.getElementById("shippingAmt").textContent="₹0 — FREE!";
+    document.getElementById("shippingZone").textContent="Free shipping on orders above ₹999 🎉";
+    document.getElementById("shippingBox").classList.add("show");
+    document.getElementById("shippingDisplay").textContent="FREE";
+    updateGrandTotal();return;
+  }
+  var zone=getPincodeZone(pin),r=ZONE_RATES[zone]||ZONE_RATES["D"];
+  var totalItems=Object.values(cart).reduce(function(s,i){return s+i.qty;},0);
+  var weightG=Math.max(500,totalItems*50),slabs=Math.ceil(weightG/500),extraSlabs=Math.max(0,slabs-1);
+  var baseShip=r.base+(extraSlabs*r.extra);
+  if(FLAT_PREFIXES.some(function(pf){return pin.startsWith(pf);})&&zone!=="A")baseShip+=2.50;
+  var total=Math.ceil(baseShip+(baseShip*0.05));
+  shippingCost=total;
+  document.getElementById("shippingAmt").textContent="₹"+total;
+  document.getElementById("shippingZone").textContent=r.name+" · "+totalItems+" item(s) · base ₹"+baseShip.toFixed(2)+" + 5% fuel = ₹"+total;
+  document.getElementById("shippingBox").classList.add("show");
+  document.getElementById("shippingDisplay").textContent="₹"+total;
+  updateGrandTotal();
+}
+
+/* ── PAYMENT ── */
+document.getElementById("payMethodsGrid").addEventListener("click",function(e){
+  var card=e.target.closest(".pay-method-card");if(!card)return;
+  selectPay(card.getAttribute("data-pay"));
+});
+document.getElementById("codCard").addEventListener("click",function(){selectPay("cod");});
+function selectPay(type){
+  selectedPay=type;
+  document.querySelectorAll(".pay-method-card,#codCard").forEach(function(c){c.classList.remove("selected");});
+  if(type==="cod")document.getElementById("codCard").classList.add("selected");
+  else{var card=document.querySelector(".pay-method-card[data-pay='"+type+"']");if(card)card.classList.add("selected");}
+  document.getElementById("payErr").classList.remove("show");
+  var note=document.getElementById("payNote");
+  var payLabels={upi:"UPI",card:"Credit/Debit Card",netbanking:"Net Banking",wallet:"Wallet",emi:"EMI"};
+  if(type==="cod"){var sub=cartSubtotal(),cod=Math.max(40,Math.round(sub*0.02));note.textContent="COD charge of ₹"+cod+" (₹40 or 2% of order, whichever is higher) will be added.";}
+  else note.textContent="You’ll be redirected to PayU’s secure page to pay via "+(payLabels[type]||"online")+".";
+  updateGrandTotal();buildConfirm();
+}
+function buildConfirm(){
+  var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod,html="";
+  Object.keys(cart).forEach(function(title){
+    var item=cart[title];
+    html+='<div class="confirm-line"><span>'+esc(title)+' ×'+item.qty+'</span><span>₹'+(item.price*item.qty).toLocaleString("en-IN")+'</span></div>';
+  });
+  html+='<div class="confirm-line"><span>Shipping</span><span>₹'+ship+'</span></div>';
+  if(cod)html+='<div class="confirm-line"><span>COD Charge</span><span>₹'+cod+'</span></div>';
+  document.getElementById("confirmLines").innerHTML=html;
+  document.getElementById("confirmTotal").textContent="₹"+grand.toLocaleString("en-IN");
+  document.getElementById("confirmBox").style.display="block";
+}
+
+/* ── PLACE ORDER ── */
 function placeOrder(){
   if(!selectedPay){document.getElementById("payErr").classList.add("show");showErr("Please select a payment method.");return;}
-  var name=document.getElementById("f_name").value.trim(),phone=document.getElementById("f_phone").value.trim(),email=document.getElementById("f_email").value.trim(),addr=document.getElementById("f_addr").value.trim(),city=document.getElementById("f_city").value.trim(),state=document.getElementById("f_state").value.trim(),pin=document.getElementById("f_pin").value.trim();
+  var name=document.getElementById("f_name").value.trim(),
+      phone=document.getElementById("f_phone").value.trim(),
+      email=document.getElementById("f_email").value.trim(),
+      addr=document.getElementById("f_addr").value.trim(),
+      city=document.getElementById("f_city").value.trim(),
+      state=document.getElementById("f_state").value.trim(),
+      pin=document.getElementById("f_pin").value.trim();
   var sub=cartSubtotal(),ship=shippingCost||0,cod=(selectedPay==="cod")?Math.max(40,Math.round(sub*0.02)):0,grand=sub+ship+cod;
-  var itemsSummary=Object.keys(cart).map(t=>t+" x"+cart[t].qty+" = Rs."+(cart[t].price*cart[t].qty)).join("; ");
+  var itemsSummary=Object.keys(cart).map(function(t){return t+" x"+cart[t].qty+" = Rs."+(cart[t].price*cart[t].qty);}).join("; ");
   var fullAddress=addr+(city?", "+city:"")+(state?", "+state:"")+" - "+pin;
-  var cartArr=Object.keys(cart).map(t=>({title:t,qty:cart[t].qty,price:cart[t].price}));
-  if(selectedPay==="cod"){showSpinner("Placing your order…");var codPayload={action:"placeOrder",name,phone,email,address:fullAddress,items:itemsSummary,subtotal:sub,shipping:ship,codCharge:cod,grandTotal:grand,cartData:JSON.stringify(cartArr)};fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(codPayload)}).catch(function(){}).finally(function(){clearCart();hideSpinner();window.location.href=STORE_URL+"/success.html?method=cod&name="+encodeURIComponent(name);});return;}
+  var cartArr=Object.keys(cart).map(function(t){return{title:t,qty:cart[t].qty,price:cart[t].price};});
+  if(selectedPay==="cod"){
+    showSpinner("Placing your order…");
+    var codPayload={action:"placeOrder",name:name,phone:phone,email:email,address:fullAddress,items:itemsSummary,subtotal:sub,shipping:ship,codCharge:cod,grandTotal:grand,cartData:JSON.stringify(cartArr)};
+    fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(codPayload)})
+      .catch(function(){}).finally(function(){clearCart();hideSpinner();window.location.href=STORE_URL+"/success.html?method=cod&name="+encodeURIComponent(name);});
+    return;
+  }
   showSpinner("Setting up secure payment…");
-  var payload={action:"initiatePayment",name,phone,email,address:fullAddress,items:itemsSummary,subtotal:sub,shipping:ship,grandTotal:grand,pincode:pin,paymentMethod:selectedPay,cartData:cartArr};
-  fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)}).then(function(r){return r.json();}).then(function(res){if(!res.ok||!res.formFields)throw new Error(res.error||"Payment setup failed");clearCart();var f=res.formFields;document.getElementById("payuForm").action=res.payuUrl;document.getElementById("pu_key").value=f.key;document.getElementById("pu_txnid").value=f.txnid;document.getElementById("pu_amount").value=f.amount;document.getElementById("pu_productinfo").value=f.productinfo;document.getElementById("pu_firstname").value=f.firstname;document.getElementById("pu_email").value=f.email;document.getElementById("pu_phone").value=f.phone;document.getElementById("pu_surl").value=f.surl;document.getElementById("pu_furl").value=f.furl;document.getElementById("pu_hash").value=f.hash;document.getElementById("pu_udf1").value=f.udf1;document.getElementById("pu_udf2").value=f.udf2;document.getElementById("pu_udf3").value=f.udf3||"";document.getElementById("pu_udf4").value=f.udf4||"";document.getElementById("pu_udf5").value=f.udf5||"";document.getElementById("payuForm").submit();}).catch(function(err){hideSpinner();showErr("Payment setup failed. Please try again. ("+err.message+")");});
+  var payload={action:"initiatePayment",name:name,phone:phone,email:email,address:fullAddress,items:itemsSummary,subtotal:sub,shipping:ship,grandTotal:grand,pincode:pin,paymentMethod:selectedPay,cartData:cartArr};
+  fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)})
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(!res.ok||!res.formFields)throw new Error(res.error||"Payment setup failed");
+      clearCart();
+      var f=res.formFields;
+      document.getElementById("payuForm").action=res.payuUrl;
+      document.getElementById("pu_key").value=f.key;
+      document.getElementById("pu_txnid").value=f.txnid;
+      document.getElementById("pu_amount").value=f.amount;
+      document.getElementById("pu_productinfo").value=f.productinfo;
+      document.getElementById("pu_firstname").value=f.firstname;
+      document.getElementById("pu_email").value=f.email;
+      document.getElementById("pu_phone").value=f.phone;
+      document.getElementById("pu_surl").value=f.surl;
+      document.getElementById("pu_furl").value=f.furl;
+      document.getElementById("pu_hash").value=f.hash;
+      document.getElementById("pu_udf1").value=f.udf1;
+      document.getElementById("pu_udf2").value=f.udf2;
+      document.getElementById("pu_udf3").value=f.udf3||"";
+      document.getElementById("pu_udf4").value=f.udf4||"";
+      document.getElementById("pu_udf5").value=f.udf5||"";
+      document.getElementById("payuForm").submit();
+    })
+    .catch(function(err){hideSpinner();showErr("Payment setup failed. Please try again. ("+err.message+")");});
 }
-updateCartUI();
-</script>
-<script>
+
+
+/* ── PRODUCT PAGE SPECIFIC ── */
 var PTITLE="Bow Necklace",PPRICE=229,PSTOCK=3,CSLIDE=0,TSLIDES=1;
 var addBtn=document.getElementById("addToBagBtn");
-if(addBtn&&PSTOCK>0){addBtn.addEventListener("click",function(){addToCart(PTITLE,PPRICE,PSTOCK);openCart();});}
-if(TSLIDES>1){
-  var track=document.getElementById("track");
-  function goTo(idx){CSLIDE=((idx%TSLIDES)+TSLIDES)%TSLIDES;track.style.transform="translateX(-"+(CSLIDE*(100/TSLIDES))+"%)";document.querySelectorAll(".pthumb").forEach(function(t,i){t.style.borderColor=i===CSLIDE?"var(--plum)":"transparent";t.style.opacity=i===CSLIDE?"1":"0.7";});}
-  document.getElementById("prevBtn").addEventListener("click",function(){goTo(CSLIDE-1);});
-  document.getElementById("nextBtn").addEventListener("click",function(){goTo(CSLIDE+1);});
-  document.querySelectorAll(".pthumb").forEach(function(t){t.addEventListener("click",function(){goTo(parseInt(this.getAttribute("data-idx")));});});
-  var tx=0;
-  track.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;},{passive:true});
-  track.addEventListener("touchend",function(e){var d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>40)goTo(d>0?CSLIDE+1:CSLIDE-1);},{passive:true});
+if(addBtn&&PSTOCK>0){
+  addBtn.addEventListener("click",function(){addToCart(PTITLE,PPRICE,PSTOCK);openCart();});
 }
+
 var dt=document.getElementById("detToggle"),db=document.getElementById("detBody");
 if(dt&&db){dt.addEventListener("click",function(){this.classList.toggle("open");db.classList.toggle("open");});}
+
+updateCartUI();
 </script>
 </body>
 </html>
