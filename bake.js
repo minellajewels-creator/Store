@@ -499,8 +499,8 @@ ${SHARED_CSS}
 .pview-bullets li:last-child{border-bottom:none}
 .pview-bullets li::before{content:'✦';position:absolute;left:0;color:var(--gold);font-size:8px;top:7px}
 .pview-quote{background:linear-gradient(135deg,#f9f3e8,#fef8ec);border-left:3px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:11px 14px;font-size:13px;font-style:italic;color:var(--ink);line-height:1.6}
-.pview-quote::before{content:'\201C';font-size:20px;color:var(--gold);font-family:'Libre Baskerville',serif;line-height:1;display:block;margin-bottom:2px}
-.pview-quote::after{content:'\201D';font-size:20px;color:var(--gold);font-family:'Libre Baskerville',serif;line-height:1;display:block;text-align:right;margin-top:2px}
+.pview-quote::before{content:'\u201C';font-size:20px;color:var(--gold);font-family:'Libre Baskerville',serif;line-height:1;display:block;margin-bottom:2px}
+.pview-quote::after{content:'\u201D';font-size:20px;color:var(--gold);font-family:'Libre Baskerville',serif;line-height:1;display:block;text-align:right;margin-top:2px}
 .btn-pview-add{width:100%;background:var(--plum);color:white;border:none;padding:14px;border-radius:var(--r-sm);font-size:15px;font-weight:500;transition:.2s;position:relative;overflow:hidden;margin-top:4px}
 .btn-pview-add:hover:not(:disabled){background:var(--plum2)}
 .btn-pview-add:disabled{background:var(--muted);cursor:not-allowed}
