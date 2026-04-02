@@ -629,6 +629,8 @@ ${PAYU_FORM}
 
 ${FOOTER_HTML}
 
+<!-- BAKED-DATA --><script id="baked-products" type="application/json">${bakedData}<\/script><!-- /BAKED-DATA -->
+
 <script>
 const SCRIPT_URL="${SCRIPT_URL}";
 const STORE_URL="${STORE_URL}";
@@ -864,7 +866,6 @@ function unesc(s){var d=document.createElement("div");d.innerHTML=s;return d.tex
 function showErr(msg){document.getElementById("errMsg").textContent=msg;document.getElementById("errBanner").classList.add("show");document.getElementById("coBody").scrollTo({top:0,behavior:"smooth"});}
 function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2400);}
 <\/script>
-<!-- BAKED-DATA --><script id="baked-products" type="application/json">${bakedData}<\/script><!-- /BAKED-DATA -->
 </body>
 </html>`;
 }
