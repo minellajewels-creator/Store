@@ -1434,11 +1434,8 @@ body{padding-top:calc(60px + var(--safe-top))}
       <button class="acc-head" data-acc="care">Size &amp; Care <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="acc-body" id="acc-care">
         <ul class="acc-bullets">
-          <li>One size fits most — adjustable where applicable</li>
+          <li>Adjustable size fits everyone</li>
           <li>Avoid direct contact with perfume, lotion or chemicals</li>
-          <li>Remove before swimming or heavy water exposure for longest life</li>
-          <li>Wipe clean with a soft dry cloth after wearing</li>
-          <li>Store in the pouch provided to prevent scratches</li>
         </ul>
       </div>
     </div>
