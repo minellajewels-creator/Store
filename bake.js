@@ -1830,7 +1830,30 @@ updateCartUI();
 </body>
 </html>`;
 }
-
+// ── Generate sitemap.xml ──────────────────────────────────────
+function buildSitemap(products) {
+  const now = new Date().toISOString().split('T')[0];
+  const urls = [
+    { loc: STORE_URL, priority: '1.0', changefreq: 'daily' },
+    { loc: `${STORE_URL}/about`, priority: '0.5', changefreq: 'monthly' },
+    { loc: `${STORE_URL}/contact`, priority: '0.5', changefreq: 'monthly' },
+    { loc: `${STORE_URL}/track`, priority: '0.4', changefreq: 'monthly' },
+    ...products.map(p => ({
+      loc: `${STORE_URL}/product/${getField(p, 'id')}`,
+      priority: '0.8',
+      changefreq: 'weekly'
+    }))
+  ];
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${now}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+}
 // ── Main ──────────────────────────────────────────────────────
 (async () => {
   console.log('📦 Fetching sheet data...');
@@ -1859,5 +1882,9 @@ updateCartUI();
     created++;
   }
   console.log(`\n🎉 Done! ${created} product pages + index.html`);
+  console.log('\n🗺️  Generating sitemap.xml and robots.txt...');
+  fs.writeFileSync('sitemap.xml', buildSitemap(products));
+  fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${STORE_URL}/sitemap.xml\n`);
+  console.log('  ✅ sitemap.xml and robots.txt written');
   console.log(`   Run: node bake.js  →  then push to GitHub`);
 })();
