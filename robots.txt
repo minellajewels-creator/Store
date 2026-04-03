@@ -1,18 +1,3 @@
 User-agent: *
 Allow: /
-
-# Allow Google to crawl all product pages for Merchant Center
-User-agent: Googlebot
-Allow: /
-User-agent: Googlebot-Image
-Allow: /
-Allow: /product/
-Allow: /sitemap.xml
-
-# Disallow private/internal paths
-Disallow: /admin
-Disallow: /track
-Disallow: /api/
-Disallow: /*.json$
-
 Sitemap: https://minella.in/sitemap.xml
