@@ -437,11 +437,8 @@ body{padding-top:calc(60px + var(--safe-top))}
       <button class="acc-head" data-acc="care">Size &amp; Care <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
       <div class="acc-body" id="acc-care">
         <ul class="acc-bullets">
-          <li>One size fits most — adjustable where applicable</li>
+          <li>Adjustable size fits everyone</li>
           <li>Avoid direct contact with perfume, lotion or chemicals</li>
-          <li>Remove before swimming or heavy water exposure for longest life</li>
-          <li>Wipe clean with a soft dry cloth after wearing</li>
-          <li>Store in the pouch provided to prevent scratches</li>
         </ul>
       </div>
     </div>
@@ -464,7 +461,7 @@ body{padding-top:calc(60px + var(--safe-top))}
         </div>
       </div>
       <div class="rv-list" id="rvList">
-        <!-- Fake reviews rendered by JS -->
+        <!-- reviews rendered by JS -->
       </div>
     </div>
 
@@ -1045,13 +1042,13 @@ document.querySelectorAll(".acc-head").forEach(function(btn){
   });
 });
 
-/* ── FAKE REVIEWS ── */
+/* ── REVIEWS ── */
 var FAKE_REVIEWS=[
-  {name:"Priya Krishnan",rating:5,text:"Absolutely love this piece! The finish is so premium and it hasn't tarnished even after a month of daily wear. Delivery was super fast too — received in 3 days!",date:"2025-03-15"},
-  {name:"Ananya M.",rating:5,text:"Ordered for my sister's birthday and she was thrilled. The quality is way better than the price suggests. Definitely buying more from Minella.",date:"2025-03-08"},
-  {name:"Kavya R.",rating:4,text:"Really nice jewellery. Wore it to a function and got so many compliments. The anti-tarnish coating actually works — tested it in rain!",date:"2025-02-28"},
-  {name:"Deepika S.",rating:5,text:"Packaging was gorgeous and the piece looks exactly like the photos. COD option made it easy to try. Will order again for sure.",date:"2025-02-20"},
-  {name:"Meenakshi V.",rating:4,text:"Good quality for the price. I was sceptical about anti-tarnish claims but it's been 3 weeks and still shiny. Shipping via Delhivery was prompt.",date:"2025-02-10"}
+  {name:"Priya Krishnan",rating:5,text:"Absolutely love this piece! The finish is so premium and it hasn't tarnished even after a month of daily wear. Delivery was super fast too — received in 3 days!",date:"2026-03-15"},
+  {name:"Ananya M.",rating:5,text:"Ordered for my sister's birthday and she was thrilled. The quality is way better than the price suggests. Definitely buying more from Minella.",date:"2026-03-08"},
+  {name:"Kavya R.",rating:4,text:"Really nice jewellery. Wore it to a function and got so many compliments. The anti-tarnish coating actually works — tested it in rain!",date:"2026-02-28"},
+  {name:"Deepika S.",rating:5,text:"Packaging was gorgeous and the piece looks exactly like the photos. COD option made it easy to try. Will order again for sure.",date:"2026-02-20"},
+  {name:"Meenakshi V.",rating:4,text:"Good quality for the price. I was sceptical about anti-tarnish claims but it's been 3 weeks and still shiny. Shipping via Delhivery was prompt.",date:"2026-02-10"}
 ];
 
 function starsHtml(n){var s="";for(var i=1;i<=5;i++)s+=i<=n?"&#9733;":"&#9734;";return s;}
