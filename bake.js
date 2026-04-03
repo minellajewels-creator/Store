@@ -1833,11 +1833,15 @@ updateCartUI();
 // ── Generate sitemap.xml ──────────────────────────────────────
 function buildSitemap(products) {
   const now = new Date().toISOString().split('T')[0];
-  const urls = [
+ const urls = [
     { loc: STORE_URL, priority: '1.0', changefreq: 'daily' },
     { loc: `${STORE_URL}/about`, priority: '0.5', changefreq: 'monthly' },
     { loc: `${STORE_URL}/contact`, priority: '0.5', changefreq: 'monthly' },
     { loc: `${STORE_URL}/track`, priority: '0.4', changefreq: 'monthly' },
+    { loc: `${STORE_URL}/shipping-policy`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${STORE_URL}/return-policy`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${STORE_URL}/privacy-policy`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${STORE_URL}/terms`, priority: '0.3', changefreq: 'yearly' },
     ...products.map(p => ({
       loc: `${STORE_URL}/product/${getField(p, 'id')}`,
       priority: '0.8',
