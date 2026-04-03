@@ -677,21 +677,47 @@ function buildIndexHtml(products) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": products.map(p => ({
-      "@type": "Product",
-      "name": getField(p, 'title', 'Title', 'Product Name'),
-      "image": driveThumb(getField(p, 'image link', 'Image Link', 'raw image'), 600),
-      "sku": String(getField(p, 'id')),
-      "brand": { "@type": "Brand", "name": "Minella" },
-      "offers": {
-        "@type": "Offer",
-        "url": `${STORE_URL}/product/${getField(p, 'id')}`,
-        "priceCurrency": "INR",
-        "price": (parseFloat(getField(p, 'price', 'Price')) || 0).toFixed(2),
-        "availability": (parseInt(getField(p, 'stocks', 'Stocks', 'stock')) || 0) > 0
-          ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-      }
-    }))
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Minella Jewels",
+        "url": STORE_URL,
+        "logo": `${STORE_URL}/favicon.png`,
+        "sameAs": ["https://instagram.com/minellajewels"],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-9080014835",
+          "contactType": "customer service",
+          "areaServed": "IN",
+          "availableLanguage": ["English", "Tamil"]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "Minella Jewels",
+        "url": STORE_URL,
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": `${STORE_URL}/?q={search_term_string}`,
+          "query-input": "required name=search_term_string"
+        }
+      },
+      ...products.map(p => ({
+        "@type": "Product",
+        "name": getField(p, 'title', 'Title', 'Product Name'),
+        "image": driveThumb(getField(p, 'image link', 'Image Link', 'raw image'), 600),
+        "sku": String(getField(p, 'id')),
+        "brand": { "@type": "Brand", "name": "Minella" },
+        "offers": {
+          "@type": "Offer",
+          "url": `${STORE_URL}/product/${getField(p, 'id')}`,
+          "priceCurrency": "INR",
+          "price": (parseFloat(getField(p, 'price', 'Price')) || 0).toFixed(2),
+          "availability": (parseInt(getField(p, 'stocks', 'Stocks', 'stock')) || 0) > 0
+            ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+        }
+      }))
+    ]
   };
 
   // ── Index cards: no View button, whole card navigates to product page ──
