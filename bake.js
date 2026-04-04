@@ -11,10 +11,10 @@ const https = require('https');
 const fs    = require('fs');
 const path  = require('path');
 
-const SHEET_ID   = '1XtAvGTcVo7sKxmpBKHgZTg77ubxijUY1zt4q6IKl0Dk';
-const SHEET_URL  = `https://opensheet.elk.sh/${SHEET_ID}/Sheet1`;
+
 const STORE_URL  = 'https://minella.in';
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcWsMJFT2QTsP9chLWcn39PCjqYnxEuehJWalv2i6aRJM6duhHu1DGxnxErFHtathO/exec';
+const SHEET_URL  = `${SCRIPT_URL}?action=getProducts`;
 
 // ── HTTP fetch with redirect ──────────────────────────────────
 function fetchUrl(url) {
@@ -1862,7 +1862,8 @@ ${urls.map(u => `  <url>
 (async () => {
   console.log('📦 Fetching sheet data...');
   const raw     = await fetchUrl(SHEET_URL);
-  const allRows = JSON.parse(raw);
+const json    = JSON.parse(raw);
+const allRows = json.products;
   const products = allRows.filter(p => getField(p, 'id') && getField(p, 'title', 'Title', 'Product Name'));
   console.log(`✅ Got ${products.length} products`);
 
