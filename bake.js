@@ -1889,7 +1889,7 @@ const allRows = json.products;
   console.log(`\n🎉 Done! ${created} product pages + index.html`);
   console.log('\n🗺️  Generating sitemap.xml and robots.txt...');
   fs.writeFileSync('sitemap.xml', buildSitemap(products));
-  fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${STORE_URL}/sitemap.xml\n`);
+  fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\nDisallow: /payment-result\nDisallow: /fail\nDisallow: /success.html\nDisallow: /success-handler.html\nDisallow: /success-done.html\n\nSitemap: ${STORE_URL}/sitemap.xml\n`);
   console.log('  ✅ sitemap.xml and robots.txt written');
   console.log(`   Run: node bake.js  →  then push to GitHub`);
 })();
