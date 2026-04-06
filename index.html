@@ -146,7 +146,7 @@ input{font-family:'Outfit',sans-serif}
 .topbar-nav{display:flex;gap:28px;position:absolute;left:50%;transform:translateX(-50%)}
 .topbar-nav a{font-size:12px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.8px;text-transform:uppercase;transition:.2s;padding:4px 0;border-bottom:2px solid transparent}
 .topbar-nav a:hover{color:var(--plum);border-bottom-color:var(--gold)}
-@media(max-width:600px){.topbar-nav{display:none}}
+@media(max-width:600px){.topbar-nav{gap:14px}.topbar-nav a{font-size:10px;letter-spacing:0.3px}}
 .orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
 .orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
 .orders-fab svg{width:14px;height:14px;flex-shrink:0}
@@ -173,7 +173,8 @@ input{font-family:'Outfit',sans-serif}
 .trust-item:not(:last-child){border-right:1px solid var(--border)}
 .trust-item svg{width:16px;height:16px;flex-shrink:0;color:var(--gold)}
 .trust-item strong{color:var(--ink)}
-.cat-bar{position:sticky;top:calc(60px + var(--safe-top));z-index:400;background:rgba(250,246,240,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;justify-content:center;gap:6px;padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cat-bar{position:sticky;top:calc(60px + var(--safe-top));z-index:400;background:rgba(250,246,240,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;justify-content:flex-start;gap:6px;padding:10px 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-webkit-scroll-snap-type:none}
+@media(min-width:600px){.cat-bar{justify-content:center}}
 .cat-bar::-webkit-scrollbar{display:none}
 .cat-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:7px 20px;border-radius:30px;font-size:13px;font-weight:500;white-space:nowrap;transition:.2s;flex-shrink:0}
 .cat-btn.active,.cat-btn:hover{background:var(--plum);color:white;border-color:var(--plum)}
