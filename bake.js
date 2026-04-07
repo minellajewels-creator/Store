@@ -600,13 +600,17 @@ function placeOrder(){
 `;
 
 // ── Updated Footer (with Instagram + email) ──────────────────
-const FOOTER_HTML = `<footer style="text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
+  const FOOTER_HTML = `<footer style="text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
   <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
     <a href="/about" style="color:var(--muted);text-decoration:none">About Us</a>
-    <a href="/contact" style="color:var(--muted);text-decoration:none">Contact</a>
+    <a href="/contact" style="color:var(--muted);text-decoration:none">Contact Us</a>
     <a href="/track" style="color:var(--muted);text-decoration:none">Track Order</a>
-    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping Policy</a>
-    <a href="/return-policy" style="color:var(--muted);text-decoration:none">Return Policy</a>
+    <a href="/faqs" style="color:var(--muted);text-decoration:none">FAQ's</a>
+    <a href="/ring-size-guide" style="color:var(--muted);text-decoration:none">Ring Size Guide</a>
+    <a href="/jewellery-care" style="color:var(--muted);text-decoration:none">Jewellery Care</a>
+    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping &amp; Delivery</a>
+    <a href="/return-policy" style="color:var(--muted);text-decoration:none">Refund &amp; Exchange Policy</a>
+    <a href="/warranty-policy" style="color:var(--muted);text-decoration:none">Warranty</a>
     <a href="/privacy-policy" style="color:var(--muted);text-decoration:none">Privacy Policy</a>
     <a href="/terms" style="color:var(--muted);text-decoration:none">Terms &amp; Conditions</a>
   </div>
@@ -1835,20 +1839,24 @@ updateCartUI();
 function buildSitemap(products) {
   const now = new Date().toISOString().split('T')[0];
  const urls = [
-    { loc: STORE_URL, priority: '1.0', changefreq: 'daily' },
-    { loc: `${STORE_URL}/about`, priority: '0.5', changefreq: 'monthly' },
-    { loc: `${STORE_URL}/contact`, priority: '0.5', changefreq: 'monthly' },
-    { loc: `${STORE_URL}/track`, priority: '0.4', changefreq: 'monthly' },
-    { loc: `${STORE_URL}/shipping-policy`, priority: '0.3', changefreq: 'yearly' },
-    { loc: `${STORE_URL}/return-policy`, priority: '0.3', changefreq: 'yearly' },
-    { loc: `${STORE_URL}/privacy-policy`, priority: '0.3', changefreq: 'yearly' },
-    { loc: `${STORE_URL}/terms`, priority: '0.3', changefreq: 'yearly' },
-    ...products.map(p => ({
-      loc: `${STORE_URL}/product/${getField(p, 'id')}`,
-      priority: '0.8',
-      changefreq: 'weekly'
-    }))
-  ];
+  { loc: STORE_URL, priority: '1.0', changefreq: 'daily' },
+  { loc: `${STORE_URL}/about`, priority: '0.5', changefreq: 'monthly' },
+  { loc: `${STORE_URL}/contact`, priority: '0.5', changefreq: 'monthly' },
+  { loc: `${STORE_URL}/track`, priority: '0.4', changefreq: 'monthly' },
+  { loc: `${STORE_URL}/faqs`, priority: '0.5', changefreq: 'monthly' },
+  { loc: `${STORE_URL}/ring-size-guide`, priority: '0.4', changefreq: 'monthly' },
+  { loc: `${STORE_URL}/jewellery-care`, priority: '0.4', changefreq: 'monthly' },
+  { loc: `${STORE_URL}/shipping-policy`, priority: '0.4', changefreq: 'yearly' },
+  { loc: `${STORE_URL}/return-policy`, priority: '0.4', changefreq: 'yearly' },
+  { loc: `${STORE_URL}/warranty-policy`, priority: '0.3', changefreq: 'yearly' },
+  { loc: `${STORE_URL}/privacy-policy`, priority: '0.3', changefreq: 'yearly' },
+  { loc: `${STORE_URL}/terms`, priority: '0.3', changefreq: 'yearly' },
+  ...products.map(p => ({
+    loc: `${STORE_URL}/product/${getField(p, 'id')}`,
+    priority: '0.8',
+    changefreq: 'weekly'
+  }))
+];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(u => `  <url>
