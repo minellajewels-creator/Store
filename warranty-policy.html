@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Warranty Policy | Minella Jewels</title>
+<meta name="description" content="Minella Jewels warranty policy — manufacturing defect coverage, what's included, and how to claim your warranty.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://minella.in/warranty-policy">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;
+  --gold:#b8903a;--gold2:#d4a84b;
+  --cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;
+  --muted:#8a7878;--white:#ffffff;
+  --error:#b83232;--ok:#2e7d4f;--border:#ddd4c8;
+  --shadow:0 4px 24px rgba(28,16,24,0.10);
+  --r:14px;--r-sm:8px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-top:env(safe-area-inset-top,0px)
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:calc(60px + var(--safe-top))}
+img{display:block;max-width:100%}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
+.orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
+@media(max-width:600px){.orders-fab span{display:none}.orders-fab{width:36px;padding:0;border-radius:50%}}
+
+/* PAGE */
+.page-wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+.page-hero{text-align:center;padding:20px 0 40px}
+.page-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.page-hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,5vw,42px);font-weight:400;color:var(--plum);margin-bottom:10px}
+.page-hero p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.6}
+
+/* HIGHLIGHT BOX */
+.highlight-box{background:linear-gradient(135deg,rgba(74,25,66,0.06),rgba(184,144,58,0.08));border:1px solid rgba(184,144,58,0.25);border-radius:var(--r);padding:22px 24px;margin-bottom:32px;text-align:center}
+.highlight-box .big-num{font-family:'Libre Baskerville',serif;font-size:48px;font-weight:700;color:var(--plum);line-height:1;margin-bottom:4px}
+.highlight-box .big-label{font-size:14px;color:var(--muted);font-weight:500}
+
+/* COVERAGE GRID */
+.coverage-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+@media(max-width:500px){.coverage-grid{grid-template-columns:1fr}}
+.coverage-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px 16px}
+.coverage-card.covered{border-top:3px solid var(--ok)}
+.coverage-card.not-covered{border-top:3px solid var(--error)}
+.coverage-title{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.coverage-card.covered .coverage-title{color:var(--ok)}
+.coverage-card.not-covered .coverage-title{color:var(--error)}
+.coverage-list{list-style:none;padding:0}
+.coverage-list li{font-size:13px;color:var(--ink);padding:5px 0 5px 20px;position:relative;border-bottom:1px solid var(--cream2);line-height:1.5}
+.coverage-list li:last-child{border-bottom:none}
+.coverage-card.covered .coverage-list li::before{content:'✓';position:absolute;left:0;color:var(--ok);font-weight:700}
+.coverage-card.not-covered .coverage-list li::before{content:'✗';position:absolute;left:0;color:var(--error);font-weight:700}
+
+/* POLICY SECTION */
+.policy-section{margin-bottom:28px}
+.policy-section h2{font-family:'Libre Baskerville',serif;font-size:19px;font-weight:400;color:var(--plum);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.policy-section p{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:10px}
+.policy-section p:last-child{margin-bottom:0}
+.policy-section a{color:var(--plum);text-decoration:underline}
+.policy-section ul{padding-left:18px;margin-top:8px;margin-bottom:8px}
+.policy-section ul li{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:5px}
+
+/* CLAIM STEPS */
+.claim-steps{display:flex;flex-direction:column;gap:0;margin:16px 0;position:relative}
+.claim-steps::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:var(--border);z-index:0}
+.claim-step{display:flex;gap:14px;align-items:flex-start;padding:0 0 20px;position:relative;z-index:1}
+.claim-step:last-child{padding-bottom:0}
+.claim-step-num{width:36px;height:36px;border-radius:50%;background:var(--plum);color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:3px solid var(--cream)}
+.claim-step-body strong{display:block;font-size:14px;color:var(--ink);margin-bottom:4px;margin-top:6px}
+.claim-step-body span{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* UPDATED DATE */
+.updated{font-size:11px;color:var(--muted);text-align:right;margin-bottom:24px;font-style:italic}
+
+/* FOOTER */
+footer{text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--plum)}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" style="text-decoration:none;display:flex;align-items:center">
+    <span style="font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px">Minella Jewels</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="/track" class="orders-fab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>My Orders</span>
+    </a>
+    <a href="/" style="background:var(--plum);color:white;border:none;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;text-decoration:none;display:flex;align-items:center;transition:.2s">Shop</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-tag">&#10022; Our Promise</div>
+    <h1>Warranty Policy</h1>
+    <p>We stand behind the quality of every piece we sell. Here's what you're covered for.</p>
+  </div>
+
+  <div class="updated">Last updated: April 2025</div>
+
+  <!-- WARRANTY PERIOD HIGHLIGHT -->
+  <div class="highlight-box">
+    <div class="big-num">6</div>
+    <div class="big-label">Months Manufacturing Defect Warranty on all Minella Jewels products</div>
+  </div>
+
+  <!-- WHAT'S COVERED -->
+  <div class="policy-section">
+    <h2>What Is &amp; Isn't Covered</h2>
+    <div class="coverage-grid">
+      <div class="coverage-card covered">
+        <div class="coverage-title">✓ Covered</div>
+        <ul class="coverage-list">
+          <li>Stone falling off within warranty period</li>
+          <li>Clasp or closure breaking under normal use</li>
+          <li>Plating wearing off abnormally fast</li>
+          <li>Chain links breaking without force</li>
+          <li>Structural defects in the jewellery</li>
+          <li>Discolouration due to manufacturing fault</li>
+        </ul>
+      </div>
+      <div class="coverage-card not-covered">
+        <div class="coverage-title">✗ Not Covered</div>
+        <ul class="coverage-list">
+          <li>Damage from misuse or accidents</li>
+          <li>Normal wear and tear over time</li>
+          <li>Damage from chemicals, perfume, or bleach</li>
+          <li>Items that have been altered or repaired elsewhere</li>
+          <li>Lost or stolen items</li>
+          <li>Damage from swimming in the sea or pool</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARRANTY DETAILS -->
+  <div class="policy-section">
+    <h2>Warranty Coverage Details</h2>
+    <p>All products sold by Minella Jewels come with a <strong>6-month manufacturing defect warranty</strong> from the date of delivery. This warranty covers defects in materials and workmanship that occur under normal use and care.</p>
+    <p>The warranty is applicable to the original purchaser only and is non-transferable. Proof of purchase (order ID or confirmation email) is required for all warranty claims.</p>
+    <p>Under this warranty, we will, at our discretion, <strong>repair or replace</strong> the defective item at no charge. If the exact item is no longer available, we will offer a product of equal value as a replacement, or issue store credit.</p>
+  </div>
+
+  <!-- HOW TO CLAIM -->
+  <div class="policy-section">
+    <h2>How to Claim Your Warranty</h2>
+    <p>Claiming is simple — contact us and we'll handle the rest:</p>
+    <div class="claim-steps">
+      <div class="claim-step">
+        <div class="claim-step-num">1</div>
+        <div class="claim-step-body"><strong>Contact us within the warranty period</strong><span>Reach out via WhatsApp at <a href="https://wa.me/919080014835">+91 90800 14835</a> or email at <a href="mailto:minellajewels@gmail.com">minellajewels@gmail.com</a>.</span></div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-step-num">2</div>
+        <div class="claim-step-body"><strong>Share photos and your order ID</strong><span>Send clear photos of the defect and your order number so we can verify the claim quickly.</span></div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-step-num">3</div>
+        <div class="claim-step-body"><strong>We'll review and confirm</strong><span>Our team will assess the claim within 2 business days and let you know if it's approved.</span></div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-step-num">4</div>
+        <div class="claim-step-body"><strong>Return the item</strong><span>If approved, you'll be asked to ship the item back to us. We'll cover the return shipping cost for valid warranty claims.</span></div>
+      </div>
+      <div class="claim-step">
+        <div class="claim-step-num">5</div>
+        <div class="claim-step-body"><strong>Replacement dispatched</strong><span>Your replacement will be dispatched within 3–5 business days of receiving the returned item.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARE NOTE -->
+  <div class="policy-section">
+    <h2>Extending Your Jewellery's Life</h2>
+    <p>While our warranty covers manufacturing defects, proper care significantly extends how long your jewellery stays in perfect condition. Visit our <a href="/jewellery-care">Jewellery Care guide</a> for detailed tips on cleaning, storage, and everyday care.</p>
+    <p>Key habits that protect your jewellery: avoid contact with perfumes and chemicals, store pieces separately in a dry place, and remove jewellery before swimming or sleeping.</p>
+  </div>
+
+  <!-- CONTACT -->
+  <div style="background:linear-gradient(135deg,var(--plum),var(--plum2));border-radius:var(--r);padding:28px 24px;text-align:center;color:white">
+    <h3 style="font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;margin-bottom:8px">Have a warranty claim?</h3>
+    <p style="font-size:13px;opacity:0.85;margin-bottom:18px;line-height:1.6">We'll sort it out quickly. WhatsApp is the fastest way to reach us.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/919080014835" target="_blank" rel="noopener" style="padding:10px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:500;text-decoration:none;background:rgba(37,211,102,0.9);color:white;font-family:'Outfit',sans-serif">💬 WhatsApp Us</a>
+      <a href="mailto:minellajewels@gmail.com" style="padding:10px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:500;text-decoration:none;background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);font-family:'Outfit',sans-serif">✉️ Email Us</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/track">Track Order</a>
+    <a href="/faqs">FAQ's</a>
+    <a href="/ring-size-guide">Ring Size Guide</a>
+    <a href="/jewellery-care">Jewellery Care</a>
+    <a href="/shipping-policy">Shipping &amp; Delivery</a>
+    <a href="/return-policy">Refund &amp; Exchange Policy</a>
+    <a href="/warranty-policy">Warranty</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms">Terms &amp; Conditions</a>
+  </div>
+  <div style="color:var(--cream3);font-size:18px;margin-bottom:8px">&#10022; &#10022; &#10022;</div>
+  &copy; 2025 Minella Jewels &middot; Made with &hearts; in Coimbatore
+</footer>
+
+</body>
+</html>

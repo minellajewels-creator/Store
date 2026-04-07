@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ring Size Guide | Minella Jewels</title>
+<meta name="description" content="Find your perfect ring size with Minella Jewels' ring size guide. Measure at home using a ruler or string.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://minella.in/ring-size-guide">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;
+  --gold:#b8903a;--gold2:#d4a84b;
+  --cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;
+  --muted:#8a7878;--white:#ffffff;
+  --error:#b83232;--ok:#2e7d4f;--border:#ddd4c8;
+  --shadow:0 4px 24px rgba(28,16,24,0.10);
+  --r:14px;--r-sm:8px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-top:env(safe-area-inset-top,0px)
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:calc(60px + var(--safe-top))}
+img{display:block;max-width:100%}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
+.orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
+@media(max-width:600px){.orders-fab span{display:none}.orders-fab{width:36px;padding:0;border-radius:50%}}
+
+/* PAGE */
+.page-wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+.page-hero{text-align:center;padding:20px 0 40px}
+.page-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.page-hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,5vw,42px);font-weight:400;color:var(--plum);margin-bottom:10px}
+.page-hero p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.6}
+
+/* SECTION */
+.section{margin-bottom:40px}
+.section-title{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;color:var(--plum);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* METHODS GRID */
+.methods-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+@media(max-width:500px){.methods-grid{grid-template-columns:1fr}}
+.method-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;box-shadow:var(--shadow)}
+.method-card-icon{font-size:26px;margin-bottom:10px}
+.method-card h3{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:var(--plum);margin-bottom:12px}
+.method-steps{list-style:none;padding:0}
+.method-steps li{font-size:13px;color:var(--muted);padding:5px 0 5px 20px;position:relative;line-height:1.5;border-bottom:1px solid var(--cream2)}
+.method-steps li:last-child{border-bottom:none}
+.method-steps li::before{content:counter(step);counter-increment:step;position:absolute;left:0;color:var(--plum);font-weight:700;font-size:11px;top:6px}
+.method-card{counter-reset:step}
+
+/* SIZE TABLE */
+.size-table-wrap{overflow-x:auto;margin-bottom:8px;border-radius:var(--r-sm);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;background:var(--white);font-size:13px}
+thead tr{background:var(--plum);color:white}
+thead th{padding:12px 14px;text-align:center;font-weight:600;font-size:12px;letter-spacing:0.5px;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--cream2)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:nth-child(even){background:var(--cream2)}
+tbody tr:hover{background:rgba(74,25,66,0.05)}
+tbody td{padding:11px 14px;text-align:center;color:var(--ink)}
+tbody td:first-child{font-weight:600;color:var(--plum)}
+.size-popular{background:rgba(184,144,58,0.15)!important;font-weight:600}
+.size-popular-tag{display:inline-block;background:var(--gold);color:white;font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px;letter-spacing:0.5px;text-transform:uppercase;vertical-align:middle}
+
+/* TIPS */
+.tip-box{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 16px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start}
+.tip-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.tip-text strong{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.tip-text span{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* INTERACTIVE CALCULATOR */
+.calc-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px 20px;box-shadow:var(--shadow);margin-bottom:32px}
+.calc-box h3{font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:var(--plum);margin-bottom:6px}
+.calc-box p{font-size:13px;color:var(--muted);margin-bottom:16px}
+.calc-input-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.calc-field{flex:1;min-width:140px}
+.calc-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:5px}
+.calc-input{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:10px 12px;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:.2s;font-family:'Outfit',sans-serif}
+.calc-input:focus{border-color:var(--plum);background:white}
+.calc-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7878' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.calc-btn{background:var(--plum);color:white;border:none;padding:10px 22px;border-radius:var(--r-sm);font-size:14px;font-weight:500;cursor:pointer;transition:.2s;white-space:nowrap;font-family:'Outfit',sans-serif;height:42px}
+.calc-btn:hover{background:var(--plum2)}
+.calc-result{margin-top:14px;padding:14px 16px;background:var(--cream2);border-radius:var(--r-sm);display:none}
+.calc-result.show{display:block}
+.calc-result-size{font-size:22px;font-weight:700;color:var(--plum);margin-bottom:4px}
+.calc-result-sub{font-size:13px;color:var(--muted)}
+
+/* FOOTER */
+footer{text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--plum)}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" style="text-decoration:none;display:flex;align-items:center">
+    <span style="font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px">Minella Jewels</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="/track" class="orders-fab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>My Orders</span>
+    </a>
+    <a href="/" style="background:var(--plum);color:white;border:none;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;text-decoration:none;display:flex;align-items:center;transition:.2s">Shop</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-tag">&#10022; Sizing Guide</div>
+    <h1>Ring Size Guide</h1>
+    <p>Find your perfect fit at home in 2 minutes — no special tools needed.</p>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-box">
+    <h3>Quick Size Calculator</h3>
+    <p>Enter your finger circumference (measured with string or paper) to get your ring size instantly.</p>
+    <div class="calc-input-row">
+      <div class="calc-field">
+        <label class="calc-label">Circumference</label>
+        <input class="calc-input" type="number" id="circumInput" placeholder="e.g. 52" min="40" max="76" step="0.5">
+      </div>
+      <div class="calc-field" style="max-width:120px">
+        <label class="calc-label">Unit</label>
+        <select class="calc-input calc-select" id="unitSelect">
+          <option value="mm">mm</option>
+          <option value="cm">cm</option>
+          <option value="inch">inch</option>
+        </select>
+      </div>
+      <button class="calc-btn" onclick="calcSize()">Find My Size</button>
+    </div>
+    <div class="calc-result" id="calcResult">
+      <div class="calc-result-size" id="calcSize"></div>
+      <div class="calc-result-sub" id="calcSub"></div>
+    </div>
+  </div>
+
+  <!-- HOW TO MEASURE -->
+  <div class="section">
+    <div class="section-title">How to Measure Your Ring Size</div>
+    <div class="methods-grid">
+      <div class="method-card">
+        <div class="method-card-icon">🧵</div>
+        <h3>Method 1: String</h3>
+        <ol class="method-steps">
+          <li>Wrap a thin string around the base of your finger</li>
+          <li>Mark where the string overlaps with a pen</li>
+          <li>Lay the string flat on a ruler</li>
+          <li>Measure the length in mm — this is your circumference</li>
+          <li>Match to the size chart below</li>
+        </ol>
+      </div>
+      <div class="method-card">
+        <div class="method-card-icon">📏</div>
+        <h3>Method 2: Existing Ring</h3>
+        <ol class="method-steps">
+          <li>Find a ring that fits your finger well</li>
+          <li>Place it flat on a ruler</li>
+          <li>Measure the inner diameter in mm</li>
+          <li>Match to the diameter column in the chart below</li>
+          <li>Round up if you're between sizes</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIZE CHART -->
+  <div class="section">
+    <div class="section-title">Ring Size Chart</div>
+    <div class="size-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>India / US Size</th>
+            <th>Circumference (mm)</th>
+            <th>Diameter (mm)</th>
+            <th>UK Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>4</td><td>46.5</td><td>14.8</td><td>H</td></tr>
+          <tr><td>5</td><td>49.3</td><td>15.7</td><td>J½</td></tr>
+          <tr><td>6</td><td>51.9</td><td>16.5</td><td>L½</td></tr>
+          <tr class="size-popular"><td>7 <span class="size-popular-tag">Popular</span></td><td>54.4</td><td>17.3</td><td>N</td></tr>
+          <tr class="size-popular"><td>8 <span class="size-popular-tag">Popular</span></td><td>57.0</td><td>18.2</td><td>P½</td></tr>
+          <tr><td>9</td><td>59.5</td><td>18.9</td><td>R½</td></tr>
+          <tr><td>10</td><td>62.1</td><td>19.8</td><td>T</td></tr>
+          <tr><td>11</td><td>64.6</td><td>20.6</td><td>V</td></tr>
+          <tr><td>12</td><td>67.2</td><td>21.4</td><td>X</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px">&#9432; Sizes 7 and 8 (India/US) are the most common ring sizes for Indian women.</p>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section">
+    <div class="section-title">Tips for an Accurate Measurement</div>
+    <div class="tip-box">
+      <div class="tip-icon">🕐</div>
+      <div class="tip-text"><strong>Measure at the end of the day</strong><span>Fingers are slightly larger in the evening due to temperature and activity. Measure then for a comfortable fit.</span></div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">🌡️</div>
+      <div class="tip-text"><strong>Avoid cold fingers</strong><span>Cold makes fingers shrink. Measure when your hands are warm for a true size.</span></div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">↕️</div>
+      <div class="tip-text"><strong>Between two sizes? Go larger</strong><span>A ring that's slightly loose is more comfortable and easier to remove than one that's tight.</span></div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">💍</div>
+      <div class="tip-text"><strong>Most Minella rings are adjustable</strong><span>Many of our rings are open-band or adjustable style — they fit most finger sizes without needing an exact measurement.</span></div>
+    </div>
+  </div>
+
+  <!-- HELP -->
+  <div style="background:linear-gradient(135deg,var(--plum),var(--plum2));border-radius:var(--r);padding:28px 24px;text-align:center;color:white">
+    <h3 style="font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;margin-bottom:8px">Still unsure about your size?</h3>
+    <p style="font-size:13px;opacity:0.85;margin-bottom:18px;line-height:1.6">Send us a WhatsApp message with your finger measurement and we'll help you pick the right size.</p>
+    <a href="https://wa.me/919080014835" target="_blank" rel="noopener" style="padding:10px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:500;text-decoration:none;background:rgba(37,211,102,0.9);color:white;font-family:'Outfit',sans-serif">💬 Ask on WhatsApp</a>
+  </div>
+</div>
+
+<footer>
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/track">Track Order</a>
+    <a href="/faqs">FAQ's</a>
+    <a href="/ring-size-guide">Ring Size Guide</a>
+    <a href="/jewellery-care">Jewellery Care</a>
+    <a href="/shipping-policy">Shipping &amp; Delivery</a>
+    <a href="/return-policy">Refund &amp; Exchange Policy</a>
+    <a href="/warranty-policy">Warranty</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms">Terms &amp; Conditions</a>
+  </div>
+  <div style="color:var(--cream3);font-size:18px;margin-bottom:8px">&#10022; &#10022; &#10022;</div>
+  &copy; 2025 Minella Jewels &middot; Made with &hearts; in Coimbatore
+</footer>
+
+<script>
+// Size chart data: [circumference_mm, us_size, uk_size, diameter_mm]
+var sizes=[
+  [46.5,4,"H",14.8],[49.3,5,"J½",15.7],[51.9,6,"L½",16.5],
+  [54.4,7,"N",17.3],[57.0,8,"P½",18.2],[59.5,9,"R½",18.9],
+  [62.1,10,"T",19.8],[64.6,11,"V",20.6],[67.2,12,"X",21.4]
+];
+
+function calcSize(){
+  var val=parseFloat(document.getElementById("circumInput").value);
+  var unit=document.getElementById("unitSelect").value;
+  var result=document.getElementById("calcResult");
+  if(!val||val<=0){result.classList.remove("show");return;}
+  // convert to mm
+  var mm=val;
+  if(unit==="cm")mm=val*10;
+  if(unit==="inch")mm=val*25.4;
+  // find closest
+  var best=sizes[0],bestDiff=Math.abs(sizes[0][0]-mm);
+  for(var i=1;i<sizes.length;i++){
+    var diff=Math.abs(sizes[i][0]-mm);
+    if(diff<bestDiff){bestDiff=diff;best=sizes[i];}
+  }
+  document.getElementById("calcSize").textContent="Your size: "+best[1]+" (India/US) · "+best[3]+"mm diameter";
+  document.getElementById("calcSub").textContent="UK size: "+best[2]+" · Circumference: "+best[0]+"mm. If between sizes, go one size up.";
+  result.classList.add("show");
+}
+document.getElementById("circumInput").addEventListener("keydown",function(e){if(e.key==="Enter")calcSize();});
+</script>
+</body>
+</html>

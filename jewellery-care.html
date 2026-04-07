@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Jewellery Care Guide | Minella Jewels</title>
+<meta name="description" content="How to care for your Minella Jewels anti-tarnish jewellery — cleaning, storage, and tips to make your pieces last longer.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://minella.in/jewellery-care">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;
+  --gold:#b8903a;--gold2:#d4a84b;
+  --cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;
+  --muted:#8a7878;--white:#ffffff;
+  --error:#b83232;--ok:#2e7d4f;--border:#ddd4c8;
+  --shadow:0 4px 24px rgba(28,16,24,0.10);
+  --r:14px;--r-sm:8px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-top:env(safe-area-inset-top,0px)
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:calc(60px + var(--safe-top))}
+img{display:block;max-width:100%}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
+.orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
+@media(max-width:600px){.orders-fab span{display:none}.orders-fab{width:36px;padding:0;border-radius:50%}}
+
+/* PAGE */
+.page-wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+.page-hero{text-align:center;padding:20px 0 40px}
+.page-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.page-hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,5vw,42px);font-weight:400;color:var(--plum);margin-bottom:10px}
+.page-hero p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.6}
+
+/* CARE CARDS GRID */
+.care-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:40px}
+.care-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;box-shadow:var(--shadow)}
+.care-card-icon{font-size:28px;margin-bottom:10px}
+.care-card h3{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:400;color:var(--plum);margin-bottom:8px}
+.care-card p{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* DO / DON'T */
+.dos-donts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+@media(max-width:500px){.dos-donts{grid-template-columns:1fr}}
+.dos-box,.donts-box{background:var(--white);border-radius:var(--r);padding:20px 18px;border:1px solid var(--border)}
+.dos-box{border-top:3px solid var(--ok)}
+.donts-box{border-top:3px solid var(--error)}
+.dd-title{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.dos-box .dd-title{color:var(--ok)}
+.donts-box .dd-title{color:var(--error)}
+.dd-list{list-style:none;padding:0}
+.dd-list li{font-size:13px;color:var(--ink);padding:6px 0 6px 22px;position:relative;border-bottom:1px solid var(--cream2);line-height:1.5}
+.dd-list li:last-child{border-bottom:none}
+.dos-box .dd-list li::before{content:'✓';position:absolute;left:0;color:var(--ok);font-weight:700}
+.donts-box .dd-list li::before{content:'✗';position:absolute;left:0;color:var(--error);font-weight:700}
+
+/* SECTION */
+.care-section{margin-bottom:36px}
+.care-section-title{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;color:var(--plum);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.care-section p{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:10px}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--white);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--plum);color:white;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text strong{display:block;font-size:14px;color:var(--ink);margin-bottom:3px}
+.step-text span{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* FOOTER */
+footer{text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--plum)}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" style="text-decoration:none;display:flex;align-items:center">
+    <span style="font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px">Minella Jewels</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="/track" class="orders-fab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>My Orders</span>
+    </a>
+    <a href="/" style="background:var(--plum);color:white;border:none;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;text-decoration:none;display:flex;align-items:center;transition:.2s">Shop</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-tag">&#10022; Care Guide</div>
+    <h1>Jewellery Care</h1>
+    <p>Our anti-tarnish jewellery is built to last. Follow these simple tips to keep your pieces looking brand new for longer.</p>
+  </div>
+
+  <!-- QUICK CARDS -->
+  <div class="care-grid">
+    <div class="care-card">
+      <div class="care-card-icon">💧</div>
+      <h3>Waterproof</h3>
+      <p>Safe in rain, sweat, and everyday wear. Avoid prolonged soaking in chlorinated or salt water.</p>
+    </div>
+    <div class="care-card">
+      <div class="care-card-icon">✨</div>
+      <h3>Anti-Tarnish Coating</h3>
+      <p>A special protective layer prevents discolouration. Avoid abrasive cleaners that can strip it.</p>
+    </div>
+    <div class="care-card">
+      <div class="care-card-icon">🧴</div>
+      <h3>Avoid Chemicals</h3>
+      <p>Put jewellery on after applying perfume, lotion, sunscreen, or hairspray — not before.</p>
+    </div>
+    <div class="care-card">
+      <div class="care-card-icon">📦</div>
+      <h3>Proper Storage</h3>
+      <p>Store each piece separately in a dry, cool place. Use the pouch or box it came in.</p>
+    </div>
+    <div class="care-card">
+      <div class="care-card-icon">🧽</div>
+      <h3>Gentle Cleaning</h3>
+      <p>Wipe with a soft, dry cloth after each use. For deeper cleaning, use a slightly damp cloth only.</p>
+    </div>
+    <div class="care-card">
+      <div class="care-card-icon">🌙</div>
+      <h3>Remove at Night</h3>
+      <p>Take off your jewellery before sleeping and before swimming to extend its life significantly.</p>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="care-section">
+    <div class="care-section-title">Do's &amp; Don'ts</div>
+    <div class="dos-donts">
+      <div class="dos-box">
+        <div class="dd-title">✓ Do's</div>
+        <ul class="dd-list">
+          <li>Wear daily for regular use</li>
+          <li>Wipe with a soft cloth after wearing</li>
+          <li>Store in a cool, dry place</li>
+          <li>Keep pieces separate to avoid scratching</li>
+          <li>Put jewellery on last, after makeup &amp; perfume</li>
+          <li>Handle gently, especially clasps</li>
+        </ul>
+      </div>
+      <div class="donts-box">
+        <div class="dd-title">✗ Don'ts</div>
+        <ul class="dd-list">
+          <li>Don't use harsh chemicals or bleach</li>
+          <li>Don't scrub with abrasive cloth</li>
+          <li>Don't wear in swimming pools or the sea</li>
+          <li>Don't store in humid bathrooms</li>
+          <li>Don't apply perfume directly on jewellery</li>
+          <li>Don't sleep with jewellery on</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLEANING STEPS -->
+  <div class="care-section">
+    <div class="care-section-title">How to Clean Your Jewellery</div>
+    <p>Follow these simple steps to restore shine when your jewellery looks dull:</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Remove and inspect</strong><span>Take off the jewellery and check for any loose parts or damage before cleaning.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Wipe with a dry soft cloth</strong><span>Use a microfibre or jewellery polishing cloth. Gently buff in one direction — don't scrub in circles.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>For stubborn dirt</strong><span>Dampen the cloth very slightly with plain water. Wipe gently and let it air dry completely before storing.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Dry thoroughly</strong><span>Make sure no moisture remains before storing. Trapped moisture speeds up tarnishing.</span></div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-text"><strong>Store properly</strong><span>Place in the original pouch or a soft-lined box, away from other pieces that might scratch it.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORAGE -->
+  <div class="care-section">
+    <div class="care-section-title">Storage Tips</div>
+    <p>Proper storage is one of the biggest factors in how long your jewellery lasts. Here's what we recommend:</p>
+    <p>Store each piece <strong>individually</strong> — mixing them together causes scratches and tangling. Keep them in a <strong>dry, cool spot</strong> away from direct sunlight and humidity. A bedroom drawer or a jewellery organiser box is ideal. Avoid leaving jewellery on a bathroom shelf where it is exposed to steam and moisture daily.</p>
+    <p>If you're storing pieces for a long time, place a small silica gel packet in the box to absorb moisture and further prevent tarnishing.</p>
+  </div>
+
+  <!-- STILL HAVE ISSUES -->
+  <div style="background:linear-gradient(135deg,var(--plum),var(--plum2));border-radius:var(--r);padding:28px 24px;text-align:center;color:white">
+    <h3 style="font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;margin-bottom:8px">Jewellery not looking right?</h3>
+    <p style="font-size:13px;opacity:0.85;margin-bottom:18px;line-height:1.6">If your piece has a manufacturing defect or has worn down unusually quickly, we're here to help. Contact us and we'll make it right.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/919080014835" target="_blank" rel="noopener" style="padding:10px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:500;text-decoration:none;background:rgba(37,211,102,0.9);color:white;font-family:'Outfit',sans-serif">💬 WhatsApp Us</a>
+      <a href="/warranty-policy" style="padding:10px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:500;text-decoration:none;background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);font-family:'Outfit',sans-serif">View Warranty Policy</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/track">Track Order</a>
+    <a href="/faqs">FAQ's</a>
+    <a href="/ring-size-guide">Ring Size Guide</a>
+    <a href="/jewellery-care">Jewellery Care</a>
+    <a href="/shipping-policy">Shipping &amp; Delivery</a>
+    <a href="/return-policy">Refund &amp; Exchange Policy</a>
+    <a href="/warranty-policy">Warranty</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms">Terms &amp; Conditions</a>
+  </div>
+  <div style="color:var(--cream3);font-size:18px;margin-bottom:8px">&#10022; &#10022; &#10022;</div>
+  &copy; 2025 Minella Jewels &middot; Made with &hearts; in Coimbatore
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>FAQ's | Minella Jewels</title>
+<meta name="description" content="Frequently asked questions about Minella Jewels — anti-tarnish jewellery, shipping, returns, payments and care.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://minella.in/faqs">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1c1018;--plum:#4a1942;--plum2:#6b2d61;
+  --gold:#b8903a;--gold2:#d4a84b;
+  --cream:#faf6f0;--cream2:#f2ece0;--cream3:#e8dfd0;
+  --muted:#8a7878;--white:#ffffff;
+  --error:#b83232;--ok:#2e7d4f;--border:#ddd4c8;
+  --shadow:0 4px 24px rgba(28,16,24,0.10);
+  --r:14px;--r-sm:8px;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-top:env(safe-area-inset-top,0px)
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);font-family:'Outfit',sans-serif;color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;padding-top:calc(60px + var(--safe-top))}
+img{display:block;max-width:100%}
+button{font-family:'Outfit',sans-serif;cursor:pointer}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;background:rgba(250,246,240,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;padding-top:var(--safe-top)}
+.topbar-logo{text-decoration:none;display:flex;align-items:center}
+.orders-fab{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cream2);color:var(--plum);border:1.5px solid var(--border);padding:0 14px;height:36px;border-radius:40px;font-size:12px;font-weight:500;white-space:nowrap;text-decoration:none;transition:.2s;flex-shrink:0;font-family:'Outfit',sans-serif}
+.orders-fab:hover{background:var(--cream3);border-color:var(--plum)}
+@media(max-width:600px){.orders-fab span{display:none}.orders-fab{width:36px;padding:0;border-radius:50%}}
+
+/* PAGE */
+.page-wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+.page-hero{text-align:center;padding:20px 0 40px}
+.page-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(184,144,58,0.12);border:1px solid rgba(184,144,58,0.25);border-radius:20px;padding:5px 14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+.page-hero h1{font-family:'Libre Baskerville',serif;font-size:clamp(28px,5vw,42px);font-weight:400;color:var(--plum);margin-bottom:10px}
+.page-hero p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.6}
+
+/* CATEGORY */
+.faq-cat{margin-bottom:32px}
+.faq-cat-title{font-family:'Libre Baskerville',serif;font-size:18px;font-weight:400;color:var(--plum);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block}
+
+/* ACCORDION */
+.acc{border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;margin-bottom:8px;background:var(--white)}
+.acc-head{width:100%;background:none;border:none;padding:14px 16px;font-size:14px;font-weight:500;color:var(--ink);text-align:left;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:.2s;font-family:'Outfit',sans-serif;gap:12px}
+.acc-head:hover{background:var(--cream2)}
+.acc-head.open{background:var(--cream2);color:var(--plum)}
+.acc-icon{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--plum);transition:transform .3s,background .2s}
+.acc-head.open .acc-icon{background:var(--plum);color:white;transform:rotate(45deg)}
+.acc-body{display:none;padding:14px 16px 16px;font-size:14px;color:var(--muted);line-height:1.75;border-top:1px solid var(--cream2)}
+.acc-body.open{display:block}
+.acc-body a{color:var(--plum);text-decoration:underline}
+.acc-body ul{padding-left:18px;margin-top:8px}
+.acc-body ul li{margin-bottom:6px}
+
+/* CONTACT CTA */
+.contact-cta{background:linear-gradient(135deg,var(--plum),var(--plum2));border-radius:var(--r);padding:28px 24px;text-align:center;margin-top:40px;color:white}
+.contact-cta h3{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:400;margin-bottom:8px}
+.contact-cta p{font-size:13px;opacity:0.85;margin-bottom:18px;line-height:1.6}
+.contact-cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta-btn{padding:10px 22px;border-radius:var(--r-sm);font-size:13px;font-weight:500;text-decoration:none;transition:.2s;font-family:'Outfit',sans-serif}
+.cta-btn-wa{background:rgba(37,211,102,0.9);color:white;border:none}
+.cta-btn-wa:hover{background:#25d366}
+.cta-btn-mail{background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3)}
+.cta-btn-mail:hover{background:rgba(255,255,255,0.25)}
+
+/* FOOTER */
+footer{text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--plum)}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/" class="topbar-logo">
+    <span style="font-family:'Libre Baskerville',serif;font-size:20px;color:var(--plum);letter-spacing:1px">Minella Jewels</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:10px">
+    <a href="/track" class="orders-fab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>My Orders</span>
+    </a>
+    <a href="/" style="background:var(--plum);color:white;border:none;padding:0 16px;height:36px;border-radius:40px;font-size:12px;font-weight:500;text-decoration:none;display:flex;align-items:center;transition:.2s">Shop</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-tag">&#10022; Help Centre</div>
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about our jewellery, orders, and policies.</p>
+  </div>
+
+  <!-- ORDERS & SHIPPING -->
+  <div class="faq-cat">
+    <div class="faq-cat-title">Orders &amp; Shipping</div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">How long does delivery take? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Orders are dispatched within <strong>24 hours</strong> of placement (excluding Sundays and public holidays). Delivery takes <strong>2–6 business days</strong> after dispatch depending on your location, via Delhivery. You'll receive a tracking link via SMS/email once your order ships.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Do you offer Cash on Delivery? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Yes! COD is available across India. A small COD handling charge of ₹40 or 2% of the order value (whichever is higher) is added at checkout. No upfront payment needed — pay when your order arrives at your door.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Is shipping free? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Shipping is <strong>free on all orders above ₹999</strong>. For orders below ₹999, shipping charges apply based on your delivery zone (calculated at checkout). You can also track estimated shipping charges by entering your pincode during checkout.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">How do I track my order? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Visit our <a href="/track">Order Tracking page</a> and enter your Order ID or the email/phone used at checkout. You can also use the Delhivery tracking link sent to you via SMS after dispatch.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Can I change or cancel my order? <div class="acc-icon">+</div></button>
+      <div class="acc-body">You can cancel or modify your order within <strong>2 hours</strong> of placing it by contacting us on WhatsApp at <a href="https://wa.me/919080014835">+91 90800 14835</a>. Once the order is dispatched, changes cannot be made.</div>
+    </div>
+  </div>
+
+  <!-- PRODUCT & QUALITY -->
+  <div class="faq-cat">
+    <div class="faq-cat-title">Product &amp; Quality</div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">What does "anti-tarnish" mean? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Our jewellery is coated with a special anti-tarnish layer that prevents oxidation and discolouration. Unlike regular fashion jewellery that turns your skin green or goes dull within weeks, Minella pieces stay shiny for months with minimal care.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Is the jewellery waterproof? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Yes — our jewellery is <strong>100% waterproof</strong>. You can wear it in rain, while sweating, or even in the shower without damage. However, prolonged soaking in chlorinated or salt water (like swimming pools or the sea) should be avoided to maximise longevity.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Is Minella jewellery safe for sensitive skin? <div class="acc-icon">+</div></button>
+      <div class="acc-body">All our pieces are <strong>nickel-free and hypoallergenic</strong>, making them suitable for all skin types, including sensitive skin. If you have a known metal allergy, please <a href="/contact">contact us</a> before ordering and we'll advise accordingly.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">How long will the jewellery last? <div class="acc-icon">+</div></button>
+      <div class="acc-body">With proper care, our pieces can last <strong>6–18 months or longer</strong>. Key tips: avoid direct contact with perfume, lotion, and harsh chemicals; store in a dry place; and wipe with a soft cloth after wearing. See our full <a href="/jewellery-care">Jewellery Care guide</a> for more.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Are the sizes adjustable? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Most of our bracelets, anklets, and rings are <strong>adjustable and free-size</strong>, fitting most wrist and finger sizes. Product pages mention sizing details where applicable. Check our <a href="/ring-size-guide">Ring Size Guide</a> if you're unsure.</div>
+    </div>
+  </div>
+
+  <!-- RETURNS & WARRANTY -->
+  <div class="faq-cat">
+    <div class="faq-cat-title">Returns &amp; Warranty</div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">What is your return/exchange policy? <div class="acc-icon">+</div></button>
+      <div class="acc-body">We accept returns and exchanges within <strong>7 days</strong> of delivery for damaged, defective, or incorrect items. Items must be unused and in original packaging. Read the full <a href="/return-policy">Refund &amp; Exchange Policy</a> for details.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">What is your warranty? <div class="acc-icon">+</div></button>
+      <div class="acc-body">All Minella Jewels products come with a <strong>manufacturing defect warranty</strong>. If your jewellery breaks or the finish wears off abnormally within the warranty period (not due to misuse), we'll replace it. See our full <a href="/warranty-policy">Warranty Policy</a>.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">My item arrived damaged. What do I do? <div class="acc-icon">+</div></button>
+      <div class="acc-body">We're so sorry! Please <strong>take a photo of the damaged item</strong> and contact us within 48 hours of delivery via WhatsApp at <a href="https://wa.me/919080014835">+91 90800 14835</a> or email at <a href="mailto:minellajewels@gmail.com">minellajewels@gmail.com</a>. We'll arrange a replacement or refund immediately.</div>
+    </div>
+  </div>
+
+  <!-- PAYMENTS -->
+  <div class="faq-cat">
+    <div class="faq-cat-title">Payments</div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">What payment methods do you accept? <div class="acc-icon">+</div></button>
+      <div class="acc-body">We accept:
+        <ul>
+          <li>UPI (GPay, PhonePe, Paytm)</li>
+          <li>Credit &amp; Debit Cards (Visa, Mastercard, RuPay)</li>
+          <li>Net Banking (all major banks)</li>
+          <li>Wallets (Paytm, Mobikwik, Airtel Money)</li>
+          <li>EMI (credit card EMI)</li>
+          <li>Cash on Delivery (COD)</li>
+        </ul>
+        All online payments are processed securely via PayU.
+      </div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">Is it safe to pay online on minella.in? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Yes. All payments are processed through <strong>PayU</strong>, one of India's leading and RBI-licensed payment gateways. We never store your card or UPI details on our servers. The checkout is fully encrypted via HTTPS.</div>
+    </div>
+
+    <div class="acc">
+      <button class="acc-head" onclick="toggleAcc(this)">When will I get my refund? <div class="acc-icon">+</div></button>
+      <div class="acc-body">Refunds are processed within <strong>5–7 business days</strong> after your return is received and verified. For COD orders, refunds are issued via bank transfer. For online payments, the amount is refunded to the original payment method.</div>
+    </div>
+  </div>
+
+  <!-- CONTACT CTA -->
+  <div class="contact-cta">
+    <h3>Still have questions?</h3>
+    <p>Our team is happy to help. Reach us on WhatsApp for the fastest response.</p>
+    <div class="contact-cta-btns">
+      <a href="https://wa.me/919080014835" class="cta-btn cta-btn-wa" target="_blank" rel="noopener">
+        💬 Chat on WhatsApp
+      </a>
+      <a href="mailto:minellajewels@gmail.com" class="cta-btn cta-btn-mail">
+        ✉️ Send Email
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact Us</a>
+    <a href="/track">Track Order</a>
+    <a href="/faqs">FAQ's</a>
+    <a href="/ring-size-guide">Ring Size Guide</a>
+    <a href="/jewellery-care">Jewellery Care</a>
+    <a href="/shipping-policy">Shipping &amp; Delivery</a>
+    <a href="/return-policy">Refund &amp; Exchange Policy</a>
+    <a href="/warranty-policy">Warranty</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms">Terms &amp; Conditions</a>
+  </div>
+  <div style="color:var(--cream3);font-size:18px;margin-bottom:8px">&#10022; &#10022; &#10022;</div>
+  &copy; 2025 Minella Jewels &middot; Made with &hearts; in Coimbatore
+</footer>
+
+<script>
+function toggleAcc(btn){
+  var body=btn.nextElementSibling;
+  var isOpen=btn.classList.contains("open");
+  document.querySelectorAll(".acc-head.open").forEach(function(b){
+    b.classList.remove("open");
+    b.nextElementSibling.classList.remove("open");
+  });
+  if(!isOpen){btn.classList.add("open");body.classList.add("open");}
+}
+</script>
+</body>
+</html>
