@@ -25,13 +25,37 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://minella.in/faqs</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://minella.in/ring-size-guide</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://minella.in/jewellery-care</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://minella.in/shipping-policy</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://minella.in/return-policy</loc>
+    <lastmod>2026-04-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://minella.in/warranty-policy</loc>
     <lastmod>2026-04-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
