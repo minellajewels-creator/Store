@@ -1,9 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /payment-result
-Disallow: /fail
-Disallow: /success.html
-Disallow: /success-handler.html
-Disallow: /success-done.html
-
 Sitemap: https://minella.in/sitemap.xml
