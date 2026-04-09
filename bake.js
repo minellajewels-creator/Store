@@ -610,8 +610,7 @@ ${SHARED_CSS}
 <div class="spinner-overlay" id="spinner"><div class="spinner"></div><div class="spinner-text" id="spinnerText">Processing…</div></div>
 
 <div class="announcement-bar">
-  <!--<marquee scrollamount="5">✨ Free Delivery Above ₹499 | Anti-Tarnish Guarantee | Water Resistant | Skin Safe ✨</marquee>-->
-  <marquee scrollamount="5">✨WEBSITE UNDER MAINTENANCE ✨</marquee>
+  <marquee scrollamount="5">✨ Free Delivery Above ₹499 | Anti-Tarnish Guarantee | Water Resistant | Skin Safe ✨</marquee>
 </div>
 <nav class="navbar has-shadow">
   <div class="nav-container">
