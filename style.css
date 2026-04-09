@@ -183,7 +183,7 @@ input{font-family:'Outfit',sans-serif}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;align-items:start}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}}
 
-/* ── PRODUCT CARD (tilt + glare) ── */
+/* PRODUCT CARD (tilt + glare) */
 .product-card{
   background:var(--white);
   border-radius:var(--r);
@@ -248,7 +248,7 @@ input{font-family:'Outfit',sans-serif}
 .btn-add:hover:not(:disabled){background:var(--plum2)}
 .btn-add:disabled{background:var(--muted);cursor:not-allowed;opacity:0.6}
 
-/* ── PVIEW MODAL (index only) ── */
+/* PVIEW MODAL (index only) */
 .pview-modal{position:fixed;inset:0;z-index:800;display:none;align-items:flex-end;justify-content:center}
 .pview-modal.open{display:flex}
 @media(min-width:600px){.pview-modal{align-items:center;padding:20px}}
