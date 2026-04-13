@@ -118,13 +118,13 @@ img { max-width:100%; display:block; }
   position:fixed; top:0; left:0; right:0; z-index:900;
   height:calc(60px + var(--safe-top));
   padding-top:var(--safe-top);
-  background:rgba(255,253,249,.92);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.4);
+  backdrop-filter:blur(16px) saturate(180%);
+  -webkit-backdrop-filter:blur(16px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.5);
   display:flex; align-items:center;
   padding-left:20px; padding-right:16px;
-  gap:16px; box-shadow:0 2px 12px rgba(0,0,0,.06);
+  gap:16px; box-shadow:0 4px 30px rgba(0,0,0,.08);
 }
 #topbarLogo {
   flex:0 0 auto; display:flex; align-items:center;
@@ -1482,10 +1482,11 @@ document.getElementById("btnRvSubmit").addEventListener("click",function(){
   if(!related.length){if(sec)sec.style.display="none";return;}
   related.forEach(function(rp){
     var isOut=(rp.stock<=0),card=document.createElement("div");
-    card.className="ymal-card";
-    card.innerHTML='<img class="ymal-img" src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy">'
-      +'<div class="ymal-body"><div class="ymal-name">'+esc(rp.title)+'</div><div class="ymal-price">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div>'
-      +'<button class="ymal-atb"'+(isOut?" disabled":"")+'>'+(isOut?"Out of Stock":"Add to Bag")+'</button></div>';
+    card.className="product-card fade-in";
+    var badgeHtml = isOut ? '<div class="stock-badge out">Out of Stock</div>' : '';
+    card.innerHTML= badgeHtml + '<div class="img-wrap"><img src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy" class="loaded"></div>'
+      +'<div class="card-body"><div class="card-title">'+esc(rp.title)+'</div><div class="price-row"><div class="price-single">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div></div>'
+      +'<div class="card-actions"><button class="btn-add ymal-atb"'+(isOut?" disabled":"")+'>'+(isOut?"Out of Stock":"Add to Bag")+'</button></div></div>';
     card.querySelector(".ymal-atb").addEventListener("click",function(e){e.stopPropagation();if(!isOut)addToCart(rp.title,rp.price,rp.stock);});
     card.addEventListener("click",function(){window.location.href="/product/"+rp.id;});
     strip.appendChild(card);
@@ -1505,9 +1506,9 @@ document.getElementById("btnRvSubmit").addEventListener("click",function(){
       if(sec&&strip){
         sec.style.display="block";
         toShow.forEach(function(rp){
-          var card=document.createElement("div");card.className="ymal-card";
-          card.innerHTML='<img class="ymal-img" src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy">'
-            +'<div class="ymal-body"><div class="ymal-name">'+esc(rp.title)+'</div><div class="ymal-price">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div></div>';
+          var card=document.createElement("div");card.className="product-card";
+          card.innerHTML='<div class="img-wrap"><img src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy" class="loaded"></div>'
+            +'<div class="card-body"><div class="card-title">'+esc(rp.title)+'</div><div class="price-row"><div class="price-single">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div></div></div>';
           card.addEventListener("click",function(){window.location.href="/product/"+rp.id;});
           strip.appendChild(card);
         });

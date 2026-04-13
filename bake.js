@@ -606,17 +606,17 @@ function buildIndexHtml(products) {
     const status = stockStatus(stock);
     const disc   = calcDiscount(price, wo);
     const isOut  = status === 'out';
-    const badge  = status === 'out'   ? '<div class="stock-badge out">Out of Stock</div>'
+    const badge  = isOut ? '<div class="stock-badge out">Out of Stock</div>'
                  : status === 'limited' ? '<div class="stock-badge limited">Few in stock</div>' : '';
+    const discountHtml = disc > 0 ? `<span class="badge" style="position:absolute; top:10px; right:10px; background:var(--gold); padding:2px 8px; font-size:10px; border-radius:10px; color:#fff; z-index:4;">${disc}% OFF</span>` : '';
     const priceHtml = disc
-      ? `<div class="price-offer">&#8377;${price.toLocaleString('en-IN')}<span class="price-original">&#8377;${wo.toLocaleString('en-IN')}</span><span class="price-discount">${disc}% off</span></div>`
+      ? `<div class="price-offer"><span class="price-now">&#8377;${price.toLocaleString('en-IN')}</span><span class="price-original">&#8377;${wo.toLocaleString('en-IN')}</span></div>`
       : `<div class="price-single">&#8377;${price.toLocaleString('en-IN')}</div>`;
 
-    cardsHtml += `<div class="product-card" id="pc-${id}" data-pid="${id}" style="cursor:pointer">`
-      + `<div class="card-glare"></div>`
+    cardsHtml += `<div class="product-card fade-in" id="pc-${id}" data-pid="${id}">`
       + badge
-      + `<div class="cod-badge">COD</div>`
-      + `<div class="img-wrap">`
+      + discountHtml
+      + `<div class="img-wrap" style="cursor:pointer;">`
       + `<img src="${esc(img)}" alt="${esc(title)}" loading="lazy" onload="this.classList.add('loaded')" onerror="this.classList.add('loaded');this.style.opacity='0.15'">`
       + `</div>`
       + `<div class="card-body">`
@@ -670,18 +670,18 @@ ${INDEX_CSS}
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-tag">&#10022; Anti-tarnish jewellery</div>
-  <h1>Minella<br><em>Jewels</em></h1>
-  <p class="hero-sub">Delicate pieces for every story, built to last.</p>
-  <div class="hero-cod-badge">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    Cash on Delivery Available
+<section class="hero fade-in">
+  <div class="hero-slide active" style="background-image: url('/assets/images/hero/hero-1.jpg')">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Feel Beautiful Every Day</h1>
+      <p>18K Gold Plated • Anti-Tarnish • Skin Friendly</p>
+      <button class="hero-cta" id="shopNowBtn" onclick="document.getElementById('shopAnchor').scrollIntoView({behavior:'smooth'})">Shop Now &rarr;</button>
+    </div>
   </div>
-  <button class="hero-cta" id="shopNowBtn">Shop the Collection</button>
 </section>
 
-<div class="trust-bar">
+<div class="trust-bar fade-in">
   <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span><strong>Anti-Tarnish</strong> Guaranteed</span></div>
   <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span><strong>Free Shipping</strong> on &#8377;999+</span></div>
   <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span><strong>COD</strong> Available</span></div>
@@ -689,13 +689,31 @@ ${INDEX_CSS}
   <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span><strong>Secure</strong> Payments</span></div>
 </div>
 
-<div class="cat-bar" id="shopAnchor">
-  <button class="cat-btn active" data-cat="all">All</button>
-  <button class="cat-btn" data-cat="necklace">Necklace</button>
-  <button class="cat-btn" data-cat="bracelet">Bracelet</button>
-  <button class="cat-btn" data-cat="anklet">Anklet</button>
-  <button class="cat-btn" data-cat="earring">Earrings</button>
-  <button class="cat-btn" data-cat="ring">Rings</button>
+<div class="cat-bar fade-in" id="shopAnchor">
+  <div class="cat-circle active" data-cat="all">
+    <div class="cat-img"><img src="/assets/images/categories/necklaces.jpg" alt="All"></div>
+    <div class="cat-label">All</div>
+  </div>
+  <div class="cat-circle" data-cat="necklace">
+    <div class="cat-img"><img src="/assets/images/categories/necklaces.jpg" alt="Necklaces"></div>
+    <div class="cat-label">Necklaces</div>
+  </div>
+  <div class="cat-circle" data-cat="bracelet">
+    <div class="cat-img"><img src="/assets/images/categories/bracelets.jpg" alt="Bracelets"></div>
+    <div class="cat-label">Bracelets</div>
+  </div>
+  <div class="cat-circle" data-cat="anklet">
+    <div class="cat-img"><img src="/assets/images/categories/bracelets.jpg" alt="Anklets"></div>
+    <div class="cat-label">Anklets</div>
+  </div>
+  <div class="cat-circle" data-cat="earring">
+    <div class="cat-img"><img src="/assets/images/categories/earrings.jpg" alt="Earrings"></div>
+    <div class="cat-label">Earrings</div>
+  </div>
+  <div class="cat-circle" data-cat="ring">
+    <div class="cat-img"><img src="/assets/images/categories/rings.jpg" alt="Rings"></div>
+    <div class="cat-label">Rings</div>
+  </div>
 </div>
 
 <div class="grid-wrap"><div class="grid" id="productGrid">${cardsHtml}</div></div>
@@ -788,9 +806,9 @@ function initTiltCards(){
 }
 initTiltCards();
 
-document.querySelectorAll(".cat-btn").forEach(function(btn){
+document.querySelectorAll(".cat-circle").forEach(function(btn){
   btn.addEventListener("click",function(){
-    document.querySelectorAll(".cat-btn").forEach(function(b){b.classList.remove("active");});
+    document.querySelectorAll(".cat-circle").forEach(function(b){b.classList.remove("active");});
     this.classList.add("active");
     var cat=this.getAttribute("data-cat");
     document.querySelectorAll(".product-card[id^='pc-']").forEach(function(card){
@@ -1274,10 +1292,11 @@ document.getElementById("btnRvSubmit").addEventListener("click",function(){
   if(!related.length){if(sec)sec.style.display="none";return;}
   related.forEach(function(rp){
     var isOut=(rp.stock<=0),card=document.createElement("div");
-    card.className="ymal-card";
-    card.innerHTML='<img class="ymal-img" src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy">'
-      +'<div class="ymal-body"><div class="ymal-name">'+esc(rp.title)+'</div><div class="ymal-price">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div>'
-      +'<button class="ymal-atb"'+(isOut?" disabled":"")+'>'+(isOut?"Out of Stock":"Add to Bag")+'</button></div>';
+    card.className="product-card fade-in";
+    var badgeHtml = isOut ? '<div class="stock-badge out">Out of Stock</div>' : '';
+    card.innerHTML= badgeHtml + '<div class="img-wrap"><img src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy" class="loaded"></div>'
+      +'<div class="card-body"><div class="card-title">'+esc(rp.title)+'</div><div class="price-row"><div class="price-single">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div></div>'
+      +'<div class="card-actions"><button class="btn-add ymal-atb"'+(isOut?" disabled":"")+'>'+(isOut?"Out of Stock":"Add to Bag")+'</button></div></div>';
     card.querySelector(".ymal-atb").addEventListener("click",function(e){e.stopPropagation();if(!isOut)addToCart(rp.title,rp.price,rp.stock);});
     card.addEventListener("click",function(){window.location.href="/product/"+rp.id;});
     strip.appendChild(card);
@@ -1297,9 +1316,9 @@ document.getElementById("btnRvSubmit").addEventListener("click",function(){
       if(sec&&strip){
         sec.style.display="block";
         toShow.forEach(function(rp){
-          var card=document.createElement("div");card.className="ymal-card";
-          card.innerHTML='<img class="ymal-img" src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy">'
-            +'<div class="ymal-body"><div class="ymal-name">'+esc(rp.title)+'</div><div class="ymal-price">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div></div>';
+          var card=document.createElement("div");card.className="product-card";
+          card.innerHTML='<div class="img-wrap"><img src="'+esc(rp.img)+'" alt="'+esc(rp.title)+'" loading="lazy" class="loaded"></div>'
+            +'<div class="card-body"><div class="card-title">'+esc(rp.title)+'</div><div class="price-row"><div class="price-single">&#8377;'+Number(rp.price).toLocaleString("en-IN")+'</div></div></div>';
           card.addEventListener("click",function(){window.location.href="/product/"+rp.id;});
           strip.appendChild(card);
         });
@@ -1312,6 +1331,47 @@ updateCartUI();
 <\/script>
 </body>
 </html>`;
+}
+
+// ── Generate llms.txt (AI Markdown Mirror) ──────────────────────
+function buildLlmsTxt(products) {
+  let txt = `# Minella Jewels
+> Delicate pieces for every story, built to last.
+
+We offer premium anti-tarnish, water-resistant women's jewellery across India. Categories include Necklaces, Bracelets, Anklets, Earrings, and Rings.
+
+## Main Links
+- [Shop Home](${STORE_URL})
+- [About Us](${STORE_URL}/about)
+- [Contact](${STORE_URL}/contact)
+- [Track Orders](${STORE_URL}/track)
+
+## Active Products
+`;
+  products.forEach(p => {
+    const title = getField(p, 'title', 'Title', 'Product Name');
+    const price = parseFloat(getField(p, 'price', 'Price')) || 0;
+    const stock = parseInt(getField(p, 'stocks', 'Stocks', 'stock')) || 0;
+    const isOut = stockStatus(stock) === 'out';
+    const id = getField(p, 'id');
+    const statusTxt = isOut ? ' (Out of Stock)' : '';
+    txt += `- [${title}](${STORE_URL}/product/${id}): ₹${price.toLocaleString('en-IN')}${statusTxt}\n`;
+  });
+
+  return txt;
+}
+
+// ── Generate humans.txt (SEO/Humans) ────────────────────────────
+function buildHumansTxt() {
+  return `/* TEAM */
+Maker: Minella Jewels Team
+Site: ${STORE_URL}
+
+/* SITE */
+Last update: ${new Date().toISOString().split('T')[0]}
+Language: English
+Doctype: HTML5
+IDE: Visual Studio Code, bake.js Static Generator`;
 }
 
 // ── Generate sitemap.xml ──────────────────────────────────────
@@ -1376,8 +1436,10 @@ ${urls.map(u => `  <url>
   }
   console.log(`\n🎉 Done! ${created} product pages + index.html`);
 
-  console.log('\n🗺️  Generating sitemap.xml and robots.txt...');
+  console.log('\n🗺️  Generating sitemap.xml, robots.txt, llms.txt, humans.txt...');
   fs.writeFileSync('sitemap.xml', buildSitemap(products));
   fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\nDisallow: /payment-result\nDisallow: /fail\nDisallow: /success.html\nDisallow: /success-handler.html\nDisallow: /success-done.html\n\nSitemap: ${STORE_URL}/sitemap.xml\n`);
-  console.log('  ✅ sitemap.xml and robots.txt written');
+  fs.writeFileSync('llms.txt', buildLlmsTxt(products));
+  fs.writeFileSync('humans.txt', buildHumansTxt());
+  console.log('  ✅ SEO and AI bot files generated successfully!');
 })();

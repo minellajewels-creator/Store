@@ -1,0 +1,9 @@
+/* TEAM */
+Maker: Minella Jewels Team
+Site: https://minella.in
+
+/* SITE */
+Last update: 2026-04-13
+Language: English
+Doctype: HTML5
+IDE: Visual Studio Code, bake.js Static Generator
