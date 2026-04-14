@@ -16,7 +16,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcWsMJFT2QTsP9chLWc
 const SHEET_URL  = `${SCRIPT_URL}?action=getProducts`;
 
 // ── Load and split style.css into sections ────────────────────
-const RAW_CSS = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8');
+const RAW_CSS = fs.readFileSync(path.join(__dirname, 'assets', 'css', 'style.css'), 'utf8');
 
 function cssSection(marker) {
   // Extract from "/* ── N. MARKER" up to (but not including) the next "/* ── " section header
