@@ -25,15 +25,15 @@
 :root {
   --bg:        #FFFDF9;
   --bg2:       #FFF5F7;
-  --plum:      #C2185B;
-  --gold:      #C9A84C;
+  --plum:      #B76E79;
+  --gold:      #C5A059;
   --gold-lt:   #F5E6B8;
   --text:      #2C2C2C;
   --muted:     #7A7A7A;
   --border:    #F0E8E8;
   --ok:        #25D366;
   --warn:      #E67E22;
-  --cream3:    #C9A84C;
+  --cream3:    #C5A059;
   --radius:    12px;
   --shadow:    0 4px 20px rgba(0,0,0,0.08);
   --shadow-h:  0 8px 30px rgba(201,168,76,0.25);
@@ -137,7 +137,7 @@ img { max-width:100%; display:block; }
   gap:1.6rem; justify-content:center;
 }
 .topbar-nav a {
-  font-size:13px; font-weight:500; color:var(--muted);
+  font-size:13px; font-weight:600; color:var(--text);
   transition:color .2s; letter-spacing:.3px;
 }
 .topbar-nav a:hover { color:var(--gold); }
@@ -148,10 +148,10 @@ img { max-width:100%; display:block; }
   display:flex; align-items:center; gap:5px;
   font-size:12px; font-weight:500; color:var(--muted);
   background:var(--border); border-radius:40px;
-  padding:6px 12px; transition:all .2s; white-space:nowrap;
+  padding:4px 10px; transition:all .2s; white-space:nowrap;
 }
 .orders-fab:hover { background:var(--gold-lt); color:var(--gold); }
-.orders-fab svg { flex-shrink:0; }
+.orders-fab svg { flex-shrink:0; transform: scale(0.85); }
 @media(max-width:380px){ .orders-fab span { display:none; } .orders-fab { padding:7px; border-radius:50%; } }
 
 /* Cart FAB (topbar) */
@@ -326,7 +326,7 @@ img { max-width:100%; display:block; }
 .form-label { display:block; font-size:12.5px; font-weight:600; color:var(--text); margin-bottom:5px; }
 .req { color:var(--plum); }
 .form-input {
-  width:100%; padding:11px 13px;
+  width:100%; box-sizing:border-box; padding:11px 13px;
   border:1.5px solid var(--border); border-radius:8px;
   font-family:'Poppins',sans-serif; font-size:13.5px; color:var(--text);
   background:var(--bg); transition:border .2s, box-shadow .2s; outline:none;
@@ -347,7 +347,7 @@ img { max-width:100%; display:block; }
 
 /* Payment */
 .pay-sec-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px; }
-.pay-methods-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:12px; }
+.pay-methods-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:9px; margin-bottom:12px; }
 .pay-method-card {
   border:1.5px solid var(--border); border-radius:10px;
   padding:12px; cursor:pointer; transition:all .2s;
@@ -756,6 +756,18 @@ footer {
 }
 footer a { transition:color .2s; }
 
+/* Site Footer Flex Layout */
+.site-footer { background:var(--bg2); padding:40px 20px 20px; font-family:'Poppins', sans-serif; }
+.footer-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:30px; max-width:1200px; margin:0 auto; }
+.footer-col h3 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--plum); margin-bottom:10px; }
+.footer-col h4 { font-size:14px; color:var(--text); font-weight:600; margin-bottom:12px; }
+.col-links { display:flex; flex-direction:column; gap:10px; font-size:13px; }
+.col-links a { color:var(--muted); transition:color .2s; }
+.col-links a:hover { color:var(--gold); }
+.social-links a { color:var(--muted); transition:color .2s; }
+.social-links a:hover { color:var(--plum); }
+.footer-bottom { text-align:center; padding-top:20px; margin-top:30px; border-top:1px solid var(--border); font-size:12.5px; color:var(--muted); }
+
 body{padding-top:calc(60px + var(--safe-top))}
 .pp-track{display:flex;height:100%;transition:transform .38s cubic-bezier(.4,0,.2,1);width:100%}
 </style>
@@ -902,36 +914,42 @@ body{padding-top:calc(60px + var(--safe-top))}
   <div class="rv-viewed-strip" id="rvViewedStrip"></div>
 </div>
 
-<footer style="text-align:center;padding:32px 20px 40px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);margin-top:20px">
-  <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px">
-    <a href="/about" style="color:var(--muted);text-decoration:none">About Us</a>
-    <a href="/contact" style="color:var(--muted);text-decoration:none">Contact Us</a>
-    <a href="/track" style="color:var(--muted);text-decoration:none">Track Order</a>
-    <a href="/faqs" style="color:var(--muted);text-decoration:none">FAQ's</a>
-    <a href="/ring-size-guide" style="color:var(--muted);text-decoration:none">Ring Size Guide</a>
-    <a href="/jewellery-care" style="color:var(--muted);text-decoration:none">Jewellery Care</a>
-    <a href="/shipping-policy" style="color:var(--muted);text-decoration:none">Shipping &amp; Delivery</a>
-    <a href="/return-policy" style="color:var(--muted);text-decoration:none">Refund &amp; Exchange Policy</a>
-    <a href="/warranty-policy" style="color:var(--muted);text-decoration:none">Warranty</a>
-    <a href="/privacy-policy" style="color:var(--muted);text-decoration:none">Privacy Policy</a>
-    <a href="/terms" style="color:var(--muted);text-decoration:none">Terms &amp; Conditions</a>
-  </div>
-  <div style="display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:14px">
-    <a href="https://instagram.com/minellajewels" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:12px;transition:.2s" onmouseover="this.style.color='var(--plum)'" onmouseout="this.style.color='var(--muted)'">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      @minellajewels
-    </a>
-    <a href="mailto:minellajewels@gmail.com" style="display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:12px;transition:.2s" onmouseover="this.style.color='var(--plum)'" onmouseout="this.style.color='var(--muted)'">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      minellajewels@gmail.com
-    </a>
-    <a href="https://wa.me/919080014835" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:12px;transition:.2s" onmouseover="this.style.color='var(--ok)'" onmouseout="this.style.color='var(--muted)'">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      +91 90800 14835
-    </a>
-  </div>
-  <div style="color:var(--cream3);font-size:18px;margin-bottom:8px">&#10022; &#10022; &#10022;</div>
-  &copy; 2025 Minella Jewels &middot; Made with &hearts; in Coimbatore
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-col brand-col">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--plum); margin-bottom:10px;">Minella Jewels</h3>
+      <p style="font-size:13px; color:var(--text)">Everyday elegance with anti-tarnish, water-resistant jewelry designed for the modern woman.</p>
+      <div class="social-links">
+        <a href="https://instagram.com/minellajewels" target="_blank" rel="noopener">@minellajewels</a>
+        <a href="mailto:minellajewels@gmail.com">minellajewels@gmail.com</a>
+        <a href="https://wa.me/919080014835" target="_blank" rel="noopener">+91 90800 14835</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <div class="col-links">
+        <a href="/about.html">About Us</a>
+        <a href="/contact.html">Contact Us</a>
+        <a href="/track.html">Track Order</a>
+        <a href="/faqs.html">FAQ's</a>
+        <a href="/ring-size-guide.html">Ring Size Guide</a>
+        <a href="/jewellery-care.html">Jewellery Care</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company Policies</h4>
+      <div class="col-links">
+        <a href="/shipping-policy.html">Shipping &amp; Delivery</a>
+        <a href="/return-policy.html">Refund &amp; Exchange</a>
+        <a href="/warranty-policy.html">Warranty</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Minella Jewels &middot; Made with &hearts; in Coimbatore
+  </div>
 </footer>
 
 <div class="sticky-atb" id="stickyAtb">
