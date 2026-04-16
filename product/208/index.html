@@ -145,14 +145,15 @@ img { max-width:100%; display:block; }
 
 /* Orders FAB (topbar) */
 .orders-fab {
-  display:flex; align-items:center; gap:0px;
+  display:flex; align-items:center; gap:5px;
   font-size:12px; font-weight:500; color:var(--muted);
   background:var(--border); border-radius:10px;
-  padding:4px 10px; transition:all .2s; white-space:nowrap;
+  padding:6px 12px; transition:all .2s; white-space:nowrap;
+  text-decoration:none;
 }
 .orders-fab:hover { background:var(--gold-lt); color:var(--gold); }
-.orders-fab svg { flex-shrink:0; transform: scale(0.85); }
-@media(max-width:380px){ .orders-fab span { display:none; } .orders-fab { padding:5px; border-radius:10%; } }
+.orders-fab svg { flex-shrink:0; width:14px; height:14px; }
+@media(max-width:380px){ .orders-fab span { display:none; } .orders-fab { padding:6px; border-radius:50%; } }
 
 /* Cart FAB (topbar) */
 .cart-fab {
@@ -334,6 +335,8 @@ img { max-width:100%; display:block; }
 .form-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.12); }
 .form-input.err { border-color:var(--plum); }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-row .form-g { margin-bottom:0; }
+.form-row .form-input { width:100%; box-sizing:border-box; }
 .field-err { display:none; font-size:11px; color:var(--plum); margin-top:4px; }
 .field-err.show { display:block; }
 .shipping-info {
@@ -347,7 +350,8 @@ img { max-width:100%; display:block; }
 
 /* Payment */
 .pay-sec-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px; }
-.pay-methods-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:9px; margin-bottom:12px; }
+.pay-methods-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:9px; margin-bottom:12px; }
+@media(min-width:420px){ .pay-methods-grid { grid-template-columns:repeat(3, 1fr); } }
 .pay-method-card {
   border:1.5px solid var(--border); border-radius:10px;
   padding:12px; cursor:pointer; transition:all .2s;
@@ -756,17 +760,30 @@ footer {
 }
 footer a { transition:color .2s; }
 
-/* Site Footer Flex Layout */
-.site-footer { background:var(--bg2); padding:40px 20px 20px; font-family:'Poppins', sans-serif; }
-.footer-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:30px; max-width:1200px; margin:0 auto; }
-.footer-col h3 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--plum); margin-bottom:10px; }
-.footer-col h4 { font-size:14px; color:var(--text); font-weight:600; margin-bottom:12px; }
-.col-links { display:flex; flex-direction:column; gap:10px; font-size:13px; }
+/* Footer: */
+.site-footer { background:var(--bg2); padding:48px 20px 20px; font-family:'Poppins', sans-serif; }
+.footer-container {
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:36px; max-width:1100px; margin:0 auto;
+}
+@media(max-width:700px){
+  .footer-container { grid-template-columns:1fr 1fr; }
+  .footer-container .brand-col { grid-column:1/-1; }
+}
+@media(max-width:420px){
+  .footer-container { grid-template-columns:1fr; }
+}
+.footer-col h3 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--plum); margin-bottom:8px; }
+.footer-col h4 { font-size:13px; color:var(--text); font-weight:700; margin-bottom:14px; text-transform:uppercase; letter-spacing:.5px; }
+.footer-col p { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+.col-links { display:flex; flex-direction:column; gap:9px; font-size:13px; }
 .col-links a { color:var(--muted); transition:color .2s; }
 .col-links a:hover { color:var(--gold); }
-.social-links a { color:var(--muted); transition:color .2s; }
+.social-links { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+.social-links a { font-size:13px; color:var(--muted); transition:color .2s; display:inline-flex; align-items:center; gap:5px; }
 .social-links a:hover { color:var(--plum); }
-.footer-bottom { text-align:center; padding-top:20px; margin-top:30px; border-top:1px solid var(--border); font-size:12.5px; color:var(--muted); }
+.footer-bottom { text-align:center; padding-top:20px; margin-top:36px; border-top:1px solid var(--border); font-size:12.5px; color:var(--muted); }
 
 body{padding-top:calc(60px + var(--safe-top))}
 .pp-track{display:flex;height:100%;transition:transform .38s cubic-bezier(.4,0,.2,1);width:100%}

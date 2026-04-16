@@ -135,14 +135,15 @@ img { max-width:100%; display:block; }
 
 /* Orders FAB (topbar) */
 .orders-fab {
-  display:flex; align-items:center; gap:0px;
+  display:flex; align-items:center; gap:5px;
   font-size:12px; font-weight:500; color:var(--muted);
   background:var(--border); border-radius:10px;
-  padding:4px 10px; transition:all .2s; white-space:nowrap;
+  padding:6px 12px; transition:all .2s; white-space:nowrap;
+  text-decoration:none;
 }
 .orders-fab:hover { background:var(--gold-lt); color:var(--gold); }
-.orders-fab svg { flex-shrink:0; transform: scale(0.85); }
-@media(max-width:380px){ .orders-fab span { display:none; } .orders-fab { padding:5px; border-radius:10%; } }
+.orders-fab svg { flex-shrink:0; width:14px; height:14px; }
+@media(max-width:380px){ .orders-fab span { display:none; } .orders-fab { padding:6px; border-radius:50%; } }
 
 /* Cart FAB (topbar) */
 .cart-fab {
@@ -324,6 +325,8 @@ img { max-width:100%; display:block; }
 .form-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,168,76,.12); }
 .form-input.err { border-color:var(--plum); }
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-row .form-g { margin-bottom:0; }
+.form-row .form-input { width:100%; box-sizing:border-box; }
 .field-err { display:none; font-size:11px; color:var(--plum); margin-top:4px; }
 .field-err.show { display:block; }
 .shipping-info {
@@ -337,7 +340,8 @@ img { max-width:100%; display:block; }
 
 /* Payment */
 .pay-sec-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px; }
-.pay-methods-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:9px; margin-bottom:12px; }
+.pay-methods-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:9px; margin-bottom:12px; }
+@media(min-width:420px){ .pay-methods-grid { grid-template-columns:repeat(3, 1fr); } }
 .pay-method-card {
   border:1.5px solid var(--border); border-radius:10px;
   padding:12px; cursor:pointer; transition:all .2s;
