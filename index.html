@@ -122,6 +122,7 @@ img { max-width:100%; display:block; }
   font-size:1.5rem; font-weight:700; color:var(--plum);
   letter-spacing:.5px;
 }
+/* REPLACE WITH: */
 .topbar-nav {
   flex:1; display:flex; align-items:center;
   gap:1.6rem; justify-content:center;
@@ -131,19 +132,91 @@ img { max-width:100%; display:block; }
   transition:color .2s; letter-spacing:.3px;
 }
 .topbar-nav a:hover { color:var(--gold); }
-@media(max-width:500px) { .topbar-nav { display:none; } }
+@media(max-width:600px) { .topbar-nav { display:none; } }
 
-/* Orders FAB (topbar) */
+/* Orders FAB (topbar) — icon-only on mobile */
 .orders-fab {
   display:flex; align-items:center; gap:5px;
   font-size:12px; font-weight:500; color:var(--muted);
-  background:var(--border); border-radius:10px;
-  padding:6px 12px; transition:all .2s; white-space:nowrap;
+  background:transparent; border-radius:8px;
+  padding:6px; transition:all .2s; white-space:nowrap;
   text-decoration:none;
 }
-.orders-fab:hover { background:var(--gold-lt); color:var(--gold); }
-.orders-fab svg { flex-shrink:0; width:14px; height:14px; }
-@media(max-width:380px){ .orders-fab span { display:none; } .orders-fab { padding:6px; border-radius:50%; } }
+.orders-fab:hover { color:var(--gold); background:var(--gold-lt); }
+.orders-fab svg { flex-shrink:0; width:18px; height:18px; }
+.orders-fab span { display:none; }
+@media(min-width:601px){
+  .orders-fab {
+    background:var(--border); padding:6px 12px; border-radius:10px;
+  }
+  .orders-fab span { display:inline; }
+}
+
+/* Hamburger button */
+.hamburger {
+  display:none; flex-direction:column; justify-content:center;
+  gap:5px; background:none; border:none; cursor:pointer;
+  padding:6px; border-radius:8px; transition:background .2s;
+}
+.hamburger:hover { background:var(--border); }
+.hamburger span {
+  display:block; width:20px; height:2px;
+  background:var(--text); border-radius:2px; transition:all .3s;
+}
+@media(max-width:600px){ .hamburger { display:flex; } }
+
+/* Sidebar drawer */
+.sidebar-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(44,44,44,.45); backdrop-filter:blur(3px);
+  z-index:1050; opacity:0; transition:opacity .3s;
+}
+.sidebar-overlay.open { display:block; opacity:1; }
+.sidebar {
+  position:fixed; top:0; left:-280px; bottom:0;
+  width:270px; background:var(--bg);
+  z-index:1051; display:flex; flex-direction:column;
+  box-shadow:6px 0 32px rgba(0,0,0,.12);
+  transition:left .32s cubic-bezier(.4,0,.2,1);
+  border-right:1px solid var(--border);
+}
+.sidebar.open { left:0; }
+.sidebar-head {
+  padding:20px 20px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+.sidebar-logo {
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem; font-weight:700; color:var(--plum);
+}
+.sidebar-close {
+  background:none; border:none; font-size:18px; cursor:pointer;
+  color:var(--muted); width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%; transition:all .2s;
+}
+.sidebar-close:hover { background:var(--bg2); color:var(--plum); }
+.sidebar-nav {
+  flex:1; padding:16px 12px; display:flex;
+  flex-direction:column; gap:4px; overflow-y:auto;
+}
+.sidebar-nav a {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; border-radius:10px;
+  font-size:14px; font-weight:500; color:var(--text);
+  text-decoration:none; transition:all .2s;
+}
+.sidebar-nav a:hover { background:var(--gold-lt); color:var(--gold); }
+.sidebar-nav a svg { width:17px; height:17px; flex-shrink:0; color:var(--muted); }
+.sidebar-nav a:hover svg { color:var(--gold); }
+.sidebar-divider {
+  height:1px; background:var(--border); margin:8px 0;
+}
+.sidebar-footer {
+  padding:16px 20px; border-top:1px solid var(--border);
+  font-size:11.5px; color:var(--muted); text-align:center;
+}
 
 /* Cart FAB (topbar) */
 .cart-fab {
@@ -667,17 +740,59 @@ img { max-width:100%; display:block; }
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
   </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <a href="/track" class="orders-fab" aria-label="My Orders">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      <span>My Orders</span>
-    </a>
-    <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span class="cart-badge" id="cartBadge">0</span>
-    </button>
-  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <a href="/track" class="orders-fab" aria-label="My Orders">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>My Orders</span>
+    </a>
+    <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-logo">Minella Jewels</div>
+    <button class="sidebar-close" id="sidebarClose">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Shop
+    </a>
+    <a href="/about">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      About Us
+    </a>
+    <a href="/contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Contact
+    </a>
+    <div class="sidebar-divider"></div>
+    <a href="/track">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      Track My Order
+    </a>
+    <a href="/faqs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      FAQs
+    </a>
+    <a href="/ring-size-guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+      Ring Size Guide
+    </a>
+    <a href="/jewellery-care">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Jewellery Care
+    </a>
+  </nav>
+  <div class="sidebar-footer">&#169; 2026 Minella Jewels &middot; Coimbatore</div>
+</div>
 
 <section class="hero fade-in">
   <div class="hero-slide active" style="background-image: url('/assets/images/hero/hero-1.jpg')">
@@ -1281,7 +1396,17 @@ function placeOrder(){
     .catch(function(err){hideSpinner();showErr("Payment setup failed. Please try again. ("+err.message+")");});
 }
 
-
+(function(){
+  var btn=document.getElementById("hamburgerBtn");
+  var sidebar=document.getElementById("sidebar");
+  var overlay=document.getElementById("sidebarOverlay");
+  var closeBtn=document.getElementById("sidebarClose");
+  function openSidebar(){sidebar.classList.add("open");overlay.classList.add("open");}
+  function closeSidebar(){sidebar.classList.remove("open");overlay.classList.remove("open");}
+  if(btn)btn.addEventListener("click",openSidebar);
+  if(closeBtn)closeBtn.addEventListener("click",closeSidebar);
+  if(overlay)overlay.addEventListener("click",closeSidebar);
+})();
 updateCartUI();
 </script>
 </body>
