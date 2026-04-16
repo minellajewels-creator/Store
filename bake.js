@@ -722,7 +722,7 @@ ${INDEX_CSS}
   <div class="hero-slide active" style="background-image: url('/assets/images/hero/hero-1.jpg')">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Feel Beautiful Every Day</h1>
+      <h1>Every Day Every WEAR</h1>
       <p>18K Gold Plated • Anti-Tarnish • Skin Friendly</p>
       <button class="hero-cta" id="shopNowBtn" onclick="document.getElementById('shopAnchor').scrollIntoView({behavior:'smooth'})">Shop Now &rarr;</button>
     </div>
