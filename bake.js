@@ -664,17 +664,59 @@ ${INDEX_CSS}
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
   </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <a href="/track" class="orders-fab" aria-label="My Orders">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      <span>My Orders</span>
-    </a>
-    <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span class="cart-badge" id="cartBadge">0</span>
-    </button>
-  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <a href="/track" class="orders-fab" aria-label="My Orders">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>My Orders</span>
+    </a>
+    <button class="cart-fab" id="cartFabBtn" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-logo">Minella Jewels</div>
+    <button class="sidebar-close" id="sidebarClose">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Shop
+    </a>
+    <a href="/about">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      About Us
+    </a>
+    <a href="/contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Contact
+    </a>
+    <div class="sidebar-divider"></div>
+    <a href="/track">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      Track My Order
+    </a>
+    <a href="/faqs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      FAQs
+    </a>
+    <a href="/ring-size-guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+      Ring Size Guide
+    </a>
+    <a href="/jewellery-care">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Jewellery Care
+    </a>
+  </nav>
+  <div class="sidebar-footer">&#169; 2026 Minella Jewels &middot; Coimbatore</div>
+</div>
 
 <section class="hero fade-in">
   <div class="hero-slide active" style="background-image: url('/assets/images/hero/hero-1.jpg')">
@@ -843,7 +885,17 @@ document.getElementById("shopNowBtn").addEventListener("click",function(){
 });
 
 ${SHARED_JS}
-
+(function(){
+  var btn=document.getElementById("hamburgerBtn");
+  var sidebar=document.getElementById("sidebar");
+  var overlay=document.getElementById("sidebarOverlay");
+  var closeBtn=document.getElementById("sidebarClose");
+  function openSidebar(){sidebar.classList.add("open");overlay.classList.add("open");}
+  function closeSidebar(){sidebar.classList.remove("open");overlay.classList.remove("open");}
+  if(btn)btn.addEventListener("click",openSidebar);
+  if(closeBtn)closeBtn.addEventListener("click",closeSidebar);
+  if(overlay)overlay.addEventListener("click",closeSidebar);
+})();
 updateCartUI();
 <\/script>
 </body>
@@ -1332,7 +1384,17 @@ document.getElementById("btnRvSubmit").addEventListener("click",function(){
     }
   }catch(e){}
 })();
-
+(function(){
+  var btn=document.getElementById("hamburgerBtn");
+  var sidebar=document.getElementById("sidebar");
+  var overlay=document.getElementById("sidebarOverlay");
+  var closeBtn=document.getElementById("sidebarClose");
+  function openSidebar(){sidebar.classList.add("open");overlay.classList.add("open");}
+  function closeSidebar(){sidebar.classList.remove("open");overlay.classList.remove("open");}
+  if(btn)btn.addEventListener("click",openSidebar);
+  if(closeBtn)closeBtn.addEventListener("click",closeSidebar);
+  if(overlay)overlay.addEventListener("click",closeSidebar);
+})();
 updateCartUI();
 <\/script>
 </body>
