@@ -1,31 +1,23 @@
 name: Bake Products
-
 on:
-  schedule:
-    - cron: '0 */90 * * *'   # Every 90 hours
-  workflow_dispatch:          # Run manually anytime
-
+  workflow_dispatch:
 permissions:
   contents: write
-
 jobs:
   bake:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Run bake script
         run: node bake.js
-
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html product/ sitemap.xml robots.txt
+          git add index.html product/ sitemap.xml robots.txt llms.txt humans.txt
           git diff --staged --quiet || git commit -m "chore: bake products [skip ci]"
           git push
