@@ -183,7 +183,7 @@ img { max-width:100%; display:block; }
 }
 .sidebar-overlay.open { display:block; opacity:1; }
 .sidebar {
-  position:fixed; top:0; left:-280px; bottom:0;
+  position:fixed; top:0; left:-400px; bottom:0;
   width:270px; background:var(--bg);
   z-index:1051; display:flex; flex-direction:column;
   box-shadow:6px 0 32px rgba(0,0,0,.12);
@@ -954,7 +954,7 @@ body{padding-top:calc(60px + var(--safe-top))}
     </a>
     <h1 class="pp-title">Heartstrings Necklace</h1>
     <div class="pp-price-row"><span class="pp-price">&#8377;274</span><span class="pp-was">&#8377;399</span><span class="pp-disc">31% off</span></div>
-    <div class="pstock limited">&#9888; Only 3 left!</div>
+    <div class="pstock limited">&#9888; Only 2 left!</div>
     <div class="pp-cod-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       Cash on Delivery available
@@ -1505,7 +1505,7 @@ function placeOrder(){
 }
 
 
-var PPID="226",PTITLE="Heartstrings Necklace",PPRICE=274,PSTOCK=3,TSLIDES=3;
+var PPID="226",PTITLE="Heartstrings Necklace",PPRICE=274,PSTOCK=2,TSLIDES=3;
 
 var addBtn=document.getElementById("addToBagBtn");
 if(addBtn&&PSTOCK>0){addBtn.addEventListener("click",function(){addToCart(PTITLE,PPRICE,PSTOCK);});}

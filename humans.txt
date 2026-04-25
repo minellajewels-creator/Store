@@ -3,7 +3,7 @@ Maker: Minella Jewels Team
 Site: https://minella.in
 
 /* SITE */
-Last update: 2026-04-16
+Last update: 2026-04-25
 Language: English
 Doctype: HTML5
 IDE: Visual Studio Code, bake.js Static Generator
