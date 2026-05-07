@@ -1,15 +1,15 @@
 # Minella Jewels
 > Delicate pieces for every story, built to last.
 
-We offer premium anti-tarnish, water-resistant women's jewellery across India. Categories include Necklaces, Bracelets, Anklets, Earrings, and Rings.
+Anti-tarnish, water-resistant women's jewellery across India. Necklaces, Bracelets, Anklets, Earrings, Rings.
 
 ## Main Links
-- [Shop Home](https://minella.in)
-- [About Us](https://minella.in/about)
-- [Contact](https://minella.in/contact)
-- [Track Orders](https://minella.in/track)
+- [Shop](https://minella.in)
+- [About](https://minella.in/about.html)
+- [Contact](https://minella.in/contact.html)
+- [Track Orders](https://minella.in/track.html)
 
-## Active Products
+## Products
 - [Floral themed Necklace](https://minella.in/product/201): ₹229 (Out of Stock)
 - [Hanging Bow Necklace](https://minella.in/product/202): ₹249
 - [Rain Drop Necklace](https://minella.in/product/203): ₹229 (Out of Stock)
