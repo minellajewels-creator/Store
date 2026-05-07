@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /payment-result
-Disallow: /fail
+Disallow: /fail.html
 Disallow: /success.html
 Disallow: /success-handler.html
 Disallow: /success-done.html
