@@ -1,30 +1,24 @@
-name: Bake Products
+name: Bake All
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'bake/bake-products.js'
-      - 'bake/html-fragments.js'
-      - 'bake/shared-js.js'
-      - 'assets/css/style.css'
 
 permissions:
   contents: write
 
 jobs:
-  bake-products:
+  bake:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Bake product pages
-        run: node bake.js products
+      - name: Bake index + all product pages
+        run: node bake.js
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add product/ sitemap.xml llms.txt
-          git diff --staged --quiet || git commit -m "chore: bake products [skip ci]"
+          git add index.html product/ sitemap.xml llms.txt
+          git diff --staged --quiet || git commit -m "chore: bake all [skip ci]"
           git push
