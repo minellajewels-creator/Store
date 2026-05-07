@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#B76E79">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -237,7 +239,14 @@ img { max-width:100%; display:block; }
   display:flex; align-items:center; justify-content:center;
   padding:0 4px; border:2px solid var(--bg);
 }
-
+@media(min-width:601px){
+  .cart-fab {
+    width: auto;
+    border-radius: 10px;
+    padding: 0 14px;
+    gap: 6px;
+  }
+}
 /* Cart Drawer */
 .overlay {
   display:none; position:fixed; inset:0;
@@ -337,6 +346,9 @@ img { max-width:100%; display:block; }
 @media(min-width:600px){
   .co-box { border-radius:20px; max-height:88vh; }
 }
+@media(max-width:420px){
+  .pay-methods-grid { grid-template-columns:repeat(2, 1fr); }
+}
 .co-head {
   padding:18px 20px; border-bottom:1px solid var(--border);
   display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
@@ -413,8 +425,8 @@ img { max-width:100%; display:block; }
 
 /* Payment */
 .pay-sec-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px; }
-.pay-methods-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:9px; margin-bottom:12px; }
-@media(min-width:420px){ .pay-methods-grid { grid-template-columns:repeat(3, 1fr); } }
+pay-methods-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:9px; margin-bottom:12px; }
+@media(min-width:380px){ .pay-methods-grid { grid-template-columns:repeat(3, 1fr); } }
 .pay-method-card {
   border:1.5px solid var(--border); border-radius:10px;
   padding:12px; cursor:pointer; transition:all .2s;
@@ -500,6 +512,8 @@ img { max-width:100%; display:block; }
   overflow: hidden;
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
+  margin-top: calc(60px + var(--safe-top));
+}
 }
 .hero-slide {
   position: absolute;
