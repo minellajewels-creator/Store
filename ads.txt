@@ -1,0 +1,3 @@
+# ads.txt — Minella Jewels
+# This site does not serve programmatic ads.
+# File present to prevent crawler 404 errors.

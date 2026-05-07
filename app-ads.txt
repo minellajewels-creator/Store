@@ -1,0 +1,2 @@
+# app-ads.txt — Minella Jewels
+# This site does not serve programmatic ads.
