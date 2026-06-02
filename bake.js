@@ -1,15 +1,4 @@
-// ============================================================
-// bake.js — Minella Jewels master bake runner
-//
-// Usage:
-//   node bake.js            → bakes everything (index + products)
-//   node bake.js index      → index.html only
-//   node bake.js products   → product pages + sitemap + llms.txt
-//
-// Individual bakers can also be run directly:
-//   node bake/bake-index.js
-//   node bake/bake-products.js
-// ============================================================
+
 
 'use strict';
 
