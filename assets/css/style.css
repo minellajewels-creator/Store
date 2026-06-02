@@ -414,6 +414,24 @@ img { max-width:100%; display:block; }
 }
 #waBtn:hover { transform:scale(1.1); box-shadow:0 6px 28px rgba(37,211,102,.55); }
 
+/* Footer */
+.site-footer { background:var(--bg2); padding:48px 24px 0; font-family:'Poppins',sans-serif; border-top:2px solid var(--border); }
+.footer-container { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:40px; max-width:1100px; margin:0 auto; padding-bottom:40px; }
+@media(max-width:760px){ .footer-container { grid-template-columns:1fr 1fr; gap:28px; } .footer-container .brand-col { grid-column:1/-1; } }
+@media(max-width:420px){ .footer-container { grid-template-columns:1fr; gap:24px; } }
+.footer-col h3 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--plum); margin-bottom:10px; }
+.footer-col h4 { font-size:11px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--gold-lt); display:inline-block; }
+.footer-col > p { font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:16px; max-width:280px; }
+.col-links { display:flex; flex-direction:column; gap:10px; }
+.col-links a { font-size:13px; color:var(--muted); transition:all .2s; display:flex; align-items:center; gap:6px; }
+.col-links a::before { content:''; width:4px; height:4px; border-radius:50%; background:var(--border); flex-shrink:0; transition:background .2s; }
+.col-links a:hover { color:var(--gold); padding-left:4px; }
+.col-links a:hover::before { background:var(--gold); }
+.social-links { display:flex; flex-direction:column; gap:10px; margin-top:4px; }
+.social-links a { font-size:13px; color:var(--muted); transition:all .2s; display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; background:var(--bg); border:1px solid var(--border); width:fit-content; }
+.social-links a:hover { color:var(--plum); border-color:var(--plum); background:rgba(183,110,121,.06); }
+.footer-bottom { text-align:center; padding:18px 20px; margin-top:0; border-top:1px solid var(--border); font-size:12px; color:var(--muted); background:rgba(0,0,0,.02); }
+
 /* ── 3. INDEX PAGE ────────────────────────────────────────── */
 
 /* Hero — margin-top offsets the fixed navbar */
