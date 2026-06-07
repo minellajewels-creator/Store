@@ -21,7 +21,7 @@
 <meta property="product:price:currency" content="INR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1bJySRhcphvMNk8QfS__xomZJ-Ya9EQB2=w800">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Black Clover Bracelet","description":"Anti-Tarnish. Water Resistant Jewellery","image":"https://lh3.googleusercontent.com/d/1bJySRhcphvMNk8QfS__xomZJ-Ya9EQB2=w800","brand":{"@type":"Brand","name":"Minella"},"sku":"207","mpn":"MJ-207","identifier_exists":"false","offers":{"@type":"Offer","url":"https://minella.in/product/207","priceCurrency":"INR","price":"229.00","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","seller":{"@type":"Organization","name":"Minella Jewels","url":"https://minella.in"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Black Clover Bracelet","description":"Anti-Tarnish. Water Resistant Jewellery","image":"https://lh3.googleusercontent.com/d/1bJySRhcphvMNk8QfS__xomZJ-Ya9EQB2=w800","brand":{"@type":"Brand","name":"Minella"},"sku":"207","mpn":"MJ-207","identifier_exists":"false","offers":{"@type":"Offer","url":"https://minella.in/product/207","priceCurrency":"INR","price":"229.00","availability":"https://schema.org/OutOfStock","itemCondition":"https://schema.org/NewCondition","seller":{"@type":"Organization","name":"Minella Jewels","url":"https://minella.in"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://minella.in"},{"@type":"ListItem","position":2,"name":"Bracelets","item":"https://minella.in/?cat=bracelet"},{"@type":"ListItem","position":3,"name":"Black Clover Bracelet","item":"https://minella.in/product/207"}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -662,7 +662,7 @@ body{padding-top:calc(60px + var(--safe-top))}
     </a>
     <h1 class="pp-title">Black Clover Bracelet</h1>
     <div class="pp-price-row"><span class="pp-price">&#8377;229</span><span class="pp-was">&#8377;349</span><span class="pp-disc">34% off</span></div>
-    <div class="pstock limited">&#9888; Only 1 left!</div>
+    <div class="pstock out">Out of Stock</div>
     <div class="pp-cod-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
       Cash on Delivery available
@@ -674,7 +674,7 @@ body{padding-top:calc(60px + var(--safe-top))}
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure pay</span>
     </div>
 
-    <button class="btn-atb" id="addToBagBtn">Add to Bag</button>
+    <button class="btn-atb" id="addToBagBtn" disabled>Out of Stock</button>
 
     <div class="pp-actions-row">
       <button class="btn-share" id="shareBtn">
@@ -756,7 +756,7 @@ body{padding-top:calc(60px + var(--safe-top))}
     <div class="sticky-atb-title">Black Clover Bracelet</div>
     <div class="sticky-atb-price">&#8377;229</div>
   </div>
-  <button class="sticky-atb-btn" id="stickyAtbBtn">Add to Bag</button>
+  <button class="sticky-atb-btn" id="stickyAtbBtn" disabled>Out of Stock</button>
 </div>
 
 <div class="rv-modal-overlay" id="rvModalOverlay">
@@ -1212,7 +1212,7 @@ function placeOrder(){
 }
 
 
-var PPID="207",PTITLE="Black Clover Bracelet",PPRICE=229,PSTOCK=1,TSLIDES=1;
+var PPID="207",PTITLE="Black Clover Bracelet",PPRICE=229,PSTOCK=0,TSLIDES=1;
 var SCRIPT_URL_PP="https://script.google.com/macros/s/AKfycbxcWsMJFT2QTsP9chLWcn39PCjqYnxEuehJWalv2i6aRJM6duhHu1DGxnxErFHtathO/exec";
 
 // Add to bag
