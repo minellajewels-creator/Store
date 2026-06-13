@@ -192,7 +192,7 @@ ${INDEX_CSS}
 ${sidebarHtml(logoHtml)}
 
 <section class="hero">
-  <div class="hero-slide active" style="background-image:url('/assets/images/hero/hero-1.jpg')">
+  <div class="hero-slide active" style="background-image:url('/assets/images/hero/hero-1.webp')">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Every Day Every WEAR</h1>
