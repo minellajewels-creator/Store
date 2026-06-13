@@ -94,7 +94,32 @@ function buildIndexHtml(products) {
       }))
     ]
   };
-
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is anti-tarnish jewellery?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Anti-tarnish jewellery uses a protective coating that prevents oxidation, keeping it shiny for months even with daily wear, sweat, and water exposure." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Minella Jewels jewellery waterproof?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. All Minella Jewels pieces are 100% waterproof and sweat-resistant. You can wear them in rain, while exercising, or in the shower." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is cash on delivery available?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Minella Jewels offers Cash on Delivery (COD) across India. Free shipping on orders above ₹999." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the jewellery skin safe?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. All pieces are nickel-free and hypoallergenic, safe for sensitive skin." }
+    }
+  ]
+};
   // Product cards
   let cardsHtml = '';
   products.forEach(p => {
@@ -139,24 +164,55 @@ function buildIndexHtml(products) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QSYZM26PGX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QSYZM26PGX');</script>
+
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#B76E79">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Minella Jewels — Anti-Tarnish Jewellery</title>
-<meta name="description" content="Shop premium anti-tarnish, water-resistant jewellery. Necklaces, earrings, bracelets and more. Cash on delivery across India.">
-<meta property="og:title" content="Minella Jewels — Anti-Tarnish Jewellery">
-<meta property="og:description" content="Shop premium anti-tarnish, water-resistant jewellery. COD available across India.">
+
+<title>Minella Jewels — Anti-Tarnish Jewellery | Waterproof | Minimalist | India</title>
+<meta name="description" content="Shop premium anti-tarnish, waterproof, minimalist jewellery online. 18K gold plated necklaces, earrings, bracelets, rings & anklets. Skin-safe, nickel-free. COD available across India.">
+<meta name="keywords" content="anti tarnish jewellery, waterproof jewellery, minimalist jewellery India, gold plated jewellery, tarnish free jewellery, everyday jewellery, skin safe jewellery, nickel free jewellery, anti tarnish necklace, anti tarnish earrings, anti tarnish bracelet, jewellery COD India, buy jewellery online India, Coimbatore jewellery">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Minella Jewels">
+<link rel="canonical" href="${STORE_URL}/">
+
+<meta name="geo.region" content="IN-TN">
+<meta name="geo.placename" content="Coimbatore, Tamil Nadu, India">
+<meta name="geo.position" content="11.0168;76.9558">
+<meta name="ICBM" content="11.0168, 76.9558">
+
+<meta property="og:title" content="Minella Jewels — Anti-Tarnish Jewellery | India">
+<meta property="og:description" content="Shop premium anti-tarnish, waterproof, minimalist jewellery. 18K gold plated. Skin-safe. COD across India.">
 <meta property="og:image" content="${STORE_URL}/assets/images/og-home.jpg">
-<meta property="og:url" content="${STORE_URL}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Minella Jewels anti-tarnish waterproof jewellery collection">
+<meta property="og:url" content="${STORE_URL}/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Minella Jewels">
+<meta property="og:locale" content="en_IN">
+
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Minella Jewels — Anti-Tarnish Jewellery | India">
+<meta name="twitter:description" content="Shop premium anti-tarnish, waterproof, minimalist jewellery. 18K gold plated. Skin-safe. COD across India.">
 <meta name="twitter:image" content="${STORE_URL}/assets/images/og-home.jpg">
+<meta name="twitter:image:alt" content="Minella Jewels anti-tarnish jewellery">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+
+<link rel="preload" as="image" href="/assets/images/hero/hero-1.webp" fetchpriority="high">
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">${JSON.stringify(jsonLd)}<\/script>
+<script type="application/ld+json">${JSON.stringify(faqJsonLd)}<\/script>
 <style>
 ${ROOT_CSS}
 ${SHARED_CSS}
