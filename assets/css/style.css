@@ -671,6 +671,18 @@ img { max-width:100%; display:block; }
 .ymal-strip,.rv-viewed-strip { display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
 .ymal-strip::-webkit-scrollbar,.rv-viewed-strip::-webkit-scrollbar { display:none; }
 
+/* FIX: constrain cards inside horizontal strips */
+.ymal-strip .product-card,
+.rv-viewed-strip .product-card {
+  min-width: 155px;
+  max-width: 155px;
+  flex-shrink: 0;
+}
+.ymal-strip .product-card .img-wrap,
+.rv-viewed-strip .product-card .img-wrap {
+  height: 155px;
+}
+
 /* Sticky add-to-bag bar (mobile only) */
 .sticky-atb { display:none; position:fixed; bottom:0; left:0; right:0; z-index:800; background:rgba(255,253,249,.97); border-top:1px solid var(--border); padding:10px 16px calc(10px + var(--safe-bottom)); align-items:center; gap:14px; box-shadow:0 -4px 20px rgba(0,0,0,.1); }
 .sticky-atb.show { display:flex; }
