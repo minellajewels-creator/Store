@@ -68,6 +68,37 @@ function buildProductPage(p, logoSrc, allProducts) {
     ]
   };
 
+  const productFaqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `Is ${title} anti-tarnish?`,
+      "acceptedAnswer": { "@type": "Answer", "text": `Yes. ${title} by Minella Jewels features an anti-tarnish coating that keeps it shiny for months even with daily wear, sweat, and water exposure.` }
+    },
+    {
+      "@type": "Question",
+      "name": `Is ${title} waterproof?`,
+      "acceptedAnswer": { "@type": "Answer", "text": `Yes. ${title} is 100% waterproof and sweat-resistant. You can wear it in rain, while exercising, or in the shower.` }
+    },
+    {
+      "@type": "Question",
+      "name": `Is ${title} safe for sensitive skin?`,
+      "acceptedAnswer": { "@type": "Answer", "text": `Yes. ${title} is nickel-free and hypoallergenic, making it safe for sensitive skin.` }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the delivery time?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Orders are dispatched within 1–2 business days. Delivery takes 2–6 business days via Delhivery. Free shipping on orders above ₹999. Cash on Delivery available across India." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the return policy?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Minella Jewels offers a 7-day hassle-free return policy. Contact us via WhatsApp or email to initiate a return." }
+    }
+  ]
+};
   // Slides
   const allSlides = allImgs.map(u => ({ type: 'img', src: u }));
   if (videoRaw) {
@@ -119,28 +150,66 @@ function buildProductPage(p, logoSrc, allProducts) {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QSYZM26PGX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QSYZM26PGX');</script>
+
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#B76E79">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>${esc(title)} | Minella Jewels</title>
-<meta name="description" content="${esc(description || `Buy ${title} online. Anti-tarnish, water-resistant jewellery by Minella Jewels. Cash on delivery available across India.`)}">
-<meta name="robots" content="index, follow">
+
+<!-- Primary SEO -->
+<title>${esc(title)} | Anti-Tarnish Jewellery | Minella Jewels India</title>
+<meta name="description" content="${esc(description || `Buy ${title} online — anti-tarnish, waterproof, 18K gold plated. Skin-safe, nickel-free. Cash on delivery across India. Shop Minella Jewels.`)}">
+<meta name="keywords" content="${esc(title)}, anti tarnish jewellery, waterproof jewellery India, minimalist jewellery, gold plated jewellery, skin safe jewellery, buy jewellery online India, COD jewellery">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Minella Jewels">
 <link rel="canonical" href="${canonical}">
+
+<!-- Geo targeting -->
+<meta name="geo.region" content="IN-TN">
+<meta name="geo.placename" content="Coimbatore, Tamil Nadu, India">
+
+<!-- Open Graph -->
 <meta property="og:title" content="${esc(title)} | Minella Jewels">
-<meta property="og:description" content="${esc(description || `Premium anti-tarnish jewellery by Minella Jewels.`)}">
+<meta property="og:description" content="${esc(description || `Buy ${title} — anti-tarnish, waterproof, 18K gold plated jewellery. Skin-safe. COD across India.`)}">
 <meta property="og:image" content="${esc(mainImg)}">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:image:alt" content="${esc(title)} — Minella Jewels anti-tarnish jewellery">
 <meta property="og:url" content="${canonical}">
 <meta property="og:type" content="product">
 <meta property="og:site_name" content="Minella Jewels">
+<meta property="og:locale" content="en_IN">
 <meta property="product:price:amount" content="${price.toFixed(2)}">
 <meta property="product:price:currency" content="INR">
+<meta property="product:availability" content="${stock > 0 ? 'in stock' : 'out of stock'}">
+<meta property="product:condition" content="new">
+<meta property="product:brand" content="Minella">
+<meta property="product:category" content="${esc(catLabel)}">
+
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title)} | Minella Jewels">
+<meta name="twitter:description" content="${esc(description || `Buy ${title} — anti-tarnish, waterproof jewellery. COD available.`)}">
 <meta name="twitter:image" content="${esc(mainImg)}">
+<meta name="twitter:image:alt" content="${esc(title)} — Minella Jewels">
+
+<!-- Preconnects -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+
+<!-- Product image preload — critical LCP -->
+<link rel="preload" as="image" href="${esc(mainImg)}" fetchpriority="high">
+
 <script type="application/ld+json">${JSON.stringify(productJsonLd)}<\/script>
 <script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}<\/script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<script type="application/ld+json">${JSON.stringify(productFaqJsonLd)}<\/script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 ${ROOT_CSS}
