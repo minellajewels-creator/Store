@@ -25,6 +25,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add product/ sitemap.xml llms.txt
-          git diff --staged --quiet || git commit -m "chore: bake products [skip ci]"
+          git add index.html product/ sitemap.xml llms.txt
+          git diff --staged --quiet || git commit -m "chore: bake all [skip ci]"
+          git pull --rebase origin main
           git push
